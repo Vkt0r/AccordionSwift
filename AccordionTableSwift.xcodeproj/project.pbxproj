@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		575C4A441A82C8CB00FD1ED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */; };
+		575C4A491A82C8CB00FD1ED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A471A82C8CB00FD1ED3 /* Main.storyboard */; };
+		575C4A4B1A82C8CB00FD1ED3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */; };
+		575C4A4E1A82C8CB00FD1ED3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */; };
+		575C4A5A1A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A591A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift */; };
+		575C4A641A82C91600FD1ED3 /* AccordionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		575C4A541A82C8CB00FD1ED3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 575C4A361A82C8CB00FD1ED3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 575C4A3D1A82C8CB00FD1ED3;
+			remoteInfo = AccordionTableSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		575C4A3E1A82C8CB00FD1ED3 /* AccordionTableSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccordionTableSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		575C4A421A82C8CB00FD1ED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		575C4A481A82C8CB00FD1ED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		575C4A4D1A82C8CB00FD1ED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		575C4A531A82C8CB00FD1ED3 /* AccordionTableSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccordionTableSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		575C4A581A82C8CB00FD1ED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		575C4A591A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionTableSwiftTests.swift; sourceTree = "<group>"; };
+		575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionMenuTableViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		575C4A3B1A82C8CB00FD1ED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		575C4A501A82C8CB00FD1ED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		575C4A351A82C8CB00FD1ED3 = {
+			isa = PBXGroup;
+			children = (
+				575C4A401A82C8CB00FD1ED3 /* AccordionTableSwift */,
+				575C4A561A82C8CB00FD1ED3 /* AccordionTableSwiftTests */,
+				575C4A3F1A82C8CB00FD1ED3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		575C4A3F1A82C8CB00FD1ED3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				575C4A3E1A82C8CB00FD1ED3 /* AccordionTableSwift.app */,
+				575C4A531A82C8CB00FD1ED3 /* AccordionTableSwiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		575C4A401A82C8CB00FD1ED3 /* AccordionTableSwift */ = {
+			isa = PBXGroup;
+			children = (
+				575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */,
+				575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */,
+				575C4A471A82C8CB00FD1ED3 /* Main.storyboard */,
+				575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */,
+				575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */,
+				575C4A411A82C8CB00FD1ED3 /* Supporting Files */,
+			);
+			path = AccordionTableSwift;
+			sourceTree = "<group>";
+		};
+		575C4A411A82C8CB00FD1ED3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				575C4A421A82C8CB00FD1ED3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		575C4A561A82C8CB00FD1ED3 /* AccordionTableSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				575C4A591A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift */,
+				575C4A571A82C8CB00FD1ED3 /* Supporting Files */,
+			);
+			path = AccordionTableSwiftTests;
+			sourceTree = "<group>";
+		};
+		575C4A571A82C8CB00FD1ED3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				575C4A581A82C8CB00FD1ED3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		575C4A3D1A82C8CB00FD1ED3 /* AccordionTableSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 575C4A5D1A82C8CB00FD1ED3 /* Build configuration list for PBXNativeTarget "AccordionTableSwift" */;
+			buildPhases = (
+				575C4A3A1A82C8CB00FD1ED3 /* Sources */,
+				575C4A3B1A82C8CB00FD1ED3 /* Frameworks */,
+				575C4A3C1A82C8CB00FD1ED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AccordionTableSwift;
+			productName = AccordionTableSwift;
+			productReference = 575C4A3E1A82C8CB00FD1ED3 /* AccordionTableSwift.app */;
+			productType = "com.apple.product-type.application";
+		};
+		575C4A521A82C8CB00FD1ED3 /* AccordionTableSwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 575C4A601A82C8CB00FD1ED3 /* Build configuration list for PBXNativeTarget "AccordionTableSwiftTests" */;
+			buildPhases = (
+				575C4A4F1A82C8CB00FD1ED3 /* Sources */,
+				575C4A501A82C8CB00FD1ED3 /* Frameworks */,
+				575C4A511A82C8CB00FD1ED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				575C4A551A82C8CB00FD1ED3 /* PBXTargetDependency */,
+			);
+			name = AccordionTableSwiftTests;
+			productName = AccordionTableSwiftTests;
+			productReference = 575C4A531A82C8CB00FD1ED3 /* AccordionTableSwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		575C4A361A82C8CB00FD1ED3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Pentlab;
+				TargetAttributes = {
+					575C4A3D1A82C8CB00FD1ED3 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					575C4A521A82C8CB00FD1ED3 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 575C4A3D1A82C8CB00FD1ED3;
+					};
+				};
+			};
+			buildConfigurationList = 575C4A391A82C8CB00FD1ED3 /* Build configuration list for PBXProject "AccordionTableSwift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 575C4A351A82C8CB00FD1ED3;
+			productRefGroup = 575C4A3F1A82C8CB00FD1ED3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				575C4A3D1A82C8CB00FD1ED3 /* AccordionTableSwift */,
+				575C4A521A82C8CB00FD1ED3 /* AccordionTableSwiftTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		575C4A3C1A82C8CB00FD1ED3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				575C4A491A82C8CB00FD1ED3 /* Main.storyboard in Resources */,
+				575C4A4E1A82C8CB00FD1ED3 /* LaunchScreen.xib in Resources */,
+				575C4A4B1A82C8CB00FD1ED3 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		575C4A511A82C8CB00FD1ED3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		575C4A3A1A82C8CB00FD1ED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				575C4A641A82C91600FD1ED3 /* AccordionMenuTableViewController.swift in Sources */,
+				575C4A441A82C8CB00FD1ED3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		575C4A4F1A82C8CB00FD1ED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				575C4A5A1A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		575C4A551A82C8CB00FD1ED3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 575C4A3D1A82C8CB00FD1ED3 /* AccordionTableSwift */;
+			targetProxy = 575C4A541A82C8CB00FD1ED3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		575C4A471A82C8CB00FD1ED3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				575C4A481A82C8CB00FD1ED3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				575C4A4D1A82C8CB00FD1ED3 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		575C4A5B1A82C8CB00FD1ED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		575C4A5C1A82C8CB00FD1ED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		575C4A5E1A82C8CB00FD1ED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AccordionTableSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		575C4A5F1A82C8CB00FD1ED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = AccordionTableSwift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		575C4A611A82C8CB00FD1ED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AccordionTableSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AccordionTableSwift.app/AccordionTableSwift";
+			};
+			name = Debug;
+		};
+		575C4A621A82C8CB00FD1ED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AccordionTableSwiftTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AccordionTableSwift.app/AccordionTableSwift";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		575C4A391A82C8CB00FD1ED3 /* Build configuration list for PBXProject "AccordionTableSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				575C4A5B1A82C8CB00FD1ED3 /* Debug */,
+				575C4A5C1A82C8CB00FD1ED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		575C4A5D1A82C8CB00FD1ED3 /* Build configuration list for PBXNativeTarget "AccordionTableSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				575C4A5E1A82C8CB00FD1ED3 /* Debug */,
+				575C4A5F1A82C8CB00FD1ED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		575C4A601A82C8CB00FD1ED3 /* Build configuration list for PBXNativeTarget "AccordionTableSwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				575C4A611A82C8CB00FD1ED3 /* Debug */,
+				575C4A621A82C8CB00FD1ED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 575C4A361A82C8CB00FD1ED3 /* Project object */;
+}
