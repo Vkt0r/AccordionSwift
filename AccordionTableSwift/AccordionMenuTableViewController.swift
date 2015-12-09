@@ -17,6 +17,9 @@ class AccordionMenuTableViewController: UITableViewController {
     var actualPositions = [Int]()
     var total = 0
     
+    var parentCellIdentifier = "ParentCell"
+    var childCellIdentifier = "ChildCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +34,7 @@ class AccordionMenuTableViewController: UITableViewController {
             
             self.subItems.append(items)
         }
+        
         total = topItems.count
     }
     
@@ -50,27 +54,24 @@ class AccordionMenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var parentCellIdentifier = "ParentCell"
-        var childCellIdentifier = "ChildCell"
+        let parent = self.findParent(indexPath.row)
+        let idx = self.currentItemsExpanded.indexOf(parent)
         
-        var parent = self.findParent(indexPath.row)
-        var idx = find(self.currentItemsExpanded, parent)
-        
-        var isChild = idx != nil && indexPath.row != self.actualPositions[parent]
+        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
         
         var cell : UITableViewCell!
         
         
         if isChild {
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
+            cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
             cell.backgroundColor = UIColor.greenColor()
         }
         else {
             cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-            var topIndex = self.findParent(indexPath.row)
+            let topIndex = self.findParent(indexPath.row)
             
-            cell.textLabel.text = self.topItems[topIndex]
+            cell.textLabel!.text = self.topItems[topIndex]
             cell.detailTextLabel?.text = ""
         }
         
@@ -79,8 +80,8 @@ class AccordionMenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var parent = self.findParent(indexPath.row)
-        var idx = find(self.currentItemsExpanded, parent)
+        let parent = self.findParent(indexPath.row)
+        let idx = self.currentItemsExpanded.indexOf(parent)
         var isChild = idx != nil
         
         if indexPath.row == self.actualPositions[parent]{
@@ -94,7 +95,7 @@ class AccordionMenuTableViewController: UITableViewController {
         
         self.tableView.beginUpdates()
         
-        if let value = find(self.currentItemsExpanded, self.findParent(indexPath.row)) {
+        if let value = self.currentItemsExpanded.indexOf(self.findParent(indexPath.row)) {
             
             self.collapseSubItemsAtIndex(indexPath.row)
             self.actualPositions[parent] = -1
@@ -107,7 +108,7 @@ class AccordionMenuTableViewController: UITableViewController {
             }
         }
         else {
-            var parent = self.findParent(indexPath.row)
+            let parent = self.findParent(indexPath.row)
             
             self.expandItemAtIndex(indexPath.row)
             self.actualPositions[parent] = indexPath.row
@@ -130,7 +131,7 @@ class AccordionMenuTableViewController: UITableViewController {
         
         let val = self.findParent(index)
         
-        var currentSubItems = self.subItems[val]
+        let currentSubItems = self.subItems[val]
         var insertPos = index + 1
         
         for (var i = 0; i < currentSubItems.count; i++) {
@@ -144,7 +145,7 @@ class AccordionMenuTableViewController: UITableViewController {
     private func collapseSubItemsAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
-        var parent = self.findParent(index)
+        let parent = self.findParent(index)
         
         for (var i = index + 1; i <= index + self.subItems[parent].count; i++ ){
             indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
@@ -156,10 +157,10 @@ class AccordionMenuTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        var parent = self.findParent(indexPath.row)
-        var idx = find(self.currentItemsExpanded, parent)
+        let parent = self.findParent(indexPath.row)
+        let idx = self.currentItemsExpanded.indexOf(parent)
         
-        var isChild = idx != nil && indexPath.row != self.actualPositions[parent]
+        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
         
         if (isChild) {
             return 44.0
@@ -179,7 +180,7 @@ class AccordionMenuTableViewController: UITableViewController {
             }
             
             // if is opened
-            if let idx = find(self.currentItemsExpanded, parent) {
+            if let _ = self.currentItemsExpanded.indexOf(parent) {
                 i += self.subItems[parent].count + 1
                 
                 if (i > index) {
