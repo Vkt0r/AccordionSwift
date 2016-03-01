@@ -14,7 +14,7 @@ class AccordionMenuTableViewController: UITableViewController {
     var subItems = [[String]]()
     
     var currentItemsExpanded = [Int]()
-    var actualPositions = [Int]()
+    var actualPositions: [Int]!
     var total = 0
     
     var parentCellIdentifier = "ParentCell"
@@ -23,19 +23,37 @@ class AccordionMenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for (var i = 0; i < 10; i++) {
-            topItems.append("Item \(i + 1)")
-            actualPositions.append(-1)
+        self.setInitialDataSource(numberOfRowParents: 10, numberOfRowChildPerParent: 3)
+    }
+    
+    /**
+     Set the initial data for test the table view.
+     
+     - parameter parents: The number of parents cells
+     - parameter childs:  Then maximun number of child cells per parent.
+     */
+    private func setInitialDataSource(numberOfRowParents parents: Int, numberOfRowChildPerParent childs: Int) {
+        
+        // Init the array with all the values in -1
+        self.actualPositions = [Int](count: parents, repeatedValue: -1)
+        
+        // Create an array with the element "Item index".
+        self.topItems = (0..<parents).enumerate().map { "Item \($0.0 + 1)"}
+        
+        // Create the array of childs using a random number between 0..childs+1 for each parent.
+        self.subItems = (0..<parents).map({ _ -> [String] in
+            
+            let random = Int(arc4random_uniform(UInt32(childs + 1)))
             
             var items = [String]()
-            for (var i = 0; i < 3; i++) {
-                items.append("Subitem \(i)")
+            for j in 0..<random {
+                items.append("Subitem \(j)")
             }
             
-            self.subItems.append(items)
-        }
+            return items
+        })
         
-        total = topItems.count
+        self.total = topItems.count
     }
     
     override func didReceiveMemoryWarning() {
