@@ -152,7 +152,6 @@ extension AccordionMenuTableViewController {
         
         var cell : UITableViewCell!
         
-        
         if isChild {
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
             cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
@@ -191,8 +190,8 @@ extension AccordionMenuTableViewController {
             self.collapseSubItemsAtIndex(indexPath.row)
             self.actualPositions[parent] = -1
             self.currentItemsExpanded.removeAtIndex(value)
-            
-            for (var i = parent + 1; i < self.topItems.count; i++) {
+                  
+            for i in parent + 1..<self.topItems.count {
                 if self.actualPositions[i] != -1 {
                     self.actualPositions[i] -= self.subItems[parent].count
                 }
@@ -204,11 +203,12 @@ extension AccordionMenuTableViewController {
             self.expandItemAtIndex(indexPath.row)
             self.actualPositions[parent] = indexPath.row
             
-            for (var i = parent + 1; i < self.topItems.count; i++) {
+            for i in parent + 1..<self.topItems.count {
                 if self.actualPositions[i] != -1 {
                     self.actualPositions[i] += self.subItems[parent].count
                 }
             }
+            
             self.currentItemsExpanded.append(parent)
         }
         
