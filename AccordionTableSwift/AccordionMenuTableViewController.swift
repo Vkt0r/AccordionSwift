@@ -78,9 +78,13 @@ class AccordionMenuTableViewController: UITableViewController {
      */
     private func expandItemAtIndex(index : Int) {
         
+        // find the parent cell of the cell with index specified.
         let val = self.findParent(index)
         
+        // the data of the subitems for the specific parent cell.
         let currentSubItems = self.subItems[val]
+        
+        // position to start to insert rows.
         var insertPos = index + 1
         
         // create an array of NSIndexPath with the selected positions
@@ -101,6 +105,8 @@ class AccordionMenuTableViewController: UITableViewController {
     private func collapseSubItemsAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
+        
+        // find the parent cell of the cell with index specified.
         let parent = self.findParent(index)
         
         // create an array of NSIndexPath with the selected positions
@@ -115,12 +121,24 @@ class AccordionMenuTableViewController: UITableViewController {
         self.total -= self.subItems[parent].count
     }
     
+    /**
+     Send the execution to collapse or expand the cell with parent and index specified.
+     
+     - parameter parent: The parent of the cell.
+     - parameter index:  The index of the cell.
+     */
     private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
         
-        if let value = self.currentItemsExpanded.indexOf(self.findParent(index)) {
+        // find the parent cell of the cell with index specified.
+        let parent = self.findParent(index)
+        
+        // if the cell is expanded
+        if let value = self.currentItemsExpanded.indexOf(parent) {
             
             self.collapseSubItemsAtIndex(index)
             self.actualPositions[parent] = -1
+            
+            // remove the parent from the expanded list
             self.currentItemsExpanded.removeAtIndex(value)
             
             for i in parent + 1..<self.topItems.count {
@@ -130,7 +148,6 @@ class AccordionMenuTableViewController: UITableViewController {
             }
         }
         else {
-            let parent = self.findParent(index)
             
             self.expandItemAtIndex(index)
             self.actualPositions[parent] = index
@@ -141,6 +158,7 @@ class AccordionMenuTableViewController: UITableViewController {
                 }
             }
             
+            // add the parent for the expanded list
             self.currentItemsExpanded.append(parent)
         }
     }
@@ -154,13 +172,22 @@ class AccordionMenuTableViewController: UITableViewController {
      */
     private func isChildCell(indexPath: NSIndexPath) -> Bool {
         
+        // find the parent cell of the cell with index specified.
         let parent = self.findParent(indexPath.row)
+        
+        // check if it's expanded or not
         let idx = self.currentItemsExpanded.indexOf(parent)
         
         return idx != nil && indexPath.row != self.actualPositions[parent]
     }
     
-    
+    /**
+     Find the index of the parent cell for the index of a cell.
+     
+     - parameter index: The index of the cell to find the parent
+     
+     - returns: The index of parent cell.
+     */
     private func findParent(index : Int) -> Int {
         
         var parent = 0
@@ -169,25 +196,25 @@ class AccordionMenuTableViewController: UITableViewController {
         while (true) {
             
             if (i >= index) {
-                break
+                return parent
             }
             
-            // if is opened
+            // if it's expanded the cell
             if let _ = self.currentItemsExpanded.indexOf(parent) {
+                
+                // sum its childs and continue
                 i += self.subItems[parent].count + 1
                 
                 if (i > index) {
-                    break
+                    return parent
                 }
             }
             else {
-                ++i
+                i += 1
             }
             
-            ++parent
+            parent += 1
         }
-        
-        return parent
     }
 }
 
