@@ -212,7 +212,6 @@ class AccordionMenuTableViewController: UITableViewController {
             else {
                 i += 1
             }
-            
             parent += 1
         }
     }
