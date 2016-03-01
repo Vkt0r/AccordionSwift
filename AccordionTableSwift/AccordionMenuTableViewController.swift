@@ -32,10 +32,15 @@ class AccordionMenuTableViewController: UITableViewController {
     /// The identifier for the child cells.
     let childCellIdentifier = "ChildCell"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setInitialDataSource(numberOfRowParents: 10, numberOfRowChildPerParent: 3)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     /**
@@ -66,10 +71,11 @@ class AccordionMenuTableViewController: UITableViewController {
         })
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+    /**
+     Expand the cell at the index specified.
+     
+     - parameter index: The index of the cell to expand.
+     */
     private func expandItemAtIndex(index : Int) {
         
         let val = self.findParent(index)
@@ -77,27 +83,36 @@ class AccordionMenuTableViewController: UITableViewController {
         let currentSubItems = self.subItems[val]
         var insertPos = index + 1
         
-        // create an array of NSIndexPath
+        // create an array of NSIndexPath with the selected positions
         let indexPaths = (0..<currentSubItems.count).map { _ in NSIndexPath(forRow: insertPos++, inSection: 0) }
         
         // insert the new rows
         self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
         
-        // update the total
+        // update the total of rows
         self.total += self.subItems[val].count
     }
     
+    /**
+     Collapse the cell at the index specified.
+     
+     - parameter index: The index of the cell to collapse
+     */
     private func collapseSubItemsAtIndex(index : Int) {
         
         var indexPaths = [NSIndexPath]()
         let parent = self.findParent(index)
         
-        for (var i = index + 1; i <= index + self.subItems[parent].count; i++ ){
+        // create an array of NSIndexPath with the selected positions
+        for i in index + 1...index + self.subItems[parent].count {
             indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
         }
         
+        // remove the expanded cells
         self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        self.total  -= self.subItems[parent].count
+        
+        // update the total of rows
+        self.total -= self.subItems[parent].count
     }
     
     private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
