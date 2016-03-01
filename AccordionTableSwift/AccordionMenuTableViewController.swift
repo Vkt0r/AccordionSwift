@@ -227,10 +227,6 @@ extension AccordionMenuTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
-        if self.isChildCell(indexPath) {
-            return 44.0
-        }
-        return 64.0
+        return self.isChildCell(indexPath) ? 44.0 : 64.0
     }
 }
