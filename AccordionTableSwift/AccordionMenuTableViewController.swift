@@ -60,6 +60,70 @@ class AccordionMenuTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    private func expandItemAtIndex(index : Int) {
+        
+        var indexPaths = [NSIndexPath]()
+        
+        let val = self.findParent(index)
+        
+        let currentSubItems = self.subItems[val]
+        var insertPos = index + 1
+        
+        for (var i = 0; i < currentSubItems.count; i++) {
+            indexPaths.append(NSIndexPath(forRow: insertPos++, inSection: 0))
+        }
+        
+        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
+        self.total += self.subItems[val].count
+    }
+    
+    private func collapseSubItemsAtIndex(index : Int) {
+        
+        var indexPaths = [NSIndexPath]()
+        let parent = self.findParent(index)
+        
+        for (var i = index + 1; i <= index + self.subItems[parent].count; i++ ){
+            indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
+        }
+        
+        self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
+        self.total  -= self.subItems[parent].count
+    }
+    
+    
+    private func findParent(index : Int) -> Int {
+        
+        var parent = 0
+        var i = 0
+        
+        while (true) {
+            
+            if (i >= index) {
+                break
+            }
+            
+            // if is opened
+            if let _ = self.currentItemsExpanded.indexOf(parent) {
+                i += self.subItems[parent].count + 1
+                
+                if (i > index) {
+                    break
+                }
+            }
+            else {
+                ++i
+            }
+            
+            ++parent
+        }
+        
+        return parent
+    }
+}
+
+extension AccordionMenuTableViewController {
+    
+    // MARK: UITableViewDataSource
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -68,7 +132,6 @@ class AccordionMenuTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.total
     }
-    
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -142,37 +205,6 @@ class AccordionMenuTableViewController: UITableViewController {
         self.tableView.endUpdates()
     }
     
-    
-    private func expandItemAtIndex(index : Int) {
-        
-        var indexPaths = [NSIndexPath]()
-        
-        let val = self.findParent(index)
-        
-        let currentSubItems = self.subItems[val]
-        var insertPos = index + 1
-        
-        for (var i = 0; i < currentSubItems.count; i++) {
-            indexPaths.append(NSIndexPath(forRow: insertPos++, inSection: 0))
-        }
-        
-        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        self.total += self.subItems[val].count
-    }
-    
-    private func collapseSubItemsAtIndex(index : Int) {
-        
-        var indexPaths = [NSIndexPath]()
-        let parent = self.findParent(index)
-        
-        for (var i = index + 1; i <= index + self.subItems[parent].count; i++ ){
-            indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
-        }
-        
-        self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        self.total  -= self.subItems[parent].count
-    }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         let parent = self.findParent(indexPath.row)
@@ -185,34 +217,4 @@ class AccordionMenuTableViewController: UITableViewController {
         }
         return 64.0
     }
-    
-    private func findParent(index : Int) -> Int {
-        
-        var parent = 0
-        var i = 0
-        
-        while (true) {
-            
-            if (i >= index) {
-                break
-            }
-            
-            // if is opened
-            if let _ = self.currentItemsExpanded.indexOf(parent) {
-                i += self.subItems[parent].count + 1
-                
-                if (i > index) {
-                    break
-                }
-            }
-            else {
-                ++i
-            }
-            
-            ++parent
-        }
-        
-        return parent
-    }
-    
 }
