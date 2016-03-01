@@ -72,18 +72,18 @@ class AccordionMenuTableViewController: UITableViewController {
     
     private func expandItemAtIndex(index : Int) {
         
-        var indexPaths = [NSIndexPath]()
-        
         let val = self.findParent(index)
         
         let currentSubItems = self.subItems[val]
         var insertPos = index + 1
         
-        for (var i = 0; i < currentSubItems.count; i++) {
-            indexPaths.append(NSIndexPath(forRow: insertPos++, inSection: 0))
-        }
+        // create an array of NSIndexPath
+        let indexPaths = (0..<currentSubItems.count).map { _ in NSIndexPath(forRow: insertPos++, inSection: 0) }
         
+        // insert the new rows
         self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
+        
+        // update the total
         self.total += self.subItems[val].count
     }
     
