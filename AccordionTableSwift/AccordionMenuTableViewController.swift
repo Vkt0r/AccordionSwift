@@ -129,9 +129,6 @@ class AccordionMenuTableViewController: UITableViewController {
      */
     private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
         
-        // find the parent cell of the cell with index specified.
-        let parent = self.findParent(index)
-        
         // if the cell is expanded
         if let value = self.currentItemsExpanded.indexOf(parent) {
             
