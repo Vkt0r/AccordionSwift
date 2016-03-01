@@ -2,23 +2,35 @@
 //  AccordionMenuTableViewController.swift
 //  AccordionTableSwift
 //
-//  Created by Victor on 2/4/15.
-//  Copyright (c) 2015 Pentlab. All rights reserved.
+//  Created by Victor Sigler on 2/4/15.
+//  Copyright (c) 2015 Private. All rights reserved.
 //
 
 import UIKit
 
 class AccordionMenuTableViewController: UITableViewController {
     
+    /// The data source for the parent cell.
     var topItems = [String]()
+    
+    /// The data source for the child cells.
     var subItems = [[String]]()
     
+    /// The position for the current items expanded.
     var currentItemsExpanded = [Int]()
+    
+    /// The originals positions of each parent cell.
     var actualPositions: [Int]!
+    
+    /// The number of elements in the data source
     var total = 0
     
-    var parentCellIdentifier = "ParentCell"
-    var childCellIdentifier = "ChildCell"
+    /// The identifier for the parent cells.
+    let parentCellIdentifier = "ParentCell"
+    
+    
+    /// The identifier for the child cells.
+    let childCellIdentifier = "ChildCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +46,9 @@ class AccordionMenuTableViewController: UITableViewController {
      */
     private func setInitialDataSource(numberOfRowParents parents: Int, numberOfRowChildPerParent childs: Int) {
         
+        // Set the total of cells initially.
+        self.total = parents
+        
         // Init the array with all the values in -1
         self.actualPositions = [Int](count: parents, repeatedValue: -1)
         
@@ -43,17 +58,12 @@ class AccordionMenuTableViewController: UITableViewController {
         // Create the array of childs using a random number between 0..childs+1 for each parent.
         self.subItems = (0..<parents).map({ _ -> [String] in
             
+            // generate the random number between 0...childs
             let random = Int(arc4random_uniform(UInt32(childs + 1)))
             
-            var items = [String]()
-            for j in 0..<random {
-                items.append("Subitem \(j)")
-            }
-            
-            return items
+            // create the array for each cell
+            return (0..<random).enumerate().map {"Subitem \($0.index)"}
         })
-        
-        self.total = topItems.count
     }
     
     override func didReceiveMemoryWarning() {
