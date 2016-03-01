@@ -59,7 +59,7 @@ class AccordionMenuTableViewController: UITableViewController {
         self.subItems = (0..<parents).map({ _ -> [String] in
             
             // generate the random number between 0...childs
-            let random = Int(arc4random_uniform(UInt32(childs + 1)))
+            let random = Int(arc4random_uniform(UInt32(childs + 1))) + 1
             
             // create the array for each cell
             return (0..<random).enumerate().map {"Subitem \($0.index)"}
@@ -98,6 +98,51 @@ class AccordionMenuTableViewController: UITableViewController {
         
         self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
         self.total  -= self.subItems[parent].count
+    }
+    
+    private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
+        
+        if let value = self.currentItemsExpanded.indexOf(self.findParent(index)) {
+            
+            self.collapseSubItemsAtIndex(index)
+            self.actualPositions[parent] = -1
+            self.currentItemsExpanded.removeAtIndex(value)
+            
+            for i in parent + 1..<self.topItems.count {
+                if self.actualPositions[i] != -1 {
+                    self.actualPositions[i] -= self.subItems[parent].count
+                }
+            }
+        }
+        else {
+            let parent = self.findParent(index)
+            
+            self.expandItemAtIndex(index)
+            self.actualPositions[parent] = index
+            
+            for i in parent + 1..<self.topItems.count {
+                if self.actualPositions[i] != -1 {
+                    self.actualPositions[i] += self.subItems[parent].count
+                }
+            }
+            
+            self.currentItemsExpanded.append(parent)
+        }
+    }
+    
+    /**
+     Check if the cell at indexPath is a child or not.
+     
+     - parameter indexPath: The NSIndexPath for the cell
+     
+     - returns: True if it's a child cell, otherwise false.
+     */
+    private func isChildCell(indexPath: NSIndexPath) -> Bool {
+        
+        let parent = self.findParent(indexPath.row)
+        let idx = self.currentItemsExpanded.indexOf(parent)
+        
+        return idx != nil && indexPath.row != self.actualPositions[parent]
     }
     
     
@@ -145,14 +190,12 @@ extension AccordionMenuTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
-        
-        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
-        
         var cell : UITableViewCell!
         
-        if isChild {
+        if self.isChildCell(indexPath) {
+            
+            let parent = self.findParent(indexPath.row)
+            
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
             cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
             cell.backgroundColor = UIColor.greenColor()
@@ -170,59 +213,22 @@ extension AccordionMenuTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
-        var isChild = idx != nil
-        
-        if indexPath.row == self.actualPositions[parent]{
-            isChild = false
-        }
-        
-        if (isChild) {
+        guard !self.isChildCell(indexPath) else {
             NSLog("A child was tapped!!!");
-            return;
+            return
         }
         
         self.tableView.beginUpdates()
         
-        if let value = self.currentItemsExpanded.indexOf(self.findParent(indexPath.row)) {
-            
-            self.collapseSubItemsAtIndex(indexPath.row)
-            self.actualPositions[parent] = -1
-            self.currentItemsExpanded.removeAtIndex(value)
-                  
-            for i in parent + 1..<self.topItems.count {
-                if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] -= self.subItems[parent].count
-                }
-            }
-        }
-        else {
-            let parent = self.findParent(indexPath.row)
-            
-            self.expandItemAtIndex(indexPath.row)
-            self.actualPositions[parent] = indexPath.row
-            
-            for i in parent + 1..<self.topItems.count {
-                if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] += self.subItems[parent].count
-                }
-            }
-            
-            self.currentItemsExpanded.append(parent)
-        }
+        let parent = self.findParent(indexPath.row)
+        self.setExpandeOrCollapsedStateforCell(parent, index: indexPath.row)
         
         self.tableView.endUpdates()
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        let parent = self.findParent(indexPath.row)
-        let idx = self.currentItemsExpanded.indexOf(parent)
-        
-        let isChild = idx != nil && indexPath.row != self.actualPositions[parent]
-        
-        if (isChild) {
+        if self.isChildCell(indexPath) {
             return 44.0
         }
         return 64.0
