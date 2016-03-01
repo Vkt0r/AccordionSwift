@@ -191,21 +191,16 @@ extension AccordionMenuTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : UITableViewCell!
-        
+        let parent = self.findParent(indexPath.row)
+
         if self.isChildCell(indexPath) {
-            
-            let parent = self.findParent(indexPath.row)
-            
-            cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath) as UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath)
             cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
             cell.backgroundColor = UIColor.greenColor()
         }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath) as UITableViewCell
-            let topIndex = self.findParent(indexPath.row)
-            
-            cell.textLabel!.text = self.topItems[topIndex]
-            cell.detailTextLabel?.text = ""
+            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel!.text = self.topItems[parent]
         }
         
         return cell
