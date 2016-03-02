@@ -1,6 +1,8 @@
 # AccordionMenu
 The aim of this project is learn how to build an Accordion Menu in Swift using the `UITableView`.
 
+![Screenshot](https://github.com/Vkt0r/AccordionMenu/blob/master/ezgif.com-gif-maker.gif)
+
 ## Initial Setting
 
 For the sake of brevety in the use of the project I've created an initial data source of rows of `String` type, one array called `topItems` for the parents cells and another array called `subItems` to specificy the child cells for each parent cell in this case of `[[String]]`.
