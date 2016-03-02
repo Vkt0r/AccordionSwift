@@ -1,6 +1,13 @@
 # AccordionMenu
 The aim of this project is learn how to build an Accordion Menu in Swift using the `UITableView`.
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+            )](http://mit-license.org)
+[![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
+             )](https://developer.apple.com/swift)
+[![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
+             )](https://developer.apple.com/resources/)
+
 ![Screenshot](https://github.com/Vkt0r/AccordionMenu/blob/master/ezgif.com-gif-maker.gif)
 
 ## Initial Setting
@@ -165,6 +172,9 @@ Please raise a [GitHub issue](https://github.com/Vkt0r/AccordionMenu/issues). �
 Great! Please launch a [pull request](https://github.com/Vkt0r/AccordionMenu/pulls). 👍
 
 ---------------------------------------
-© 2015 - 2016 Victor Sigler
+
+License:
+=================
+The MIT License. See the LICENSE file for more infomation.
 
  
