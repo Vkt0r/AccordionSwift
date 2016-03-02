@@ -160,6 +160,17 @@ override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPat
     self.tableView.endUpdates()
 }
 ```
+
+## Height for the parent and child cells
+
+The height for the parent cells and child cell can be modified in an easy way using the function `heightForRowAtIndexPath` according to your needs.
+
+```swift
+override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.isChildCell(indexPath) ? 44.0 : 64.0
+}
+```
+
 ---
 # Feedback
 
