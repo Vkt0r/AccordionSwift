@@ -8,28 +8,7 @@
 
 import UIKit
 
-enum State {
-    case Collapsed
-    case Expanded
-}
 
-struct Parent {
-    
-    /// State of the cell
-    var state: State
-    
-    /// The childs of the cell
-    var childs: [String]
-    
-    /// The title for the cell.
-    var title: String
-}
-
-let NoCellExpanded = (-1, -1)
-
-func != (lhs: (Int, Int), rhs: (Int, Int)) -> Bool {
-    return lhs.0 != rhs.0 && rhs.1 != lhs.1
-}
 
 class AccordionMenuTableViewController: UITableViewController {
     
@@ -46,15 +25,19 @@ class AccordionMenuTableViewController: UITableViewController {
     var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
-    let onlyOneCellExpandedAlways = true
+    let numberOfCellsExpanded: NumberOfCellExpanded = .One
+    
+    /// Constant to define the values for the tuple in case of not exist a cell expanded.
+    let NoCellExpanded = (-1, -1)
     
     /// The index of the last cell expanded and its parent.
-    var lastCellExpanded = NoCellExpanded
+    var lastCellExpanded : (Int, Int)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setInitialDataSource(numberOfRowParents: 4, numberOfRowChildPerParent: 3)
+        self.setInitialDataSource(numberOfRowParents: 8, numberOfRowChildPerParent: 3)
+        self.lastCellExpanded = NoCellExpanded
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,33 +126,36 @@ class AccordionMenuTableViewController: UITableViewController {
         switch (self.dataSource[parent].state) {
             
         case .Expanded:
-            
             self.collapseSubItemsAtIndex(index, parent: parent)
             self.lastCellExpanded = NoCellExpanded
             
         case .Collapsed:
-            
-            // exist one cell expanded previously
-            if self.onlyOneCellExpandedAlways && self.lastCellExpanded != NoCellExpanded {
-                
-                let (indexOfCellExpanded, parentOfCellExpanded) = self.lastCellExpanded
-                
-                self.collapseSubItemsAtIndex(indexOfCellExpanded, parent: parentOfCellExpanded)
-                
-                // cell tapped is below of previously expanded, then we need to update the index to expand.
-                if parent > parentOfCellExpanded {
-                    let newIndex = index - self.dataSource[parentOfCellExpanded].childs.count
-                    self.expandItemAtIndex(newIndex, parent: parent)
-                    self.lastCellExpanded = (newIndex, parent)
+            switch (numberOfCellsExpanded) {
+            case .One:
+                // exist one cell expanded previously
+                if self.lastCellExpanded != NoCellExpanded {
+                    
+                    let (indexOfCellExpanded, parentOfCellExpanded) = self.lastCellExpanded
+                    
+                    self.collapseSubItemsAtIndex(indexOfCellExpanded, parent: parentOfCellExpanded)
+                    
+                    // cell tapped is below of previously expanded, then we need to update the index to expand.
+                    if parent > parentOfCellExpanded {
+                        let newIndex = index - self.dataSource[parentOfCellExpanded].childs.count
+                        self.expandItemAtIndex(newIndex, parent: parent)
+                        self.lastCellExpanded = (newIndex, parent)
+                    }
+                    else {
+                        self.expandItemAtIndex(index, parent: parent)
+                        self.lastCellExpanded = (index, parent)
+                    }
                 }
                 else {
                     self.expandItemAtIndex(index, parent: parent)
                     self.lastCellExpanded = (index, parent)
                 }
-            }
-            else {
+            case .Several:
                 self.expandItemAtIndex(index, parent: parent)
-                self.lastCellExpanded = (index, parent)
             }
         }
     }
