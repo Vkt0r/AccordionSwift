@@ -31,6 +31,9 @@ enum NumberOfCellExpanded {
     case Several
 }
 
+/**
+ *  The Parent struct of the data source.
+ */
 struct Parent {
     
     /// State of the cell
