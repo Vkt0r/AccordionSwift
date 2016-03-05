@@ -81,6 +81,7 @@ class AccordionMenuTableViewController: UITableViewController {
         // the data of the childs for the specific parent cell.
         let currentSubItems = self.dataSource[parent].childs
         
+        // update the state of the cell.
         self.dataSource[parent].state = .Expanded
         
         // position to start to insert rows.
@@ -107,12 +108,11 @@ class AccordionMenuTableViewController: UITableViewController {
         
         let numberOfChilds = self.dataSource[parent].childs.count
         
+        // update the state of the cell.
         self.dataSource[parent].state = .Collapsed
         
         // create an array of NSIndexPath with the selected positions
-        for i in index + 1...index + numberOfChilds {
-            indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
-        }
+        indexPaths = (index + 1...index + numberOfChilds).map { NSIndexPath(forRow: $0, inSection: 0)}
         
         // remove the expanded cells
         self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
@@ -121,6 +121,12 @@ class AccordionMenuTableViewController: UITableViewController {
         self.total -= numberOfChilds
     }
     
+    /**
+     Update the cells to expanded to collapsed state in case of allow severals cells expanded.
+     
+     - parameter parent: The parent of the cell
+     - parameter index:  The index of the cell.
+     */
     private func updateCells(parent: Int, index: Int) {
         
         switch (self.dataSource[parent].state) {
@@ -192,7 +198,7 @@ class AccordionMenuTableViewController: UITableViewController {
             
         } while (position < index)
         
-        // if it's a parent cell the index are equal.
+        // if it's a parent cell the indexes are equal.
         if position == index {
             return (parent, position == index, position)
         }
@@ -233,19 +239,19 @@ extension AccordionMenuTableViewController {
         return cell
     }
     
+    // MARK: UITableViewDelegate
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let (parent, isParentCell, _) = self.findParent(indexPath.row)
         
         guard isParentCell else {
-            NSLog("A child was tapped!!!");
+            NSLog("A child was tapped!!!")
             return
         }
         
         self.tableView.beginUpdates()
-        
         self.updateCells(parent, index: indexPath.row)
-        
         self.tableView.endUpdates()
     }
     
