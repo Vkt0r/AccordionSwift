@@ -1,5 +1,4 @@
 # AccordionMenu
-The aim of this project is learn how to build an Accordion Menu in Swift using the `UITableView`.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
             )](http://mit-license.org)
@@ -12,17 +11,41 @@ The aim of this project is learn how to build an Accordion Menu in Swift using t
 
 ## Initial Setting
 
-For the sake of brevety in the use of the project I've created an initial data source of rows of `String` type, one array called `topItems` for the parents cells and another array called `subItems` to specificy the child cells for each parent cell in this case of `[[String]]`.
+For the sake of brevety in the use of the project I've created an initial data source of rows of `Parent`, it's a struct defined in the following way: 
 
 ```swift
-/// The data source for the parent cell.
-var topItems = [String]()
+/**
+ *  The Parent struct of the data source.
+ */
+struct Parent {
+    
+    /// State of the cell
+    var state: State
+    
+    /// The childs of the cell
+    var childs: [String]
+    
+    /// The title for the cell.
+    var title: String
+}
+```
 
-/// The data source for the child cells.
-var subItems = [[String]]()
+The enum `State` is used to keep the state for each parent cell.
+
+```swift
+/**
+ Define the state of a cell
+ 
+ - Collapsed: Cell collapsed
+ - Expanded:  Cell expanded
+ */
+enum State {
+    case Collapsed
+    case Expanded
+}
 ```
     
-The data source is initialized inside the function `setInitialDataSource(numberOfRowParents parents: Int, numberOfRowChildPerParent childs: Int)` where it's assigned the number of the row for each parent cell and the number of the child cell for each parent cell.
+The data source is initialized inside the function `setInitialDataSource(numberOfRowParents:numberOfRowChildPerParent:)` where it's assigned the number of the row for each parent cell and the number of the child cell for each parent cell.
 
 ```swift
 /**
@@ -36,138 +59,173 @@ private func setInitialDataSource(numberOfRowParents parents: Int, numberOfRowCh
     // Set the total of cells initially.
     self.total = parents
     
-    // Init the array with all the values in -1
-    self.actualPositions = [Int](count: parents, repeatedValue: -1)
+    let data = [Parent](count: parents, repeatedValue: Parent(state: .Collapsed, childs: [String](), title: ""))
     
-    // Create an array with the element "Item index".
-    self.topItems = (0..<parents).enumerate().map { "Item \($0.0 + 1)"}
-    
-    // Create the array of childs using a random number between 0..childs+1 for each parent.
-    self.subItems = (0..<parents).map({ _ -> [String] in
+    dataSource = data.enumerate().map({ (index: Int, var element: Parent) -> Parent in
+        
+        element.title = "Item \(index)"
         
         // generate the random number between 0...childs
         let random = Int(arc4random_uniform(UInt32(childs + 1))) + 1
         
         // create the array for each cell
-        return (0..<random).enumerate().map {"Subitem \($0.index)"}
+        element.childs = (0..<random).enumerate().map {"Subitem \($0.index)"}
+        
+        return element
     })
 }
 ```
 
 The number of cells for each parent cell is taken as a random number between `[0..numberOfRowChildPerParent]` to create a different  each number of childs for each parent cell.
 
+## Only one cell tapped at time or severals
+
+We have created the enum `NumberOfCellExpanded` with the purpose of provide an easy way to customize the number of cells tapped at each time.
+
+```swift
+**
+ Enum to define the number of cell expanded at time
+ 
+ - One:     One cell expanded at time.
+ - Several: Several cells expanded at time.
+ */
+enum NumberOfCellExpanded {
+    case One
+    case Several
+}
+```
+
+In the class `AccordionMenuTableViewController` we have defined the constant `numberOfCellsExpanded` to set where only one cell can be expanded at time or not.
+
+
+```swift
+/// Define wether can exist several cells expanded or not.
+let numberOfCellsExpanded: NumberOfCellExpanded = .One
+```
+
 ## Expanding or collapsing a cell
 
-Every time we tap on a parent cell the cell can be expanded or collapsed, because every time we expand a cell the `NSIndexPath` or the remaining cells change we need to calculate where is the parent index for the tapped cell using the function `findParent(index : Int) -> Int`
+Every time we tap on a parent cell the cell can change it state to expanded or collapsed, when we expand a cell the `NSIndexPath` for the remaining cells change, so we need to calculate where is the parent index for the tapped cell using the function `findParent(_:)`
 
 ```swift
 /**
- Find the index of the parent cell for the index of a cell.
+ Find the parent position in the initial list, if the cell is parent and the actual position in the actual list.
  
- - parameter index: The index of the cell to find the parent
+ - parameter index: The index of the cell
  
- - returns: The index of parent cell.
+ - returns: A tuple with the parent position, if it's a parent cell and the actual position righ now.
  */
-private func findParent(index : Int) -> Int {
+private func findParent(index : Int) -> (parent: Int, isParentCell: Bool, actualPosition: Int) {
     
-    var parent = 0
-    var i = 0
+    var position = 0, parent = 0
+    guard position < index else { return (parent, true, parent) }
     
-    while (true) {
+    var item = self.dataSource[parent]
+    
+    repeat {
         
-        if (i >= index) {
-            return parent
+        switch (item.state) {
+        case .Expanded:
+            position += item.childs.count + 1
+        case .Collapsed:
+            position += 1
         }
         
-        // if it's expanded the cell
-        if let _ = self.currentItemsExpanded.indexOf(parent) {
-            
-            // sum its childs and continue
-            i += self.subItems[parent].count + 1
-            
-            if (i > index) {
-                return parent
-            }
-        }
-        else {
-            i += 1
-        }
         parent += 1
+        
+        // if is not outside of dataSource boundaries
+        if parent < self.dataSource.count {
+            item = self.dataSource[parent]
+        }
+        
+    } while (position < index)
+    
+    // if it's a parent cell the indexes are equal.
+    if position == index {
+        return (parent, position == index, position)
     }
+    
+    item = self.dataSource[parent - 1]
+    return (parent - 1, position == index, position - item.childs.count - 1)
 }
 ```
 
-For this objective, we keep a record in the array `currentItemsExpanded` of the indexes for the cells expanded so far. In this way we can calculate based in the number of cells expanded before the cell what was its original position. 
+The above function returns a tuple of `(Int, Bool, Int)` with the values for the parent of cell, if the cell is a parent cell or not and the actual position of the parent in the list of expanded and collapsed cells.
 
-Then using the function `setExpandeOrCollapsedStateforCell(parent: Int, index: Int)` we can know if the cell it's expanded or collapsed and change its state. 
+Then using the function `updateCells(_:index:)` we update the cell regarding if it's expanded or collapsed. 
 
 ```swift
 /**
- Send the execution to collapse or expand the cell with parent and index specified.
+ Update the cells to expanded to collapsed state in case of allow severals cells expanded.
  
- - parameter parent: The parent of the cell.
+ - parameter parent: The parent of the cell
  - parameter index:  The index of the cell.
  */
-private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
+private func updateCells(parent: Int, index: Int) {
     
-    // if the cell is expanded
-    if let value = self.currentItemsExpanded.indexOf(parent) {
+    switch (self.dataSource[parent].state) {
         
-        self.collapseSubItemsAtIndex(index)
-        self.actualPositions[parent] = -1
+    case .Expanded:
+        self.collapseSubItemsAtIndex(index, parent: parent)
+        self.lastCellExpanded = NoCellExpanded
         
-        // remove the parent from the expanded list
-        self.currentItemsExpanded.removeAtIndex(value)
-        
-        for i in parent + 1..<self.topItems.count {
-            if self.actualPositions[i] != -1 {
-                self.actualPositions[i] -= self.subItems[parent].count
+    case .Collapsed:
+        switch (numberOfCellsExpanded) {
+        case .One:
+            // exist one cell expanded previously
+            if self.lastCellExpanded != NoCellExpanded {
+                
+                let (indexOfCellExpanded, parentOfCellExpanded) = self.lastCellExpanded
+                
+                self.collapseSubItemsAtIndex(indexOfCellExpanded, parent: parentOfCellExpanded)
+                
+                // cell tapped is below of previously expanded, then we need to update the index to expand.
+                if parent > parentOfCellExpanded {
+                    let newIndex = index - self.dataSource[parentOfCellExpanded].childs.count
+                    self.expandItemAtIndex(newIndex, parent: parent)
+                    self.lastCellExpanded = (newIndex, parent)
+                }
+                else {
+                    self.expandItemAtIndex(index, parent: parent)
+                    self.lastCellExpanded = (index, parent)
+                }
             }
-        }
-    }
-    else {
-        
-        self.expandItemAtIndex(index)
-        self.actualPositions[parent] = index
-        
-        for i in parent + 1..<self.topItems.count {
-            if self.actualPositions[i] != -1 {
-                self.actualPositions[i] += self.subItems[parent].count
+            else {
+                self.expandItemAtIndex(index, parent: parent)
+                self.lastCellExpanded = (index, parent)
             }
+        case .Several:
+            self.expandItemAtIndex(index, parent: parent)
         }
-        
-        // add the parent for the expanded list
-        self.currentItemsExpanded.append(parent)
     }
 }
 ```
 
-It's good to mention that always we change the cell in case of being a parent cell, it's verified inside the `didSelectRowAtIndexPath` method. 
+It's good to mention that always we change the cell in case of being a parent cell, it's verified inside the `tableView(_:didSelectRowAtIndexPath:)` method. 
 
 ```swift
 override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-    guard !self.isChildCell(indexPath) else {
-        NSLog("A child was tapped!!!");
+    
+    let (parent, isParentCell, _) = self.findParent(indexPath.row)
+    
+    guard isParentCell else {
+        NSLog("A child was tapped!!!")
         return
     }
     
     self.tableView.beginUpdates()
-    
-    let parent = self.findParent(indexPath.row)
-    self.setExpandeOrCollapsedStateforCell(parent, index: indexPath.row)
-    
+    self.updateCells(parent, index: indexPath.row)
     self.tableView.endUpdates()
 }
 ```
 
 ## Height for the parent and child cells
 
-The height for the parent cells and child cell can be modified in an easy way using the function `heightForRowAtIndexPath` according to your needs.
+The height for the parent cells and child cell can be modified in an easy way using the function `tableView(_:heightForRowAtIndexPath:)` according to your needs.
 
 ```swift
 override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.isChildCell(indexPath) ? 44.0 : 64.0
+        return !self.findParent(indexPath.row).isParentCell ? 44.0 : 64.0
 }
 ```
 
