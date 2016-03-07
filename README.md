@@ -1,6 +1,15 @@
 # AccordionMenu
 The aim of this project is learn how to build an Accordion Menu in Swift using the `UITableView`.
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+            )](http://mit-license.org)
+[![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
+             )](https://developer.apple.com/swift)
+[![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
+             )](https://developer.apple.com/resources/)
+
+![Screenshot](https://github.com/Vkt0r/AccordionMenu/blob/master/ezgif.com-gif-maker.gif)
+
 ## Initial Setting
 
 For the sake of brevety in the use of the project I've created an initial data source of rows of `String` type, one array called `topItems` for the parents cells and another array called `subItems` to specificy the child cells for each parent cell in this case of `[[String]]`.
@@ -151,6 +160,17 @@ override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPat
     self.tableView.endUpdates()
 }
 ```
+
+## Height for the parent and child cells
+
+The height for the parent cells and child cell can be modified in an easy way using the function `heightForRowAtIndexPath` according to your needs.
+
+```swift
+override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.isChildCell(indexPath) ? 44.0 : 64.0
+}
+```
+
 ---
 # Feedback
 
@@ -163,6 +183,9 @@ Please raise a [GitHub issue](https://github.com/Vkt0r/AccordionMenu/issues). �
 Great! Please launch a [pull request](https://github.com/Vkt0r/AccordionMenu/pulls). 👍
 
 ---------------------------------------
-© 2015 - 2016 Victor Sigler
+
+License:
+=================
+The MIT License. See the LICENSE file for more infomation.
 
  
