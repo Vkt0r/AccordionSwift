@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		574BB1651C8B56C7005E3806 /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BB1641C8B56C7005E3806 /* Parent.swift */; };
 		575C4A441A82C8CB00FD1ED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */; };
 		575C4A491A82C8CB00FD1ED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A471A82C8CB00FD1ED3 /* Main.storyboard */; };
 		575C4A4B1A82C8CB00FD1ED3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		574BB1641C8B56C7005E3806 /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parent.swift; sourceTree = "<group>"; };
 		575C4A3E1A82C8CB00FD1ED3 /* AccordionTableSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccordionTableSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		575C4A421A82C8CB00FD1ED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */,
 				575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */,
+				574BB1641C8B56C7005E3806 /* Parent.swift */,
 				575C4A471A82C8CB00FD1ED3 /* Main.storyboard */,
 				575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */,
 				575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */,
@@ -216,6 +219,7 @@
 			files = (
 				575C4A641A82C91600FD1ED3 /* AccordionMenuTableViewController.swift in Sources */,
 				575C4A441A82C8CB00FD1ED3 /* AppDelegate.swift in Sources */,
+				574BB1651C8B56C7005E3806 /* Parent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
