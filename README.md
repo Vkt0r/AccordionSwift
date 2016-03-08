@@ -206,10 +206,14 @@ It's good to mention that always we change the cell in case of being a parent ce
 ```swift
 override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
-    let (parent, isParentCell, _) = self.findParent(indexPath.row)
+    let (parent, isParentCell, actualPosition) = self.findParent(indexPath.row)
     
     guard isParentCell else {
         NSLog("A child was tapped!!!")
+            
+        // The value of the child is indexPath.row - actualPosition - 1 
+        NSLog("The value of the child is \(self.dataSource[parent].childs[indexPath.row - actualPosition - 1])")
+            
         return
     }
     
