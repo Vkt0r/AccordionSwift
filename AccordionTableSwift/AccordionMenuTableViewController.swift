@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class AccordionMenuTableViewController: UITableViewController {
     
     /// The number of elements in the data source
@@ -57,17 +55,19 @@ class AccordionMenuTableViewController: UITableViewController {
         
         let data = [Parent](count: parents, repeatedValue: Parent(state: .Collapsed, childs: [String](), title: ""))
         
-        dataSource = data.enumerate().map({ (index: Int, var element: Parent) -> Parent in
+        dataSource = data.enumerate().map({ (index: Int, element: Parent) -> Parent in
             
-            element.title = "Item \(index)"
+            var newElement = element
+            
+            newElement.title = "Item \(index)"
             
             // generate the random number between 0...childs
             let random = Int(arc4random_uniform(UInt32(childs + 1))) + 1
             
             // create the array for each cell
-            element.childs = (0..<random).enumerate().map {"Subitem \($0.index)"}
+            newElement.childs = (0..<random).enumerate().map {"Subitem \($0.index)"}
             
-            return element
+            return newElement
         })
     }
     
@@ -87,8 +87,11 @@ class AccordionMenuTableViewController: UITableViewController {
         // position to start to insert rows.
         var insertPos = index + 1
         
-        // create an array of NSIndexPath with the selected positions
-        let indexPaths = (0..<currentSubItems.count).map { _ in NSIndexPath(forRow: insertPos++, inSection: 0) }
+        let indexPaths = (0..<currentSubItems.count).map { _ -> NSIndexPath in
+            let indexPath = NSIndexPath(forRow: insertPos, inSection: 0)
+            insertPos += 1
+            return indexPath
+        }
         
         // insert the new rows
         self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
