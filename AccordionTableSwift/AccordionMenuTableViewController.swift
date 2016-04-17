@@ -23,7 +23,7 @@ class AccordionMenuTableViewController: UITableViewController {
     var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
-    let numberOfCellsExpanded: NumberOfCellExpanded = .Several
+    let numberOfCellsExpanded: NumberOfCellExpanded = .One
     
     /// Constant to define the values for the tuple in case of not exist a cell expanded.
     let NoCellExpanded = (-1, -1)
@@ -62,7 +62,7 @@ class AccordionMenuTableViewController: UITableViewController {
             newElement.title = "Item \(index)"
             
             // generate the random number between 0...childs
-            let random = Int(arc4random_uniform(UInt32(childs + 1))) + 1
+            let random = Int(arc4random_uniform(UInt32(childs + 1)))
             
             // create the array for each cell
             newElement.childs = (0..<random).enumerate().map {"Subitem \($0.index)"}
@@ -113,6 +113,8 @@ class AccordionMenuTableViewController: UITableViewController {
         
         // update the state of the cell.
         self.dataSource[parent].state = .Collapsed
+        
+        guard index + 1 <= index + numberOfChilds else { return }
         
         // create an array of NSIndexPath with the selected positions
         indexPaths = (index + 1...index + numberOfChilds).map { NSIndexPath(forRow: $0, inSection: 0)}
