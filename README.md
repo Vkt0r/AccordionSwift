@@ -83,7 +83,7 @@ The number of cells for each parent cell is taken as a random number between `[0
 We have created the enum `NumberOfCellExpanded` with the purpose of provide an easy way to customize the number of cells tapped at each time.
 
 ```swift
-**
+/**
  Enum to define the number of cell expanded at time
  
  - One:     One cell expanded at time.
