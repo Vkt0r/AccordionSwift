@@ -13,7 +13,8 @@
 		575C4A4B1A82C8CB00FD1ED3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */; };
 		575C4A4E1A82C8CB00FD1ED3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */; };
 		575C4A5A1A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A591A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift */; };
-		575C4A641A82C91600FD1ED3 /* AccordionMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */; };
+		57636DAD1D2C60E300C21C77 /* SampleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57636DAC1D2C60E300C21C77 /* SampleTableViewController.swift */; };
+		57636DAF1D2C635600C21C77 /* AccordionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57636DAE1D2C635600C21C77 /* AccordionTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +38,8 @@
 		575C4A531A82C8CB00FD1ED3 /* AccordionTableSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccordionTableSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		575C4A581A82C8CB00FD1ED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		575C4A591A82C8CB00FD1ED3 /* AccordionTableSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionTableSwiftTests.swift; sourceTree = "<group>"; };
-		575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionMenuTableViewController.swift; sourceTree = "<group>"; };
+		57636DAC1D2C60E300C21C77 /* SampleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleTableViewController.swift; sourceTree = "<group>"; };
+		57636DAE1D2C635600C21C77 /* AccordionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +82,9 @@
 			isa = PBXGroup;
 			children = (
 				575C4A431A82C8CB00FD1ED3 /* AppDelegate.swift */,
-				575C4A631A82C91600FD1ED3 /* AccordionMenuTableViewController.swift */,
-				574BB1641C8B56C7005E3806 /* Parent.swift */,
+				57636DAB1D2C60CD00C21C77 /* Accordion */,
 				575C4A471A82C8CB00FD1ED3 /* Main.storyboard */,
+				57636DAC1D2C60E300C21C77 /* SampleTableViewController.swift */,
 				575C4A4A1A82C8CB00FD1ED3 /* Images.xcassets */,
 				575C4A4C1A82C8CB00FD1ED3 /* LaunchScreen.xib */,
 				575C4A411A82C8CB00FD1ED3 /* Supporting Files */,
@@ -113,6 +115,15 @@
 				575C4A581A82C8CB00FD1ED3 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		57636DAB1D2C60CD00C21C77 /* Accordion */ = {
+			isa = PBXGroup;
+			children = (
+				574BB1641C8B56C7005E3806 /* Parent.swift */,
+				57636DAE1D2C635600C21C77 /* AccordionTableViewController.swift */,
+			);
+			name = Accordion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,9 +228,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				575C4A641A82C91600FD1ED3 /* AccordionMenuTableViewController.swift in Sources */,
 				575C4A441A82C8CB00FD1ED3 /* AppDelegate.swift in Sources */,
 				574BB1651C8B56C7005E3806 /* Parent.swift in Sources */,
+				57636DAF1D2C635600C21C77 /* AccordionTableViewController.swift in Sources */,
+				57636DAD1D2C60E300C21C77 /* SampleTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
