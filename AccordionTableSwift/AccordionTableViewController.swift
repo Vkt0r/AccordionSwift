@@ -1,5 +1,5 @@
 //
-//  AccordionMenuTableViewController.swift
+//  AccordionTableViewController.swift
 //  AccordionTableSwift
 //
 //  Created by Victor Sigler on 2/4/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccordionMenuTableViewController: UITableViewController {
+class AccordionTableViewController: UITableViewController {
     
     /// The number of elements in the data source
     var total = 0
@@ -23,7 +23,7 @@ class AccordionMenuTableViewController: UITableViewController {
     var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
-    let numberOfCellsExpanded: NumberOfCellExpanded = .One
+    var numberOfCellsExpanded: NumberOfCellExpanded = .One
     
     /// Constant to define the values for the tuple in case of not exist a cell expanded.
     let NoCellExpanded = (-1, -1)
@@ -34,42 +34,14 @@ class AccordionMenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setInitialDataSource(numberOfRowParents: 8, numberOfRowChildPerParent: 3)
         self.lastCellExpanded = NoCellExpanded
+        tableView.tableFooterView = UIView()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    /**
-     Set the initial data for test the table view.
-     
-     - parameter parents: The number of parents cells
-     - parameter childs:  Then maximun number of child cells per parent.
-     */
-    private func setInitialDataSource(numberOfRowParents parents: Int, numberOfRowChildPerParent childs: Int) {
-        
-        // Set the total of cells initially.
-        self.total = parents
-        
-        let data = [Parent](count: parents, repeatedValue: Parent(state: .Collapsed, childs: [String](), title: ""))
-        
-        dataSource = data.enumerate().map({ (index: Int, element: Parent) -> Parent in
-            
-            var newElement = element
-            
-            newElement.title = "Item \(index)"
-            
-            // generate the random number between 0...childs
-            let random = Int(arc4random_uniform(UInt32(childs + 1)))
-            
-            // create the array for each cell
-            newElement.childs = (0..<random).enumerate().map {"Subitem \($0.index)"}
-            
-            return newElement
-        })
-    }
     
     /**
      Expand the cell at the index specified.
@@ -213,7 +185,7 @@ class AccordionMenuTableViewController: UITableViewController {
     }
 }
 
-extension AccordionMenuTableViewController {
+extension AccordionTableViewController {
     
     // MARK: UITableViewDataSource
     
@@ -234,7 +206,6 @@ extension AccordionMenuTableViewController {
         if !isParentCell {
             cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath)
             cell.textLabel!.text = self.dataSource[parent].childs[indexPath.row - actualPosition - 1]
-            cell.backgroundColor = UIColor.greenColor()
         }
         else {
             cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath)
