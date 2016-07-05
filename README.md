@@ -10,7 +10,7 @@
   <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/Group.png" alt="Accordion Custom Image"/>
 </p>
 
-</br>
+
 </br>
 
 <p align="center">
