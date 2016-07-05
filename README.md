@@ -8,6 +8,13 @@
              )](https://developer.apple.com/resources/)
 
 <p align="center">
+  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/Group.png" alt="Accordion Custom Image"/>
+</p>
+
+</br>
+</br>
+
+<p align="center">
   <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/Apple iPhone 6s Silver.png" alt="Accordion Custom Image"/>
 </p>
 
