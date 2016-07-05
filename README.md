@@ -7,7 +7,7 @@
 [![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
              )](https://developer.apple.com/resources/)
 
-![Screenshot](https://github.com/Vkt0r/AccordionMenu/blob/master/ezgif.com-gif-maker.gif)
+![Screenshot](https://github.com/Vkt0r/AccordionMenu/blob/master/Apple iPhone 6s Silver.png)
 
 ## Initial Setting
 
