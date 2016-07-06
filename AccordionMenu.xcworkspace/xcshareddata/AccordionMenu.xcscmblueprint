@@ -1,13 +1,16 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DE06AD5C9B976B78D94B1A88D683C6793571AD8F",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "DE06AD5C9B976B78D94B1A88D683C6793571AD8F" : 0,
     "95438028B10BBB846574013D29F154A00556A9D1" : 0,
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "25607F85-EDBB-474D-89F2-52E43F24879A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "DE06AD5C9B976B78D94B1A88D683C6793571AD8F" : "AccordionMenu\/",
     "95438028B10BBB846574013D29F154A00556A9D1" : "AccordionMenu\/Carthage\/Checkouts\/Nimble\/",
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "AccordionMenu\/Carthage\/Checkouts\/Quick\/"
   },
@@ -24,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Quick.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Vkt0r\/AccordionMenu.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DE06AD5C9B976B78D94B1A88D683C6793571AD8F"
     }
   ]
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AccordionTableViewController: UITableViewController {
+public class AccordionTableViewController: UITableViewController {
     
     /// The number of elements in the data source
     var total = 0
@@ -31,14 +31,14 @@ class AccordionTableViewController: UITableViewController {
     /// The index of the last cell expanded and its parent.
     var lastCellExpanded : (Int, Int)!
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.lastCellExpanded = NoCellExpanded
         tableView.tableFooterView = UIView()
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
@@ -48,7 +48,7 @@ class AccordionTableViewController: UITableViewController {
      
      - parameter index: The index of the cell to expand.
      */
-    private func expandItemAtIndex(index : Int, parent: Int) {
+    public func expandItemAtIndex(index : Int, parent: Int) {
         
         // the data of the childs for the specific parent cell.
         let currentSubItems = self.dataSource[parent].childs
@@ -77,7 +77,7 @@ class AccordionTableViewController: UITableViewController {
      
      - parameter index: The index of the cell to collapse
      */
-    private func collapseSubItemsAtIndex(index : Int, parent: Int) {
+    public func collapseSubItemsAtIndex(index : Int, parent: Int) {
         
         var indexPaths = [NSIndexPath]()
         
@@ -104,7 +104,7 @@ class AccordionTableViewController: UITableViewController {
      - parameter parent: The parent of the cell
      - parameter index:  The index of the cell.
      */
-    private func updateCells(parent: Int, index: Int) {
+    public func updateCells(parent: Int, index: Int) {
         
         switch (self.dataSource[parent].state) {
             
@@ -150,7 +150,7 @@ class AccordionTableViewController: UITableViewController {
      
      - returns: A tuple with the parent position, if it's a parent cell and the actual position righ now.
      */
-    private func findParent(index : Int) -> (parent: Int, isParentCell: Bool, actualPosition: Int) {
+    public func findParent(index : Int) -> (parent: Int, isParentCell: Bool, actualPosition: Int) {
         
         var position = 0, parent = 0
         guard position < index else { return (parent, true, parent) }
@@ -189,15 +189,15 @@ extension AccordionTableViewController {
     
     // MARK: UITableViewDataSource
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.total
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : UITableViewCell!
         
@@ -217,7 +217,7 @@ extension AccordionTableViewController {
     
     // MARK: UITableViewDelegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let (parent, isParentCell, actualPosition) = self.findParent(indexPath.row)
         
@@ -235,7 +235,7 @@ extension AccordionTableViewController {
         self.tableView.endUpdates()
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return !self.findParent(indexPath.row).isParentCell ? 44.0 : 64.0
     }
 }

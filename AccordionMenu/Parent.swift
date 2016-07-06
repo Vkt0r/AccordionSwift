@@ -14,7 +14,7 @@
  - Collapsed: Cell collapsed
  - Expanded:  Cell expanded
  */
-enum State {
+public enum State {
     case Collapsed
     case Expanded
 }
@@ -25,7 +25,7 @@ enum State {
  - One:     One cell expanded at time.
  - Several: Several cells expanded at time.
  */
-enum NumberOfCellExpanded {
+public enum NumberOfCellExpanded {
     case One
     case Several
 }
@@ -33,7 +33,7 @@ enum NumberOfCellExpanded {
 /**
  *  The Parent struct of the data source.
  */
-struct Parent {
+public struct Parent {
     
     /// State of the cell
     var state: State
@@ -53,6 +53,6 @@ struct Parent {
  
  - returns: true if there are different, otherwise false
  */
-func != (lhs: (Int, Int), rhs: (Int, Int)) -> Bool {
+public func != (lhs: (Int, Int), rhs: (Int, Int)) -> Bool {
     return lhs.0 != rhs.0 && rhs.1 != lhs.1
 }
