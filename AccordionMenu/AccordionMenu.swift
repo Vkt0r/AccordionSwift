@@ -11,7 +11,7 @@ import UIKit
 public class AccordionTableViewController: UITableViewController {
     
     /// The number of elements in the data source
-    var total = 0
+    public var total = 0
     
     /// The identifier for the parent cells.
     let parentCellIdentifier = "ParentCell"
@@ -20,10 +20,10 @@ public class AccordionTableViewController: UITableViewController {
     let childCellIdentifier = "ChildCell"
     
     /// The data source
-    var dataSource: [Parent]!
+    public var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
-    var numberOfCellsExpanded: NumberOfCellExpanded = .One
+    public var numberOfCellsExpanded: NumberOfCellExpanded = .One
     
     /// Constant to define the values for the tuple in case of not exist a cell expanded.
     let NoCellExpanded = (-1, -1)
@@ -185,7 +185,7 @@ public class AccordionTableViewController: UITableViewController {
     }
 }
 
-extension AccordionTableViewController {
+public extension AccordionTableViewController {
     
     // MARK: UITableViewDataSource
     
@@ -197,7 +197,7 @@ extension AccordionTableViewController {
         return self.total
     }
     
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override  public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell : UITableViewCell!
         
