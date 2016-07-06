@@ -20,18 +20,43 @@
 AccordionMenu is an accordion libray written in Swift.
 
 
-## Height for the parent and child cells
+## Features
 
-The height for the parent cells and child cell can be modified in an easy way using the function `tableView(_:heightForRowAtIndexPath:)` according to your needs.
-
-```swift
-override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return !self.findParent(indexPath.row).isParentCell ? 44.0 : 64.0
-}
-```
+- [x] Compatible with iPhone / iPad
+- [x] Fully customizable
+- [x] Supports device rotation
 
 ---
-# Feedback
+
+## Requirements
+
+- iOS 8.0+ 
+- Xcode 7.3+
+
+## Installation
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "Vkt0r/AccordionMenu"
+```
+
+Run `carthage update` to build the framework and drag the built `AccordionMenu.framework` into your Xcode project.
+
+## How to use it?
+
+## Feedback
 
 ## I've found a bug, or have a feature request
 
