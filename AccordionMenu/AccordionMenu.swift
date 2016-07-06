@@ -1,9 +1,9 @@
 //
-//  AccordionTableViewController.swift
-//  AccordionTableSwift
+//  AccordionMenu.swift
+//  AccordionMenu
 //
-//  Created by Victor Sigler on 2/4/15.
-//  Copyright (c) 2015 Private. All rights reserved.
+//  Created by Victor on 7/6/16.
+//  Copyright © 2016 Victor Sigler. All rights reserved.
 //
 
 import UIKit

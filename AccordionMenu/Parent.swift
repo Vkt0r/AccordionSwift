@@ -1,12 +1,11 @@
 //
 //  Parent.swift
-//  AccordionTableSwift
+//  AccordionMenu
 //
-//  Created by Victor Sigler on 3/5/16.
-//  Copyright © 2016 Pentlab. All rights reserved.
+//  Created by Victor on 7/6/16.
+//  Copyright © 2016 Victor Sigler. All rights reserved.
 //
 
-import Foundation
 
 
 /**
