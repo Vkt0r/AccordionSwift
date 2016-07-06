@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/Group.png" alt="Accordion Custom Image"/>
+  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/logo.png" alt="Accordion Custom Image"/>
 </p>
 
 
