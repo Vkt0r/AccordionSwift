@@ -35,7 +35,7 @@ public class AccordionTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.lastCellExpanded = NoCellExpanded
-        tableView.tableFooterView = UIView()
+        self.tableView.tableFooterView = UIView()
     }
     
     override public func didReceiveMemoryWarning() {
