@@ -17,7 +17,7 @@
 [![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
              )](https://developer.apple.com/resources/)
             
-AccordionMenu is an accordion libray written in Swift.
+AccordionMenu is an accordion/dropdown library written in Swift.
 
 
 ## Features
