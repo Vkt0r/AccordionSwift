@@ -47,12 +47,44 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Vkt0r/AccordionMenu"
+github "Vkt0r/AccordionMenu" "master"
 ```
 
 Run `carthage update` to build the framework and drag the built `AccordionMenu.framework` into your Xcode project.
 
-## How to use it?
+## Usage
+
+After import the framework it's neccessary to inherit from the class `AccordionTableViewController` and set it's data source the total of items from the data source and if you like if several cells is expanded or only one like in the following example:
+
+```swift
+import UIKit
+import AccordionMenu
+
+class AccordionViewController: AccordionTableViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let item1 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 1")
+        let item2 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 2")
+        let item3 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 3")
+        let item4 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
+        let item5 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 5")
+        
+        self.dataSource = [item1, item2, item3, item4, item5]
+        self.total = dataSource.count
+        self.numberOfCellsExpanded = .Several
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+```
+
+Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"` and set its `Style` to **Basic** to add two `UILabels` for the cells.
 
 ## Feedback
 
