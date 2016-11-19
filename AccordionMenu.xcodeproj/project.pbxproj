@@ -10,8 +10,6 @@
 		57636DBE1D2D2E8600C21C77 /* AccordionMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 57636DBD1D2D2E8600C21C77 /* AccordionMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57636DC51D2D2E8600C21C77 /* AccordionMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57636DBA1D2D2E8600C21C77 /* AccordionMenu.framework */; };
 		57636DCA1D2D2E8600C21C77 /* AccordionMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57636DC91D2D2E8600C21C77 /* AccordionMenuTests.swift */; };
-		57636DEB1D2D30A900C21C77 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57636DE91D2D30A900C21C77 /* Nimble.framework */; };
-		57636DEC1D2D30A900C21C77 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57636DEA1D2D30A900C21C77 /* Quick.framework */; };
 		57636DF01D2D318000C21C77 /* AccordionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57636DEF1D2D318000C21C77 /* AccordionMenu.swift */; };
 		57636DF21D2D31A400C21C77 /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57636DF11D2D31A400C21C77 /* Parent.swift */; };
 /* End PBXBuildFile section */
@@ -33,8 +31,6 @@
 		57636DC41D2D2E8600C21C77 /* AccordionMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AccordionMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57636DC91D2D2E8600C21C77 /* AccordionMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionMenuTests.swift; sourceTree = "<group>"; };
 		57636DCB1D2D2E8600C21C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		57636DE91D2D30A900C21C77 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
-		57636DEA1D2D30A900C21C77 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = "Carthage/Checkouts/Quick/build/Debug-iphoneos/Quick.framework"; sourceTree = "<group>"; };
 		57636DEF1D2D318000C21C77 /* AccordionMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionMenu.swift; sourceTree = "<group>"; };
 		57636DF11D2D31A400C21C77 /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,8 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57636DEB1D2D30A900C21C77 /* Nimble.framework in Frameworks */,
-				57636DEC1D2D30A900C21C77 /* Quick.framework in Frameworks */,
 				57636DC51D2D2E8600C21C77 /* AccordionMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +57,6 @@
 		57636DB01D2D2E8600C21C77 = {
 			isa = PBXGroup;
 			children = (
-				57636DEE1D2D310D00C21C77 /* Frameworks */,
 				57636DBC1D2D2E8600C21C77 /* AccordionMenu */,
 				57636DC81D2D2E8600C21C77 /* AccordionMenuTests */,
 				57636DBB1D2D2E8600C21C77 /* Products */,
@@ -97,15 +90,6 @@
 				57636DCB1D2D2E8600C21C77 /* Info.plist */,
 			);
 			path = AccordionMenuTests;
-			sourceTree = "<group>";
-		};
-		57636DEE1D2D310D00C21C77 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				57636DEA1D2D30A900C21C77 /* Quick.framework */,
-				57636DE91D2D30A900C21C77 /* Nimble.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,14 +149,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Victor Sigler";
 				TargetAttributes = {
 					57636DB91D2D2E8600C21C77 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0810;
 					};
 					57636DC31D2D2E8600C21C77 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -254,8 +240,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -303,8 +291,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -324,6 +314,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -335,6 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -346,6 +338,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -353,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -363,6 +357,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.AccordionMenu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -373,6 +368,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.AccordionMenuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -383,6 +379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.AccordionMenuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
