@@ -10,7 +10,7 @@
 </p>
 
 
-[![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=swift-3)](https://travis-ci.org/Vkt0r/AccordionMenu)
+[![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=master)](https://travis-ci.org/Vkt0r/AccordionMenu)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
             )](http://mit-license.org)
 [![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
