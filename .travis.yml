@@ -1,4 +1,2 @@
 language: objective-c  #1
 osx_image: xcode8.1 #2
-xcode_workspace: AccordionMenu.xcworkspace #3
-xcode_scheme: AccordionMenu #4
