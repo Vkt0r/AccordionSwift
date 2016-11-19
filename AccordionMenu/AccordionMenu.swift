@@ -185,19 +185,19 @@ open class AccordionTableViewController: UITableViewController {
     }
 }
 
-public extension AccordionTableViewController {
+extension AccordionTableViewController {
     
     // MARK: UITableViewDataSource
     
-    override public func numberOfSections(in tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.total
     }
     
-    override  public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override  open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell : UITableViewCell!
         
@@ -217,7 +217,7 @@ public extension AccordionTableViewController {
     
     // MARK: UITableViewDelegate
     
-    override public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let (parent, isParentCell, actualPosition) = self.findParent(indexPath.row)
         
@@ -235,7 +235,7 @@ public extension AccordionTableViewController {
         self.tableView.endUpdates()
     }
     
-    override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return !self.findParent(indexPath.row).isParentCell ? 44.0 : 64.0
     }
 }
