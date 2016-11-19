@@ -15,8 +15,8 @@
  - Expanded:  Cell expanded
  */
 public enum State {
-    case Collapsed
-    case Expanded
+    case collapsed
+    case expanded
 }
 
 /**
@@ -26,8 +26,8 @@ public enum State {
  - Several: Several cells expanded at time.
  */
 public enum NumberOfCellExpanded {
-    case One
-    case Several
+    case one
+    case several
 }
 
 /**

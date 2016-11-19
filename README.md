@@ -10,13 +10,14 @@
 </p>
 
 
+[![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=swift-3)](https://travis-ci.org/Vkt0r/AccordionMenu)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
             )](http://mit-license.org)
 [![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
              )](https://developer.apple.com/swift)
 [![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
              )](https://developer.apple.com/resources/)
-            
+
 AccordionMenu is an accordion/dropdown library written in Swift.
 
 
@@ -28,7 +29,7 @@ AccordionMenu is an accordion/dropdown library written in Swift.
 
 ## Requirements
 
-- iOS 8.0+ 
+- iOS 8.0+
 - Xcode 7.3+
 
 ## Installation
@@ -64,13 +65,13 @@ class AccordionViewController: AccordionTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let item1 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 1")
         let item2 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 2")
         let item3 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 3")
         let item4 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
         let item5 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 5")
-        
+
         self.dataSource = [item1, item2, item3, item4, item5]
         self.total = dataSource.count
         self.numberOfCellsExpanded = .Several
@@ -101,5 +102,3 @@ Great! Please launch a [pull request](https://github.com/Vkt0r/AccordionMenu/pul
 License:
 =================
 The MIT License. See the LICENSE file for more infomation.
-
- 
