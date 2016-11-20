@@ -25,7 +25,6 @@ platform :ios do
   lane :test do
     scan(
         scheme: "AccordionMenuSwift-Example",
-        workspace: "AccordionMenuSwift.xcworkspace",
         clean: true,
         sdk: "iphonesimulator",
         destination: "name=iPhone 6"
