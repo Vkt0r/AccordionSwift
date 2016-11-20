@@ -25,7 +25,7 @@ The best way of implement an accordion menu using an UITableView in Swift
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Victor Sigler' => 'vikt0r.sigler@gmail.com' }
-  s.source           = { :git => 'https://github.com/Vkt0r/AccordionMenuSwift.git', :tag => "v.#{s.version.to_s}" }
+  s.source           = { :git => 'https://github.com/Vkt0r/AccordionMenuSwift.git', :tag => "v#{s.version.to_s}" }
   s.social_media_url = 'https://twitter.com/Vkt0r'
 
   s.ios.deployment_target = '8.0'
