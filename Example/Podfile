@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AccordionMenuSwift_Example' do
+  pod 'AccordionMenuSwift', :path => '../'
+
+  target 'AccordionMenuSwift_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

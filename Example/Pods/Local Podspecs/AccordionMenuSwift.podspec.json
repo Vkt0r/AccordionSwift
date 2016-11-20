@@ -1,0 +1,22 @@
+{
+  "name": "AccordionMenuSwift",
+  "version": "1.2.4",
+  "summary": "A short description of AccordionMenuSwift.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Vkt0r/AccordionMenuSwift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Victor Sigler": "vsiglerlopez@e-builder.net"
+  },
+  "source": {
+    "git": "https://github.com/Vkt0r/AccordionMenuSwift.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "AccordionMenuSwift/Classes/**/*"
+}
