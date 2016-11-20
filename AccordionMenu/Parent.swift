@@ -6,8 +6,6 @@
 //  Copyright © 2016 Victor Sigler. All rights reserved.
 //
 
-
-
 /**
  Define the state of a cell
  
