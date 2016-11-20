@@ -24,7 +24,6 @@ platform :ios do
   desc "Runs all the tests"
   lane :test do
     scan(
-        scheme: "AccordionMenuSwift-Example",
         clean: true,
         sdk: "iphonesimulator",
         destination: "name=iPhone 6"
