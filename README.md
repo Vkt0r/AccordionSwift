@@ -97,11 +97,11 @@ Afterwards it's necessary to define two cells in the `UITableView` with the iden
 
 You can see the Example project for more information in how to integrate it.
 
-## ToDo
+## ToDd
 
-- [] Add Carthage support.
-- [] Add support for multiple levels
-- [] Improve the integration with functional programming
+- [ ] Add Carthage support.
+- [ ] Add support for multiple levels
+- [ ] Improve the integration with functional programming
 
 ## Feedback
 
