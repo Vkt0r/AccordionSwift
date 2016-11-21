@@ -68,7 +68,7 @@ After import the framework it's neccessary to inherit from the class `AccordionT
 
 ```swift
 import UIKit
-import AccordionMenu
+import AccordionMenuSwift
 
 class AccordionViewController: AccordionTableViewController {
 
@@ -96,6 +96,12 @@ class AccordionViewController: AccordionTableViewController {
 Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"` and set its `Style` to **Basic** to add two `UILabels` for the cells.
 
 You can see the Example project for more information in how to integrate it.
+
+## ToDo
+
+- [] Add Carthage support.
+- [] Add support for multiple levels
+- [] Improve the integration with functional programming
 
 ## Feedback
 
