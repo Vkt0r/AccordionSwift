@@ -100,8 +100,10 @@ You can see the Example project for more information in how to integrate it.
 ## ToDo
 
 - [ ] Add Carthage support.
+- [ ] Add suport to be notified when cell is tapped using closures.
 - [ ] Add support for multiple levels
 - [ ] Improve the integration with functional programming
+
 
 ## Feedback
 
