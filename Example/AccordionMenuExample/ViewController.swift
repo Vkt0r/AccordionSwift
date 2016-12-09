@@ -11,7 +11,7 @@ import AccordionMenuSwift
 
 
 class ViewController: AccordionTableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,11 +26,5 @@ class ViewController: AccordionTableViewController {
         self.numberOfCellsExpanded = .one
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 
