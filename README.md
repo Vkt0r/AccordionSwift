@@ -87,8 +87,9 @@ class AccordionViewController: AccordionTableViewController {
     }
 }
 ```
+In the above example the `AccordionViewController` in Interface Builder it's an `UITableViewController`.
 
-Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"` and set its `Style` to **Basic** to add two `UILabels` for the cells.
+Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"`.
 
 You can see the Example project for more information in how to integrate it.
 
