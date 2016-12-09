@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AccordionMenuSwift'
-  s.version          = '1.2.5'
+  s.version          = '1.2.6'
   s.summary          = 'An Accordion Menu using an UITableView in Swift.'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ The best way of implement an accordion menu using an UITableView in Swift
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'AccordionMenuSwift/Classes/**/*'
+  s.source_files = 'AccordionMenuSwift/Source/**/*'
 
   # s.resource_bundles = {
   #   'AccordionMenuSwift' => ['AccordionMenuSwift/Assets/*.png']
