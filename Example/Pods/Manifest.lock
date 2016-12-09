@@ -1,16 +1,12 @@
 PODS:
-  - AccordionMenuSwift (0.1.0)
+  - AccordionMenuSwift (1.2.5)
 
 DEPENDENCIES:
-  - AccordionMenuSwift (from `../`)
-
-EXTERNAL SOURCES:
-  AccordionMenuSwift:
-    :path: "../"
+  - AccordionMenuSwift (~> 1.2.5)
 
 SPEC CHECKSUMS:
-  AccordionMenuSwift: 7c7ceadfa710b36a2d91be15ca6d3a94344d1c2f
+  AccordionMenuSwift: 5c9cdccb8774c17e1c87d84fbf27b5997974f622
 
-PODFILE CHECKSUM: 1758c8cd517591006991428f4e4c1c9440f22dcc
+PODFILE CHECKSUM: 9dddb3660184d6b7140c84f579c48642fc4972c9
 
 COCOAPODS: 1.1.1
