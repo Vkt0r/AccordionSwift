@@ -52,7 +52,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'AccordionMenuSwift', '~> 1.2.5'
+    pod 'AccordionMenuSwift', '~> 1.2.6'
 end
 ```
 
@@ -81,16 +81,11 @@ class AccordionViewController: AccordionTableViewController {
         let item4 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
         let item5 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 5")
 
-        self.dataSource = [item1, item2, item3, item4, item5]
-        self.numberOfCellsExpanded = .several
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        dataSource = [item1, item2, item3, item4, item5]
+        numberOfCellsExpanded = .several
+        total = dataSource.count
     }
 }
-
 ```
 
 Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"` and set its `Style` to **Basic** to add two `UILabels` for the cells.
