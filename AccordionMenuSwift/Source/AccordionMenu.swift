@@ -11,7 +11,7 @@ import UIKit
 open class AccordionTableViewController: UITableViewController {
     
     /// The number of elements in the data source
-    fileprivate var total = 0
+    open var total = 0
     
     /// The identifier for the parent cells.
     let parentCellIdentifier = "ParentCell"
@@ -20,11 +20,7 @@ open class AccordionTableViewController: UITableViewController {
     let childCellIdentifier = "ChildCell"
     
     /// The data source
-    open var dataSource: [Parent] = [] {
-        willSet {
-            total = newValue.count
-        }
-    }
+    open var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
     open var numberOfCellsExpanded: NumberOfCellExpanded = .one
