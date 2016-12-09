@@ -10,9 +10,8 @@
 		834B61A7A70947874D469EE6 /* Pods_AccordionMenuExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4454F876A4DFEE9DA570078A /* Pods_AccordionMenuExample.framework */; };
 		A31C4D3C1DFA691200945E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31C4D3B1DFA691200945E2E /* AppDelegate.swift */; };
 		A31C4D3E1DFA691200945E2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31C4D3D1DFA691200945E2E /* ViewController.swift */; };
-		A31C4D411DFA691200945E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A31C4D3F1DFA691200945E2E /* Main.storyboard */; };
 		A31C4D431DFA691200945E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A31C4D421DFA691200945E2E /* Assets.xcassets */; };
-		A31C4D461DFA691200945E2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A31C4D441DFA691200945E2E /* LaunchScreen.storyboard */; };
+		A31C4D501DFA6D3100945E2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A31C4D4F1DFA6D3100945E2E /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +21,9 @@
 		A31C4D381DFA691200945E2E /* AccordionMenuExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccordionMenuExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31C4D3B1DFA691200945E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A31C4D3D1DFA691200945E2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A31C4D401DFA691200945E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A31C4D421DFA691200945E2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A31C4D451DFA691200945E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A31C4D471DFA691200945E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A31C4D4F1DFA6D3100945E2E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +51,9 @@
 			isa = PBXGroup;
 			children = (
 				A31C4D3A1DFA691200945E2E /* AccordionMenuExample */,
-				A31C4D391DFA691200945E2E /* Products */,
-				48B38FD8648DDF3F8DF64759 /* Pods */,
 				C5A0D6E1315F7876C9A7F6CD /* Frameworks */,
+				48B38FD8648DDF3F8DF64759 /* Pods */,
+				A31C4D391DFA691200945E2E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,11 +69,10 @@
 			isa = PBXGroup;
 			children = (
 				A31C4D3B1DFA691200945E2E /* AppDelegate.swift */,
-				A31C4D3D1DFA691200945E2E /* ViewController.swift */,
-				A31C4D3F1DFA691200945E2E /* Main.storyboard */,
 				A31C4D421DFA691200945E2E /* Assets.xcassets */,
-				A31C4D441DFA691200945E2E /* LaunchScreen.storyboard */,
 				A31C4D471DFA691200945E2E /* Info.plist */,
+				A31C4D3D1DFA691200945E2E /* ViewController.swift */,
+				A31C4D4F1DFA6D3100945E2E /* Main.storyboard */,
 			);
 			path = AccordionMenuExample;
 			sourceTree = "<group>";
@@ -150,9 +147,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A31C4D461DFA691200945E2E /* LaunchScreen.storyboard in Resources */,
+				A31C4D501DFA6D3100945E2E /* Main.storyboard in Resources */,
 				A31C4D431DFA691200945E2E /* Assets.xcassets in Resources */,
-				A31C4D411DFA691200945E2E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,25 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		A31C4D3F1DFA691200945E2E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A31C4D401DFA691200945E2E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A31C4D441DFA691200945E2E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A31C4D451DFA691200945E2E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A31C4D481DFA691200945E2E /* Debug */ = {

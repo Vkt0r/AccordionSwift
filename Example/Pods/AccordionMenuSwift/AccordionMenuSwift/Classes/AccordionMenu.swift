@@ -11,7 +11,7 @@ import UIKit
 open class AccordionTableViewController: UITableViewController {
     
     /// The number of elements in the data source
-    fileprivate var total = 0
+    open var total = 0
     
     /// The identifier for the parent cells.
     let parentCellIdentifier = "ParentCell"
@@ -20,11 +20,7 @@ open class AccordionTableViewController: UITableViewController {
     let childCellIdentifier = "ChildCell"
     
     /// The data source
-    open var dataSource: [Parent] = [] {
-        willSet {
-            total = newValue.count
-        }
-    }
+    open var dataSource: [Parent]!
     
     /// Define wether can exist several cells expanded or not.
     open var numberOfCellsExpanded: NumberOfCellExpanded = .one
@@ -41,11 +37,6 @@ open class AccordionTableViewController: UITableViewController {
         self.lastCellExpanded = NoCellExpanded
         self.tableView.tableFooterView = UIView()
     }
-    
-    override open func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     
     /**
      Expand the cell at the index specified.
@@ -96,10 +87,10 @@ open class AccordionTableViewController: UITableViewController {
         indexPaths = (index + 1...index + numberOfChilds).map { IndexPath(row: $0, section: 0)}
         
         // remove the expanded cells
-        self.tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+        tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.fade)
         
         // update the total of rows
-        self.total -= numberOfChilds
+        total -= numberOfChilds
     }
     
     /**
@@ -234,9 +225,9 @@ extension AccordionTableViewController {
             return
         }
         
-        self.tableView.beginUpdates()
-        self.updateCells(parent, index: indexPath.row)
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        updateCells(parent, index: indexPath.row)
+        tableView.endUpdates()
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
