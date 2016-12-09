@@ -38,6 +38,11 @@ open class AccordionTableViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
     }
     
+    override open func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    
     /**
      Expand the cell at the index specified.
      
@@ -87,10 +92,10 @@ open class AccordionTableViewController: UITableViewController {
         indexPaths = (index + 1...index + numberOfChilds).map { IndexPath(row: $0, section: 0)}
         
         // remove the expanded cells
-        tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+        self.tableView.deleteRows(at: indexPaths, with: UITableViewRowAnimation.fade)
         
         // update the total of rows
-        total -= numberOfChilds
+        self.total -= numberOfChilds
     }
     
     /**
@@ -225,9 +230,9 @@ extension AccordionTableViewController {
             return
         }
         
-        tableView.beginUpdates()
-        updateCells(parent, index: indexPath.row)
-        tableView.endUpdates()
+        self.tableView.beginUpdates()
+        self.updateCells(parent, index: indexPath.row)
+        self.tableView.endUpdates()
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

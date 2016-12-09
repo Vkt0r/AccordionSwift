@@ -30,28 +30,37 @@ AccordionMenu is an accordion/dropdown library written in Swift.
 ## Requirements
 
 - iOS 8.0+
-- Xcode 7.3+
+- Xcode 8.0+
 
 ## Installation
 
-### Carthage
+### CocoaPods
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
 ```bash
-$ brew update
-$ brew install carthage
+$ gem install cocoapods
 ```
 
-To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+> CocoaPods 1.1.0+ is required to build Alamofire 4.0.0+.
 
-```ogdl
-github "Vkt0r/AccordionMenu" "master"
+To integrate AccordionMenuSwift into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'AccordionMenuSwift', '~> 1.2.5'
+end
 ```
 
-Run `carthage update` to build the framework and drag the built `AccordionMenu.framework` into your Xcode project.
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 ## Usage
 
@@ -59,22 +68,21 @@ After import the framework it's neccessary to inherit from the class `AccordionT
 
 ```swift
 import UIKit
-import AccordionMenu
+import AccordionMenuSwift
 
 class AccordionViewController: AccordionTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let item1 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 1")
-        let item2 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 2")
-        let item3 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 3")
-        let item4 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
-        let item5 = Parent(state: .Collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 5")
+        let item1 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 1")
+        let item2 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 2")
+        let item3 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 3")
+        let item4 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
+        let item5 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 5")
 
         self.dataSource = [item1, item2, item3, item4, item5]
-        self.total = dataSource.count
-        self.numberOfCellsExpanded = .Several
+        self.numberOfCellsExpanded = .several
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,6 +94,16 @@ class AccordionViewController: AccordionTableViewController {
 ```
 
 Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"` and set its `Style` to **Basic** to add two `UILabels` for the cells.
+
+You can see the Example project for more information in how to integrate it.
+
+## ToDo
+
+- [ ] Add Carthage support.
+- [ ] Add suport to be notified when cell is tapped using closures.
+- [ ] Add support for multiple levels
+- [ ] Improve the integration with functional programming
+
 
 ## Feedback
 

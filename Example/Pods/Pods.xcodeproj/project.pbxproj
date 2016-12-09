@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28B4132DAF53212463F9EAEF157F21B1 /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDDF723CDF144E5113603C71B85DE95 /* Parent.swift */; };
 		489B3F821571645BE558570D13508ED6 /* Pods-AccordionMenuExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 102843E8F8C2D98C2EFCFBAA94940AE7 /* Pods-AccordionMenuExample-dummy.m */; };
 		4C7176903CA15F9BB0D8BD80EEF63804 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		4E0FA52F306A1A820A37E3AB228F18D4 /* AccordionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DA59A290A91977E61EED0693DB678D /* AccordionMenu.swift */; };
-		5BC1F8348FE132BBC99EA0F162D238C9 /* AccordionMenuSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 41AECCCF15808CCF0BA48356DFC4B24C /* AccordionMenuSwift-dummy.m */; };
-		9692341D3B7540B41FFA2C25A6975267 /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FCC473D007BB55C92B55633CE24DDB /* Parent.swift */; };
+		56F74879CC66F522931D733ECD47BAAC /* AccordionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA345A6BFEFED86D773339D59C8C9FCB /* AccordionMenu.swift */; };
+		5BC1F8348FE132BBC99EA0F162D238C9 /* AccordionMenuSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DE8B23AEB5AB05456F251B1F95FDC1 /* AccordionMenuSwift-dummy.m */; };
 		B294D6D3BD412362E826164EEC978C12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		D5618161268E5D328A33A1D5D918DD9E /* AccordionMenuSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AB486974409803B3093904D82BE36B52 /* AccordionMenuSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5618161268E5D328A33A1D5D918DD9E /* AccordionMenuSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0614D621EAAC6F9BB095E1E4C2D662A4 /* AccordionMenuSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5377B65EDEA40578E177CFAE84ACB1C /* Pods-AccordionMenuExample-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3959C3983AE09D114D6A30666CAD3969 /* Pods-AccordionMenuExample-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -28,27 +28,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09D27972B647CD60585219D367FB8445 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00DE8B23AEB5AB05456F251B1F95FDC1 /* AccordionMenuSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AccordionMenuSwift-dummy.m"; sourceTree = "<group>"; };
+		0614D621EAAC6F9BB095E1E4C2D662A4 /* AccordionMenuSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AccordionMenuSwift-umbrella.h"; sourceTree = "<group>"; };
 		102843E8F8C2D98C2EFCFBAA94940AE7 /* Pods-AccordionMenuExample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AccordionMenuExample-dummy.m"; sourceTree = "<group>"; };
 		112881B1AE37FB1988D7C73343ACD1DF /* Pods-AccordionMenuExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AccordionMenuExample.debug.xcconfig"; sourceTree = "<group>"; };
 		301983F33D2792B88618CCC845082221 /* Pods-AccordionMenuExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AccordionMenuExample-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3959C3983AE09D114D6A30666CAD3969 /* Pods-AccordionMenuExample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AccordionMenuExample-umbrella.h"; sourceTree = "<group>"; };
 		3A25581CF296D5D3C28D8D7818194F7A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41AECCCF15808CCF0BA48356DFC4B24C /* AccordionMenuSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AccordionMenuSwift-dummy.m"; sourceTree = "<group>"; };
+		3B88B67E47BFA57B4DF3E182604B5D92 /* AccordionMenuSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AccordionMenuSwift.modulemap; sourceTree = "<group>"; };
+		450B21CEED61127BDAB8D27792A381F3 /* AccordionMenuSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AccordionMenuSwift.xcconfig; sourceTree = "<group>"; };
 		5C9700EFA46AF9694B6C406E7EF87EFE /* Pods_AccordionMenuExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AccordionMenuExample.framework; path = "Pods-AccordionMenuExample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B5DC90AC5F27A6A53BDAD8FB88AA0E /* Pods-AccordionMenuExample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-AccordionMenuExample.modulemap"; sourceTree = "<group>"; };
 		738AEAB091F464AE41C14B7FD3211CD9 /* AccordionMenuSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AccordionMenuSwift.framework; path = AccordionMenuSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74645E83D522FD7E658FE8864B68CED7 /* Pods-AccordionMenuExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AccordionMenuExample.release.xcconfig"; sourceTree = "<group>"; };
-		75FCC473D007BB55C92B55633CE24DDB /* Parent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Parent.swift; path = AccordionMenuSwift/Classes/Parent.swift; sourceTree = "<group>"; };
-		78DA59A290A91977E61EED0693DB678D /* AccordionMenu.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AccordionMenu.swift; path = AccordionMenuSwift/Classes/AccordionMenu.swift; sourceTree = "<group>"; };
-		7C8FF54B85212A12639176F8D4E2BB45 /* AccordionMenuSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AccordionMenuSwift.modulemap; sourceTree = "<group>"; };
+		8FB0777943F40697D96433CA161DEF18 /* AccordionMenuSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AccordionMenuSwift-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9FF051A81A8E49B8DC618C51E9254341 /* Pods-AccordionMenuExample-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AccordionMenuExample-resources.sh"; sourceTree = "<group>"; };
-		AB486974409803B3093904D82BE36B52 /* AccordionMenuSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AccordionMenuSwift-umbrella.h"; sourceTree = "<group>"; };
-		BA78DE4FE2BA316E0B61866CB4C2DF95 /* AccordionMenuSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AccordionMenuSwift-prefix.pch"; sourceTree = "<group>"; };
-		C205D46C47DBE107A0E900A45A75C06E /* AccordionMenuSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AccordionMenuSwift.xcconfig; sourceTree = "<group>"; };
+		BC712D7F5B8F59B3009DF214BB691C1F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CED4E513648D8742B58789C62DE3395E /* Pods-AccordionMenuExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AccordionMenuExample-frameworks.sh"; sourceTree = "<group>"; };
+		DA345A6BFEFED86D773339D59C8C9FCB /* AccordionMenu.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AccordionMenu.swift; path = AccordionMenuSwift/Source/AccordionMenu.swift; sourceTree = "<group>"; };
+		DEDDF723CDF144E5113603C71B85DE95 /* Parent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Parent.swift; path = AccordionMenuSwift/Source/Parent.swift; sourceTree = "<group>"; };
 		EE8EB8D08FD5F7BB5C691F0D18382480 /* Pods-AccordionMenuExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AccordionMenuExample-acknowledgements.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,17 +80,6 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		4B25279156EC9E163D14D8FD34B87022 /* AccordionMenuSwift */ = {
-			isa = PBXGroup;
-			children = (
-				78DA59A290A91977E61EED0693DB678D /* AccordionMenu.swift */,
-				75FCC473D007BB55C92B55633CE24DDB /* Parent.swift */,
-				FE1BE7326DD9A1D37667EDD804C34290 /* Support Files */,
-			);
-			name = AccordionMenuSwift;
-			path = AccordionMenuSwift;
-			sourceTree = "<group>";
-		};
 		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +108,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B9D589B6AC5F789679E6DCC7128DB334 /* AccordionMenuSwift */ = {
+			isa = PBXGroup;
+			children = (
+				DA345A6BFEFED86D773339D59C8C9FCB /* AccordionMenu.swift */,
+				DEDDF723CDF144E5113603C71B85DE95 /* Parent.swift */,
+				ECA8F463D4E2E95765EE5F2D1558D942 /* Support Files */,
+			);
+			name = AccordionMenuSwift;
+			path = AccordionMenuSwift;
+			sourceTree = "<group>";
+		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,15 +145,15 @@
 			path = "Target Support Files/Pods-AccordionMenuExample";
 			sourceTree = "<group>";
 		};
-		FE1BE7326DD9A1D37667EDD804C34290 /* Support Files */ = {
+		ECA8F463D4E2E95765EE5F2D1558D942 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7C8FF54B85212A12639176F8D4E2BB45 /* AccordionMenuSwift.modulemap */,
-				C205D46C47DBE107A0E900A45A75C06E /* AccordionMenuSwift.xcconfig */,
-				41AECCCF15808CCF0BA48356DFC4B24C /* AccordionMenuSwift-dummy.m */,
-				BA78DE4FE2BA316E0B61866CB4C2DF95 /* AccordionMenuSwift-prefix.pch */,
-				AB486974409803B3093904D82BE36B52 /* AccordionMenuSwift-umbrella.h */,
-				09D27972B647CD60585219D367FB8445 /* Info.plist */,
+				3B88B67E47BFA57B4DF3E182604B5D92 /* AccordionMenuSwift.modulemap */,
+				450B21CEED61127BDAB8D27792A381F3 /* AccordionMenuSwift.xcconfig */,
+				00DE8B23AEB5AB05456F251B1F95FDC1 /* AccordionMenuSwift-dummy.m */,
+				8FB0777943F40697D96433CA161DEF18 /* AccordionMenuSwift-prefix.pch */,
+				0614D621EAAC6F9BB095E1E4C2D662A4 /* AccordionMenuSwift-umbrella.h */,
+				BC712D7F5B8F59B3009DF214BB691C1F /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/AccordionMenuSwift";
@@ -162,7 +162,7 @@
 		FF435471ECE47999E26FDE964391F0E7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4B25279156EC9E163D14D8FD34B87022 /* AccordionMenuSwift */,
+				B9D589B6AC5F789679E6DCC7128DB334 /* AccordionMenuSwift */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -256,9 +256,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E0FA52F306A1A820A37E3AB228F18D4 /* AccordionMenu.swift in Sources */,
+				56F74879CC66F522931D733ECD47BAAC /* AccordionMenu.swift in Sources */,
 				5BC1F8348FE132BBC99EA0F162D238C9 /* AccordionMenuSwift-dummy.m in Sources */,
-				9692341D3B7540B41FFA2C25A6975267 /* Parent.swift in Sources */,
+				28B4132DAF53212463F9EAEF157F21B1 /* Parent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +355,7 @@
 		};
 		969A257093E0D6FF9BEA85AE95CA8FEB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C205D46C47DBE107A0E900A45A75C06E /* AccordionMenuSwift.xcconfig */;
+			baseConfigurationReference = 450B21CEED61127BDAB8D27792A381F3 /* AccordionMenuSwift.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -388,7 +388,7 @@
 		};
 		B70D63D58CFF29F3DD1F321188AC4DF7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C205D46C47DBE107A0E900A45A75C06E /* AccordionMenuSwift.xcconfig */;
+			baseConfigurationReference = 450B21CEED61127BDAB8D27792A381F3 /* AccordionMenuSwift.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
