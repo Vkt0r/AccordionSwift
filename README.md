@@ -91,7 +91,7 @@ In the above example the `AccordionViewController` in Interface Builder it's an 
 
 Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"`.
 
-You can see the Example project for more information in how to integrate it.
+You can see the [Example](https://github.com/Vkt0r/AccordionMenuSwift/tree/master/Example) project for more information in how to integrate it.
 
 ## ToDo
 
