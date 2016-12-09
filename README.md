@@ -99,6 +99,7 @@ You can see the [Example](https://github.com/Vkt0r/AccordionMenuSwift/tree/maste
 - [ ] Add suport to be notified when cell is tapped using closures.
 - [ ] Add support for multiple levels
 - [ ] Improve the integration with functional programming
+- [ ] Add unit tests for the library
 
 
 ## Feedback
