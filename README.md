@@ -22,14 +22,12 @@
 An accordion/dropdown menu to integrate in your projects.
 
 
-A data-driven `UICollectionView` framework for building fast and flexible lists.
-
 |         | Main Features  |
 ----------|-----------------
-&#128581; | Compatible with iPhone / iPad
-&#127968; | Fully customizable cells
-&#128288; | Supports device rotation
-&#128273; | Written completely in Swift 
+✔️ | Compatible with iPhone / iPad
+✔️ | Fully customizable cells
+✔️ | Supports device rotation
+🔥 | Written completely in Swift 
 
 
 ## Requirements
