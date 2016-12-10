@@ -2,14 +2,6 @@
   <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/logo.png" alt="Accordion Custom Image"/>
 </p>
 
-
-</br>
-
-<p align="center">
-  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/iPhones.png" alt="Accordion Custom Image"/>
-</p>
-
-
 [![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=master)](https://travis-ci.org/Vkt0r/AccordionMenu)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
             )](http://mit-license.org)
