@@ -24,14 +24,13 @@ An accordion/dropdown menu to integrate in your projects.
 
 |         | Main Features  |
 ----------|-----------------
-✔️ | Compatible with iPhone / iPad
-✔️ | Fully customizable cells
-✔️ | Supports device rotation
+📱 | Compatible with iPhone / iPad
+🔨 | Fully customizable cells
+🚒 | Supports device rotation
 🔥 | Written completely in Swift 
 
 
-## Requirements
-
+## Requirements 💥
 - iOS 8.0+
 - Xcode 8.0+
 
@@ -65,8 +64,7 @@ Then, run the following command:
 $ pod install
 ```
 
-## Usage
-
+## Usage ✨
 After import the framework it's neccessary to inherit from the class `AccordionTableViewController` and set it's data source the total of items from the data source and if you like if several cells is expanded or only one like in the following example:
 
 ```swift
