@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/Vkt0r/AccordionMenu">
+    <a href="https://travis-ci.org/Vkt0r/AccordionMenuSwift">
         <img src="https://api.travis-ci.org/Vkt0r/AccordionMenuSwift.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
