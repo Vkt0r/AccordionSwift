@@ -2,13 +2,20 @@
   <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/repo-logo.png" alt="Accordion Custom Image"/>
 </p>
 
-[![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=master)](https://travis-ci.org/Vkt0r/AccordionMenu)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat
-            )](http://mit-license.org)
-[![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
-             )](https://developer.apple.com/swift)
-[![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat
-             )](https://developer.apple.com/resources/)
+<p align="center">
+    <a href="https://travis-ci.org/Vkt0r/AccordionMenu">
+        <img src="https://api.travis-ci.org/Vkt0r/AccordionMenuSwift.svg?branch=master&style=flat"
+             alt="Build Status">
+    </a>
+    <a href="https://cocoapods.org/pods/IGListKit">
+        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
+             alt="Pods Version">
+    </a>
+    <a href="http://mit-license.org">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat"
+             alt="License Type">
+    </a>
+</p>
 
 AccordionMenu is an accordion/dropdown library written in Swift.
 
