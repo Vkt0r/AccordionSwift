@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/logo.png" alt="Accordion Custom Image"/>
+  <img src="https://github.com/Vkt0r/AccordionMenu/blob/master/repo-logo.png" alt="Accordion Custom Image"/>
 </p>
 
 [![Build Status](https://travis-ci.org/Vkt0r/AccordionMenu.svg?branch=master)](https://travis-ci.org/Vkt0r/AccordionMenu)
