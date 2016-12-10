@@ -19,14 +19,18 @@
 
 ----------------
 
-AccordionMenu is an accordion/dropdown library written in Swift.
+An accordion/dropdown menu to integrate in your projects.
 
 
-## Features
+A data-driven `UICollectionView` framework for building fast and flexible lists.
 
-- [x] Compatible with iPhone / iPad
-- [x] Fully customizable
-- [x] Supports device rotation
+|         | Main Features  |
+----------|-----------------
+&#128581; | Compatible with iPhone / iPad
+&#127968; | Fully customizable cells
+&#128288; | Supports device rotation
+&#128273; | Written completely in Swift 
+
 
 ## Requirements
 
