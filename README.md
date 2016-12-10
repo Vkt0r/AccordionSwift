@@ -17,6 +17,8 @@
     </a>
 </p>
 
+----------------
+
 AccordionMenu is an accordion/dropdown library written in Swift.
 
 
