@@ -7,15 +7,14 @@
         <img src="https://api.travis-ci.org/Vkt0r/AccordionMenuSwift.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://cocoapods.org/pods/IGListKit">
-        <img src="https://img.shields.io/cocoapods/v/IGListKit.svg?style=flat"
+    <a href="https://cocoapods.org/pods/AccordionMenuSwift">
+        <img src="https://img.shields.io/cocoapods/v/AccordionMenuSwift.svg?style=flat"
              alt="Pods Version">
     </a>
     <a href="https://swift.org">
         <img src="https://img.shields.io/badge/Swift-3.0-orange.svg"
              alt="Swift Version">
     </a>
-    [![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)]()
     <a href="http://mit-license.org">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat"
              alt="License Type">
