@@ -44,6 +44,7 @@ public struct CellViewConfig<Item>: CellViewConfigType {
     public typealias CellConfigurator = (Cell, Item?, UITableView, IndexPath) -> Cell
     
     // MARK: Properties
+    
     /// A unique identifier that describes the purpose of the cells that the config produces.
     /// The config dequeues cells from the collection view or table view with this reuse identifier.
     ///

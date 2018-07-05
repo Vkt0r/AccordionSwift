@@ -27,6 +27,9 @@ public struct Section<Item> {
         return items.count
     }
     
+    /// The number of elements in the section for collapsed and expanded
+    public var total: Int
+    
     // MARK: - Initialization
     
     /// Constructs a new section.
@@ -49,6 +52,7 @@ public struct Section<Item> {
         self.items = items
         self.headerTitle = headerTitle
         self.footerTitle = footerTitle
+        self.total = items.count
     }
     
     // MARK: - Subscript

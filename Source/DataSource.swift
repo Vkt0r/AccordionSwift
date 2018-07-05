@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DataSource<Item> {
+public struct DataSource<Item: ParentType> {
     
     // MARK: - Properties
     
@@ -114,7 +114,7 @@ extension DataSource: DataSourceType {
     
     public func numberOfItems(inSection section: Int) -> Int {
         guard section < sections.count else { return 0 }
-        return sections[section].items.count
+        return sections[section].total
     }
     
     public func items(inSection section: Int) -> [Item]? {
@@ -136,5 +136,66 @@ extension DataSource: DataSourceType {
     public func footerTitle(inSection section: Int) -> String? {
         guard section < sections.count else { return nil }
         return sections[section].footerTitle
+    }
+    
+    public func findParentOfCell(atIndexPath indexPath: IndexPath) -> ParentResult {
+        let row = indexPath.row
+        guard let items = items(inSection: indexPath.section) else { return (0, true, 0) }
+        return self.findParentOfCell(atRow: row, itemsInSection: items)
+    }
+    
+    public func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
+        guard let items = items(inSection: section) else { return nil }
+        return items[parentIndex].childs[row - currentPos - 1]
+    }
+    
+    public mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int) {
+        let section = indexPath.section
+        guard var items = items(inSection: section) else { return }
+        items[parentIndex].state = .expanded
+        sections[section].total += items.count
+    }
+    
+    public mutating func collapseChilds(atIndexPath indexPath: IndexPath, parentIndex: Int) {
+        let section = indexPath.section
+        guard var items = items(inSection: section) else { return }
+        items[parentIndex].state = .collapsed
+        sections[section].total -= items.count
+    }
+}
+
+extension DataSource {
+    
+    // MARK: - Methods
+    
+    private func findParentOfCell(atRow row: Int, itemsInSection items: [Item]) -> ParentResult {
+        
+        guard row > 0 else { return (0, true, 0) }
+        
+        var position = 0
+        var parent = 0
+        var item = items[parent]
+        
+        repeat {
+            switch (item.state) {
+            case .expanded:
+                position += item.childs.count + 1
+            case .collapsed:
+                position += 1
+            }
+            
+            parent += 1
+            
+            // if is not outside of the data source boundaries
+            if parent < items.count {
+                item = items[parent]
+            }
+            
+        } while (position < row)
+        
+        // if is a parent cell the indexes are equal
+        guard position != row else  { return (parent, position == row, position) }
+        item = items[parent - 1]
+        return (parent - 1, position == row, position - item.childs.count - 1)
     }
 }

@@ -8,18 +8,27 @@
 
 import Foundation
 
-public final class DataSourceProvider<DataSource: DataSourceType, CellConfig: CellViewConfigType>
-where DataSource.Item == CellConfig.Item {
+public final class DataSourceProvider<DataSource: DataSourceType, 
+    ParentCellConfig: CellViewConfigType, 
+    ChildCellConfig: CellViewConfigType>
+where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSource.Item.ChildItem {
     
     // MARK: - Properties
     
     /// The data source.
     public var dataSource: DataSource
     
-    /// The cell configuration.
-    public let cellConfig: CellConfig
+    /// The parent cell configuration.
+    public let parentCellConfig: ParentCellConfig
     
+    /// The child cell configuration.
+    public let childCellConfig: ChildCellConfig
+    
+    /// The UITableViewDataSource
     private var _tableViewDataSource: TableViewDataSource?
+    
+    /// The UITableViewDelegate
+    private var _tableViewDelegate: TableViewDelegate?
     
     // MARK: - Initialization
     
@@ -28,9 +37,12 @@ where DataSource.Item == CellConfig.Item {
     /// - Parameters:
     ///   - dataSource: The data source.
     ///   - cellConfig: The cell configuration.
-    public init(dataSource: DataSource, cellConfig: CellConfig) {
+    public init(dataSource: DataSource, 
+                parentCellConfig: ParentCellConfig,
+                childCellConfig: ChildCellConfig) {
         self.dataSource = dataSource
-        self.cellConfig = cellConfig
+        self.parentCellConfig = parentCellConfig
+        self.childCellConfig = childCellConfig
     }
 }
 
@@ -58,8 +70,16 @@ extension DataSourceProvider {
         })
         
         dataSource.tableCellForRowAtIndexPath = { [unowned self] (tableView, indexPath) -> UITableViewCell in
+            
+            let (parentPosition, isParent, currentPos) = self.dataSource.findParentOfCell(atIndexPath: indexPath)
+            
+            guard isParent else {
+                let item = self.dataSource.childItem(at: indexPath, parentIndex: parentPosition, currentPos: currentPos)
+                return self.childCellConfig.tableCellFor(item: item!, tableView: tableView, indexPath: indexPath)
+            }
+            
             let item = self.dataSource.item(at: indexPath)!
-            return self.cellConfig.tableCellFor(item: item, tableView: tableView, indexPath: indexPath)
+            return self.parentCellConfig.tableCellFor(item: item, tableView: tableView, indexPath: indexPath)
         }
         
         dataSource.tableTitleForHeaderInSection = { [unowned self] (section) -> String? in
@@ -72,5 +92,63 @@ extension DataSourceProvider {
         
         return dataSource
     }
+}
+
+extension DataSourceProvider {
+    
+    // MARK: - UITableViewDelegate
+    
+    /// The UITableViewDataSource protocol handler
+    public var tableViewDelegate: UITableViewDelegate {
+        if _tableViewDelegate == nil {
+            _tableViewDelegate = configTableViewDelegate()
+        }
+        
+        return _tableViewDelegate!
+    }
+    
+    private func configTableViewDelegate() -> TableViewDelegate {
+        
+        let delegate = TableViewDelegate()
+        
+        delegate.didSelectRowAtIndexPath = { [unowned self] (tableView, indexPath) -> Void in
+            let (parentIndex, isParent, _) = self.dataSource.findParentOfCell(atIndexPath: indexPath)
+            
+            if isParent {
+                tableView.beginUpdates()
+                
+                switch (self.dataSource.item(at: indexPath)!.state) {
+                case .expanded:
+                    
+                    let numberOfChilds = self.dataSource.item(at: indexPath)!.childs.count
+                    let indexPaths = (parentIndex + 1...parentIndex + numberOfChilds)
+                        .map { IndexPath(row: $0, section: indexPath.section)}
+                    
+                    tableView.deleteRows(at: indexPaths, with: .fade)
+                    self.dataSource.collapseChilds(atIndexPath: indexPath, parentIndex: parentIndex)
+                
+                case .collapsed:
+                    
+                    let numberOfChilds = self.dataSource.item(at: indexPath)!.childs.count
+                    var insertPos = indexPath.row + 1
+                    
+                    let indexPaths = (0..<numberOfChilds)
+                        .map { _ -> IndexPath in
+                            let indexPath = IndexPath(row: insertPos, section: indexPath.section)
+                            insertPos += 1
+                            return indexPath
+                    }
+                    
+                    tableView.insertRows(at: indexPaths, with: .fade)
+                    self.dataSource.expandParent(atIndexPath: indexPath, parentIndex: parentIndex)
+                }
+                
+                tableView.endUpdates()
+            }
+        }
+        
+        return delegate
+    }
+    
 }
 

@@ -53,6 +53,10 @@ extension TableViewDataSource: UITableViewDataSource {
         return tableCellForRowAtIndexPath!(tableView, indexPath)
     }
     
+    @objc func numberOfSections(in tableView: UITableView) -> Int {
+        return numberOfSections()
+    }
+    
     @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let closure = tableTitleForHeaderInSection else { return nil }
         return closure(section)

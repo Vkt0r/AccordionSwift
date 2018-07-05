@@ -14,7 +14,11 @@ public protocol DataSourceType {
     // MARK: - Associated Type
     
     /// The type of items in the data source.
-    associatedtype Item
+    associatedtype Item: ParentType
+    
+    // MARK: - Typealias
+    
+    typealias ParentResult = (parentPosition: Int, isParent: Bool, currentPos: Int)
     
     // MARK: - Methods
     
@@ -34,6 +38,8 @@ public protocol DataSourceType {
     ///   - section:  A section index in the data source.
     /// - Returns: The item specified by the section number and row number, otherwise nil.
     func item(atRow row: Int, inSection section: Int) -> Item?
+        
+    func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem?
     
     /// - Parameter section: A section in the data source.
     /// - Returns: The header title for the specified section.
@@ -42,6 +48,12 @@ public protocol DataSourceType {
     /// - Parameter section: A section in the data source.
     /// - Returns: The footer title for the specified section.
     func footerTitle(inSection section: Int) -> String?
+    
+    func findParentOfCell(atIndexPath indexPath: IndexPath) -> ParentResult
+    
+    mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int)
+    
+    mutating func collapseChilds(atIndexPath indexPath: IndexPath, parentIndex: Int)
 }
 
 extension DataSourceType {
@@ -53,4 +65,8 @@ extension DataSourceType {
     public func item(at indexPath: IndexPath) -> Item? {
         return item(atRow: indexPath.row, inSection: indexPath.section)
     }
-}
+    
+    public func childItem(at indexPath: IndexPath, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
+        return childItem(atRow: indexPath.row, inSection: indexPath.section, parentIndex: parentIndex, currentPos: currentPos)
+    }
+} 
