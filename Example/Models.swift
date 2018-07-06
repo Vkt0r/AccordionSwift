@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct ParentCellModel {
-    let title: String
+struct GroupCellModel {
+    let name: String
 }
 
-struct ChildCellModel {
-    let title: String
+struct CountryCellModel {
+    let name: String
 }

@@ -35,11 +35,11 @@ extension CellViewConfigType {
     }
 }
 
-public struct CellViewConfig<Item>: CellViewConfigType {
+public struct CellViewConfig<Item, CellType: UITableViewCell>: CellViewConfigType {
     
     // MARK: Type aliases
     
-    public typealias Cell = UITableViewCell
+    public typealias Cell = CellType
     
     public typealias CellConfigurator = (Cell, Item?, UITableView, IndexPath) -> Cell
     
@@ -72,11 +72,5 @@ public struct CellViewConfig<Item>: CellViewConfigType {
     
     public func configure(cell view: Cell, item: Item?, tableView: UITableView, indexPath: IndexPath) -> Cell {
         return cellConfigurator(view, item, tableView, indexPath)
-    }
-    
-    public func tableCellFor(item: Item, tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let reuseIdentifier = reuseIdentiferFor(item: item, indexPath: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) 
-        return configure(cell: cell, item: item, tableView: tableView, indexPath: indexPath)
     }
 }

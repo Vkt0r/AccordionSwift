@@ -153,14 +153,14 @@ extension DataSource: DataSourceType {
         let section = indexPath.section
         guard var items = items(inSection: section) else { return }
         items[parentIndex].state = .expanded
-        sections[section].total += items.count
+        sections[section].total += items[parentIndex].childs.count
     }
     
     public mutating func collapseChilds(atIndexPath indexPath: IndexPath, parentIndex: Int) {
         let section = indexPath.section
         guard var items = items(inSection: section) else { return }
         items[parentIndex].state = .collapsed
-        sections[section].total -= items.count
+        sections[section].total -= items[parentIndex].childs.count
     }
 }
 

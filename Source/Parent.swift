@@ -15,17 +15,20 @@ public enum State {
 
 public protocol ParentType {
     
+    // MARK: - Associated Types
+    
     associatedtype Item
+    
     associatedtype ChildItem
     
     /// The current state of the cell
     var state: State { get set }
     
     /// The item in the parent cell
-    var item: Item { get set }
+    var item: Item { get }
     
     /// The childs of the cell
-    var childs: [ChildItem] { get set }
+    var childs: [ChildItem] { get }
 }
 
 /// Defines the Parent model for the cells
@@ -37,10 +40,10 @@ public class Parent<Item, ChildItem>: ParentType {
     public var state: State
     
     /// The item in the parent cell
-    public var item: Item
+    public let item: Item
     
     /// The childs of the cell
-    public var childs: [ChildItem]
+    public let childs: [ChildItem]
     
     // MARK: - Initializer
     

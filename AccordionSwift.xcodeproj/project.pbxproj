@@ -23,8 +23,9 @@
 		A36D6D3920EEC7FD00224B9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A36D6D3720EEC7FD00224B9B /* LaunchScreen.storyboard */; };
 		A36D6D4420EEC7FE00224B9B /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D4320EEC7FE00224B9B /* ExampleTests.swift */; };
 		A36D6D4D20EEC83100224B9B /* AccordionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D4C20EEC83100224B9B /* AccordionTableViewController.swift */; };
-		A36D6D4F20EEC94400224B9B /* ParentCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D4E20EEC94400224B9B /* ParentCellModel.swift */; };
+		A36D6D4F20EEC94400224B9B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D4E20EEC94400224B9B /* Models.swift */; };
 		A36D6D5120EECE0300224B9B /* AccordionSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36D6CFC20EC1F8600224B9B /* AccordionSwift.framework */; };
+		A36D6D5320EFBE3800224B9B /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D5220EFBE3800224B9B /* CountryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +69,8 @@
 		A36D6D4320EEC7FE00224B9B /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		A36D6D4520EEC7FE00224B9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A36D6D4C20EEC83100224B9B /* AccordionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionTableViewController.swift; sourceTree = "<group>"; };
-		A36D6D4E20EEC94400224B9B /* ParentCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCellModel.swift; sourceTree = "<group>"; };
+		A36D6D4E20EEC94400224B9B /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		A36D6D5220EFBE3800224B9B /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,11 +160,12 @@
 			children = (
 				A36D6D2E20EEC7FB00224B9B /* AppDelegate.swift */,
 				A36D6D4C20EEC83100224B9B /* AccordionTableViewController.swift */,
+				A36D6D4E20EEC94400224B9B /* Models.swift */,
+				A36D6D5220EFBE3800224B9B /* CountryTableViewCell.swift */,
 				A36D6D3220EEC7FB00224B9B /* Main.storyboard */,
 				A36D6D3520EEC7FD00224B9B /* Assets.xcassets */,
 				A36D6D3720EEC7FD00224B9B /* LaunchScreen.storyboard */,
 				A36D6D3A20EEC7FD00224B9B /* Info.plist */,
-				A36D6D4E20EEC94400224B9B /* ParentCellModel.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -376,8 +379,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36D6D5320EFBE3800224B9B /* CountryTableViewCell.swift in Sources */,
 				A36D6D4D20EEC83100224B9B /* AccordionTableViewController.swift in Sources */,
-				A36D6D4F20EEC94400224B9B /* ParentCellModel.swift in Sources */,
+				A36D6D4F20EEC94400224B9B /* Models.swift in Sources */,
 				A36D6D2F20EEC7FB00224B9B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

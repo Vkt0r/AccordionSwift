@@ -78,7 +78,7 @@ extension DataSourceProvider {
                 return self.childCellConfig.tableCellFor(item: item!, tableView: tableView, indexPath: indexPath)
             }
             
-            let item = self.dataSource.item(at: indexPath)!
+            let item = self.dataSource.item(at: IndexPath(item: parentPosition, section: indexPath.section))!
             return self.parentCellConfig.tableCellFor(item: item, tableView: tableView, indexPath: indexPath)
         }
         
@@ -117,10 +117,12 @@ extension DataSourceProvider {
             if isParent {
                 tableView.beginUpdates()
                 
-                switch (self.dataSource.item(at: indexPath)!.state) {
+                let item = self.dataSource.item(atRow: parentIndex, inSection: indexPath.section)
+                
+                switch (item!.state) {
                 case .expanded:
                     
-                    let numberOfChilds = self.dataSource.item(at: indexPath)!.childs.count
+                    let numberOfChilds = item!.childs.count
                     let indexPaths = (parentIndex + 1...parentIndex + numberOfChilds)
                         .map { IndexPath(row: $0, section: indexPath.section)}
                     
@@ -129,7 +131,7 @@ extension DataSourceProvider {
                 
                 case .collapsed:
                     
-                    let numberOfChilds = self.dataSource.item(at: indexPath)!.childs.count
+                    let numberOfChilds = item!.childs.count
                     var insertPos = indexPath.row + 1
                     
                     let indexPaths = (0..<numberOfChilds)
@@ -145,6 +147,10 @@ extension DataSourceProvider {
                 
                 tableView.endUpdates()
             }
+        }
+        
+        delegate.heightForRowAtIndexPath = { [unowned self] (tableView, indexPath) -> CGFloat in
+            return !self.dataSource.findParentOfCell(atIndexPath: indexPath).isParent ? 35.0 : 40.0
         }
         
         return delegate
