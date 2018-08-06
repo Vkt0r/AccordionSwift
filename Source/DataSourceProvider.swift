@@ -13,22 +13,31 @@ public final class DataSourceProvider<DataSource: DataSourceType,
     ChildCellConfig: CellViewConfigType>
 where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSource.Item.ChildItem {
     
+    // MARK: - Typealias
+    
+    public typealias DidSelectParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> Void
+    public typealias DidSelectChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> Void
+    
     // MARK: - Properties
     
     /// The data source.
     public var dataSource: DataSource
     
     /// The parent cell configuration.
-    public let parentCellConfig: ParentCellConfig
+    private let parentCellConfig: ParentCellConfig
     
     /// The child cell configuration.
-    public let childCellConfig: ChildCellConfig
+    private let childCellConfig: ChildCellConfig
     
     /// The UITableViewDataSource
     private var _tableViewDataSource: TableViewDataSource?
     
     /// The UITableViewDelegate
     private var _tableViewDelegate: TableViewDelegate?
+    
+    private let didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure?
+    
+    private let didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure?
     
     // MARK: - Initialization
     
@@ -39,10 +48,14 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     ///   - cellConfig: The cell configuration.
     public init(dataSource: DataSource, 
                 parentCellConfig: ParentCellConfig,
-                childCellConfig: ChildCellConfig) {
+                childCellConfig: ChildCellConfig,
+                didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure? = nil,
+                didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure? = nil) {
         self.dataSource = dataSource
         self.parentCellConfig = parentCellConfig
         self.childCellConfig = childCellConfig
+        self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
+        self.didSelectChildAtIndexPath = didSelectChildAtIndexPath
     }
 }
 
@@ -59,6 +72,9 @@ extension DataSourceProvider {
         return _tableViewDataSource!
     }
     
+    /// Config the UITableViewDataSource methods
+    ///
+    /// - Returns: An instance of the `TableViewDataSource`
     private func configTableViewDataSource() -> TableViewDataSource {
         
         let dataSource = TableViewDataSource(
@@ -107,45 +123,56 @@ extension DataSourceProvider {
         return _tableViewDelegate!
     }
     
+    private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
+        tableView.beginUpdates()
+        
+        switch (item!.state) {
+        case .expanded:
+            
+            let numberOfChilds = item!.childs.count
+            let indexPaths = (currentPosition + 1...currentPosition + numberOfChilds)
+                .map { IndexPath(row: $0, section: indexPath.section)}
+            
+            tableView.deleteRows(at: indexPaths, with: .fade)
+            dataSource.collapseChilds(atIndexPath: indexPath, parentIndex: parentIndex)
+            
+        case .collapsed:
+            
+            let numberOfChilds = item!.childs.count
+            var insertPos = indexPath.row + 1
+            
+            let indexPaths = (0..<numberOfChilds)
+                .map { _ -> IndexPath in
+                    let indexPath = IndexPath(row: insertPos, section: indexPath.section)
+                    insertPos += 1
+                    return indexPath
+            }
+            
+            tableView.insertRows(at: indexPaths, with: .fade)
+            dataSource.expandParent(atIndexPath: indexPath, parentIndex: parentIndex)
+        }
+        
+        tableView.endUpdates()
+    }
+    
+    /// Config the UITableViewDelegate methods
+    ///
+    /// - Returns: An instance of the `TableViewDelegate`
     private func configTableViewDelegate() -> TableViewDelegate {
         
         let delegate = TableViewDelegate()
         
         delegate.didSelectRowAtIndexPath = { [unowned self] (tableView, indexPath) -> Void in
-            let (parentIndex, isParent, _) = self.dataSource.findParentOfCell(atIndexPath: indexPath)
+            let (parentIndex, isParent, currentPosition) = self.dataSource.findParentOfCell(atIndexPath: indexPath)
+            let item = self.dataSource.item(atRow: parentIndex, inSection: indexPath.section)
             
             if isParent {
-                tableView.beginUpdates()
-                
-                let item = self.dataSource.item(atRow: parentIndex, inSection: indexPath.section)
-                
-                switch (item!.state) {
-                case .expanded:
-                    
-                    let numberOfChilds = item!.childs.count
-                    let indexPaths = (parentIndex + 1...parentIndex + numberOfChilds)
-                        .map { IndexPath(row: $0, section: indexPath.section)}
-                    
-                    tableView.deleteRows(at: indexPaths, with: .fade)
-                    self.dataSource.collapseChilds(atIndexPath: indexPath, parentIndex: parentIndex)
-                
-                case .collapsed:
-                    
-                    let numberOfChilds = item!.childs.count
-                    var insertPos = indexPath.row + 1
-                    
-                    let indexPaths = (0..<numberOfChilds)
-                        .map { _ -> IndexPath in
-                            let indexPath = IndexPath(row: insertPos, section: indexPath.section)
-                            insertPos += 1
-                            return indexPath
-                    }
-                    
-                    tableView.insertRows(at: indexPaths, with: .fade)
-                    self.dataSource.expandParent(atIndexPath: indexPath, parentIndex: parentIndex)
-                }
-                
-                tableView.endUpdates()
+                self.update(tableView, item, currentPosition, indexPath, parentIndex)
+                self.didSelectParentAtIndexPath?(tableView, indexPath, item)
+            } else {
+                let index = indexPath.row - currentPosition - 1
+                let childItem = index >= 0 ? item?.childs[index] : nil
+                self.didSelectChildAtIndexPath?(tableView, indexPath, childItem)
             }
         }
         
@@ -155,6 +182,5 @@ extension DataSourceProvider {
         
         return delegate
     }
-    
 }
 

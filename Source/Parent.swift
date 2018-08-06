@@ -17,8 +17,10 @@ public protocol ParentType {
     
     // MARK: - Associated Types
     
+    /// The type of item in the ParentType
     associatedtype Item
     
+    /// The type of item in the Child
     associatedtype ChildItem
     
     /// The current state of the cell

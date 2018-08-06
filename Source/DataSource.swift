@@ -138,12 +138,6 @@ extension DataSource: DataSourceType {
         return sections[section].footerTitle
     }
     
-    public func findParentOfCell(atIndexPath indexPath: IndexPath) -> ParentResult {
-        let row = indexPath.row
-        guard let items = items(inSection: indexPath.section) else { return (0, true, 0) }
-        return self.findParentOfCell(atRow: row, itemsInSection: items)
-    }
-    
     public func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
         guard let items = items(inSection: section) else { return nil }
         return items[parentIndex].childs[row - currentPos - 1]
@@ -164,38 +158,3 @@ extension DataSource: DataSourceType {
     }
 }
 
-extension DataSource {
-    
-    // MARK: - Methods
-    
-    private func findParentOfCell(atRow row: Int, itemsInSection items: [Item]) -> ParentResult {
-        
-        guard row > 0 else { return (0, true, 0) }
-        
-        var position = 0
-        var parent = 0
-        var item = items[parent]
-        
-        repeat {
-            switch (item.state) {
-            case .expanded:
-                position += item.childs.count + 1
-            case .collapsed:
-                position += 1
-            }
-            
-            parent += 1
-            
-            // if is not outside of the data source boundaries
-            if parent < items.count {
-                item = items[parent]
-            }
-            
-        } while (position < row)
-        
-        // if is a parent cell the indexes are equal
-        guard position != row else  { return (parent, position == row, position) }
-        item = items[parent - 1]
-        return (parent - 1, position == row, position - item.childs.count - 1)
-    }
-}

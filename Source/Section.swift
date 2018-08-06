@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines a section of items
-public struct Section<Item> {
+public struct Section<Item: ParentType> {
     
     // MARK: - Properties
     
@@ -52,7 +52,10 @@ public struct Section<Item> {
         self.items = items
         self.headerTitle = headerTitle
         self.footerTitle = footerTitle
-        self.total = items.count
+        self.total = items.reduce(0) { (numberOfItems, cell) -> Int in
+            let isExpanded = cell.state == .expanded
+            return numberOfItems + (isExpanded ? cell.childs.count + 1 : 1)
+        }
     }
     
     // MARK: - Subscript
