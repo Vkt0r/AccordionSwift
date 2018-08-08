@@ -7,12 +7,12 @@
         <img src="https://api.travis-ci.org/Vkt0r/AccordionMenuSwift.svg?branch=master&style=flat"
              alt="Build Status">
     </a>
-    <a href="https://cocoapods.org/pods/AccordionMenuSwift">
-        <img src="https://img.shields.io/cocoapods/v/AccordionMenuSwift.svg?style=flat"
+    <a href="https://cocoapods.org/pods/AccordionSwift">
+        <img src="https://img.shields.io/cocoapods/v/AccordionSwift.svg?style=flat"
              alt="Pods Version">
     </a>
     <a href="https://swift.org">
-        <img src="https://img.shields.io/badge/Swift-3.0-orange.svg"
+        <img src="https://img.shields.io/badge/Swift-4.0-orange.svg"
              alt="Swift Version">
     </a>
     <a href="http://mit-license.org">
@@ -23,7 +23,7 @@
 
 ----------------
 
-An accordion/dropdown menu to integrate in your projects.
+_An accordion/dropdown menu to integrate in your projects. This library is protocol oriented, type safe and the new version is inspired in [JSQDataSourcesKit](https://github.com/jessesquires/JSQDataSourcesKit) by Jesse Squires_.
 
 
 |         | Main Features  |
@@ -35,8 +35,8 @@ An accordion/dropdown menu to integrate in your projects.
 
 
 ## Requirements 💥
-- iOS 8.0+
-- Xcode 8.0+
+- iOS 10.0+
+- Xcode 10.1+
 
 ## Installation
 
@@ -48,9 +48,9 @@ An accordion/dropdown menu to integrate in your projects.
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1.0+ is required to build Alamofire 4.0.0+.
+> CocoaPods 1.1.0+ is required to build AccordionSwift 2.0.0+.
 
-To integrate AccordionMenuSwift into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate AccordionSwift into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -58,7 +58,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'AccordionMenuSwift', '~> 1.2.6'
+    pod 'AccordionSwift', '~> 2.0.0'
 end
 ```
 
@@ -69,41 +69,70 @@ $ pod install
 ```
 
 ## Usage ✨
-After import the framework it's neccessary to inherit from the class `AccordionTableViewController` and set it's data source the total of items from the data source and if you like if several cells is expanded or only one like in the following example:
+After import the framework the library can be used in a `UITableViewController` or a `UIViewController` and offers a full customization of the cells and data source:
 
 ```swift
 import UIKit
-import AccordionMenuSwift
+import AccordionSwift
 
-class AccordionViewController: AccordionTableViewController {
-
+class AccordionViewController: UIViewController {
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: - Typealias
+    
+    typealias ParentCellModel = Parent<GroupCellModel, CountryCellModel>
+    typealias ParentCellConfig = CellViewConfig<ParentCellModel, UITableViewCell>
+    typealias ChildCellConfig = CellViewConfig<CountryCellModel, CountryTableViewCell>
+    
+    // MARK: - Properties
+    
+    /// The Data Source Provider with the type of DataSource and the different models for the Parent and Chidl cell.
+    var dataSourceProvider: DataSourceProvider<DataSource<ParentCellModel>, ParentCellConfig, ChildCellConfig>?
+    
+    // MARK: - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let item1 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 1")
-        let item2 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 2")
-        let item3 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2", "SubItem 3"], title: "Item 3")
-        let item4 = Parent(state: .collapsed, childs: ["SubItem 1", "SubItem 2"], title: "Item 4")
-        let item5 = Parent(state: .collapsed, childs: [], title: "Item 5") // No childs for this cell
-
-        dataSource = [item1, item2, item3, item4, item5]
-        numberOfCellsExpanded = .several
-        total = dataSource.count
+        configDataSource()
+        
+        navigationItem.title = "World Cup 2018"
     }
 }
 ```
-In the above example the `AccordionViewController` in Interface Builder it's an `UITableViewController`.
+The above example shows how to define a `CellViewConfig` for the parent and child cells respectively and how to define the `Parent` model. 
 
-Afterwards it's necessary to define two cells in the `UITableView` with the identifiers `"ParentCell"` and `"ChildCell"`.
+```swift
+/// Defines a cell config type to handle a UITableViewCell
+public protocol CellViewConfigType {
+    
+    // MARK: Associated types
+    
+    /// The type of elements backing the collection view or table view.
+    associatedtype Item
+    
+    /// The type of views that the configuration produces.
+    associatedtype Cell: UITableViewCell
+    
+    // MARK: Methods
+    
+    func reuseIdentiferFor(item: Item?, indexPath: IndexPath) -> String
+    
+    @discardableResult
+    func configure(cell: Cell, item: Item?, tableView: UITableView, indexPath: IndexPath) -> Cell
+}
+```
 
-You can see the [Example](https://github.com/Vkt0r/AccordionMenuSwift/tree/master/Example) project for more information in how to integrate it.
+The another step is define the `DataSourceProvider` in charge of handle the data source and the `CellViewConfig` for each cell.
 
-## ToDo
+You can see the [Example](https://github.com/Vkt0r/AccordionSwift/tree/master/Example) project for more information in how to integrate it correctly.
+
+## TODO
 
 - [ ] Add Carthage support.
-- [ ] Add suport to be notified when cell is tapped using closures.
-- [ ] Add support for multiple levels
-- [ ] Improve the integration with functional programming
+- [ ] Add support to define the height of the cell in the configuration.
 - [ ] Add unit tests for the library
 
 

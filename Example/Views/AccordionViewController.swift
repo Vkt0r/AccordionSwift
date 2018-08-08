@@ -1,39 +1,48 @@
 //
-//  AccordionTableViewController.swift
+//  AccordionViewController.swift
 //  Example
 //
-//  Created by Victor Sigler Lopez on 7/5/18.
+//  Created by Victor Sigler on 8/8/18.
 //  Copyright © 2018 Victor Sigler. All rights reserved.
 //
 
 import UIKit
 import AccordionSwift
 
-class AccordionTableViewController: UITableViewController {
+class AccordionViewController: UIViewController {
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Typealias
     
-    typealias ParentCellConfig = CellViewConfig<Parent<GroupCellModel, CountryCellModel>, UITableViewCell>
+    typealias ParentCellModel = Parent<GroupCellModel, CountryCellModel>
+    typealias ParentCellConfig = CellViewConfig<ParentCellModel, UITableViewCell>
     typealias ChildCellConfig = CellViewConfig<CountryCellModel, CountryTableViewCell>
     
     // MARK: - Properties
     
-    /// The Data Source Provider with the type of DataSource and the different models for the Parent and Chidl cell.
-    var dataSourceProvider: DataSourceProvider<DataSource<Parent<GroupCellModel, CountryCellModel>>, ParentCellConfig, ChildCellConfig>?
+    /// The Data Source Provider with the type of DataSource and the different models for the Parent and Child cell.
+    var dataSourceProvider: DataSourceProvider<DataSource<ParentCellModel>, ParentCellConfig, ChildCellConfig>?
     
     // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configDataSource()
+        
+        navigationItem.title = "World Cup 2018"
     }
 }
 
-extension AccordionTableViewController {
+extension AccordionViewController {
     
     // MARK: - Methods
     
+    /// Configure the data source 
     private func configDataSource() {
+        
         let groupA = Parent(state: .expanded, item: GroupCellModel(name: "Group A"),
                             childs: [CountryCellModel(name: "Uruguay"),
                                      CountryCellModel(name: "Russia"),
@@ -90,10 +99,10 @@ extension AccordionTableViewController {
                                      CountryCellModel(name: "Poland")]
         )
         
-        let section0 = Section([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH], headerTitle: "World Cup 2018")
+        let section0 = Section([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH], headerTitle: nil)
         let dataSource = DataSource(sections: section0)
         
-        let parentCellConfig = CellViewConfig<Parent<GroupCellModel, CountryCellModel>, UITableViewCell>(
+        let parentCellConfig = CellViewConfig<ParentCellModel, UITableViewCell>(
         reuseIdentifier: "GroupCell") { (cell, model, tableView, indexPath) -> UITableViewCell in
             cell.textLabel?.text = model?.item.name
             return cell
@@ -106,7 +115,7 @@ extension AccordionTableViewController {
             return cell
         }
         
-        let didSelectParentCell = { (tableView: UITableView, indexPath: IndexPath, item: Parent<GroupCellModel, CountryCellModel>?) -> Void in
+        let didSelectParentCell = { (tableView: UITableView, indexPath: IndexPath, item: ParentCellModel?) -> Void in
             print("Parent cell \(item!.item.name) tapped")
         }
         

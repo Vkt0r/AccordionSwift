@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines the state of a cell
 public enum State {
     case collapsed
     case expanded

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines a cell config type to handle a UITableViewCell
 public protocol CellViewConfigType {
     
     // MARK: Associated types

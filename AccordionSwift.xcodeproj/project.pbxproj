@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04441A00211AB24C00D2A699 /* AccordionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044419FF211AB24C00D2A699 /* AccordionViewController.swift */; };
+		04441A04211AB3FE00D2A699 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04441A03211AB3FE00D2A699 /* MainTableViewController.swift */; };
 		A36D6D0620EC1F8600224B9B /* AccordionSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36D6CFC20EC1F8600224B9B /* AccordionSwift.framework */; };
 		A36D6D0D20EC1F8700224B9B /* AccordionSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = A36D6CFF20EC1F8600224B9B /* AccordionSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A36D6D1920EC20FC00224B9B /* DataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D1820EC20FC00224B9B /* DataSourceType.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044419FF211AB24C00D2A699 /* AccordionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionViewController.swift; sourceTree = "<group>"; };
+		04441A03211AB3FE00D2A699 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		A36D6CFC20EC1F8600224B9B /* AccordionSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AccordionSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36D6CFF20EC1F8600224B9B /* AccordionSwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccordionSwift.h; sourceTree = "<group>"; };
 		A36D6D0020EC1F8600224B9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,6 +111,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04441A01211AB2A100D2A699 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A36D6D4E20EEC94400224B9B /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		04441A02211AB2AD00D2A699 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A36D6D4C20EEC83100224B9B /* AccordionTableViewController.swift */,
+				044419FF211AB24C00D2A699 /* AccordionViewController.swift */,
+				A36D6D5220EFBE3800224B9B /* CountryTableViewCell.swift */,
+				04441A03211AB3FE00D2A699 /* MainTableViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A36D6CF220EC1F8600224B9B = {
 			isa = PBXGroup;
 			children = (
@@ -158,13 +181,12 @@
 		A36D6D2D20EEC7FB00224B9B /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				04441A02211AB2AD00D2A699 /* Views */,
+				04441A01211AB2A100D2A699 /* Models */,
 				A36D6D2E20EEC7FB00224B9B /* AppDelegate.swift */,
-				A36D6D4C20EEC83100224B9B /* AccordionTableViewController.swift */,
-				A36D6D4E20EEC94400224B9B /* Models.swift */,
-				A36D6D5220EFBE3800224B9B /* CountryTableViewCell.swift */,
 				A36D6D3220EEC7FB00224B9B /* Main.storyboard */,
-				A36D6D3520EEC7FD00224B9B /* Assets.xcassets */,
 				A36D6D3720EEC7FD00224B9B /* LaunchScreen.storyboard */,
+				A36D6D3520EEC7FD00224B9B /* Assets.xcassets */,
 				A36D6D3A20EEC7FD00224B9B /* Info.plist */,
 			);
 			path = Example;
@@ -381,7 +403,9 @@
 			files = (
 				A36D6D5320EFBE3800224B9B /* CountryTableViewCell.swift in Sources */,
 				A36D6D4D20EEC83100224B9B /* AccordionTableViewController.swift in Sources */,
+				04441A00211AB24C00D2A699 /* AccordionViewController.swift in Sources */,
 				A36D6D4F20EEC94400224B9B /* Models.swift in Sources */,
+				04441A04211AB3FE00D2A699 /* MainTableViewController.swift in Sources */,
 				A36D6D2F20EEC7FB00224B9B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,6 +586,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -590,6 +615,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

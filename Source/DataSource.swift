@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines a sectioned data source to be displayed in the UITableView
 public struct DataSource<Item: ParentType> {
     
     // MARK: - Properties

@@ -1,8 +1,0 @@
-language: objective-c  #1
-osx_image: xcode8.1 #2
-before_install:
-  - gem install cocoapods # Since Travis is not always on latest version
-  - pod install --project-directory=Example
-script:
-  - ./Example/fastlane/travis.sh
-  - pod lib lint
