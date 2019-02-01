@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<testsuites name='AccordionMenuSwift_Tests.xctest' tests='2' failures='0'>
-  <testsuite name='AccordionMenuSwift_Tests.Tests' tests='2' failures='0'>
-    <testcase classname='AccordionMenuSwift_Tests.Tests' name='testExample' time='0.001'/>
-    <testcase classname='AccordionMenuSwift_Tests.Tests' name='testPerformanceExample' time='0.333'/>
-  </testsuite>
-</testsuites>
