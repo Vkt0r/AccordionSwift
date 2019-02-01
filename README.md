@@ -133,7 +133,8 @@ You can see the [Example](https://github.com/Vkt0r/AccordionSwift/tree/master/Ex
 
 - [ ] Add Carthage support.
 - [ ] Add support to define the height of the cell in the configuration.
-- [ ] Add unit tests for the library
+- [ ] Add unit tests for the library.
+- [ ] Add CircleCI integration.
 
 
 ## Feedback
