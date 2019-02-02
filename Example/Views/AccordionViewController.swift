@@ -43,12 +43,7 @@ extension AccordionViewController {
     /// Configure the data source 
     private func configDataSource() {
         
-        let groupA = Parent(state: .expanded, item: GroupCellModel(name: "Group A"),
-                            childs: [CountryCellModel(name: "Uruguay"),
-                                     CountryCellModel(name: "Russia"),
-                                     CountryCellModel(name: "Saudi Arabia"),
-                                     CountryCellModel(name: "Egypt")]
-        )
+        let groupA = Parent(state: .expanded, item: GroupCellModel(name: "Group A"), childs: [CountryCellModel]())
         
         let groupB = Parent(state: .expanded, item: GroupCellModel(name: "Group B"),
                             childs: [CountryCellModel(name: "Spain"),
