@@ -126,10 +126,14 @@ extension DataSourceProvider {
     private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
         tableView.beginUpdates()
         
+        let numberOfChilds = item!.childs.count
+        
+        // If the cell doesn't have any child then return
+        guard numberOfChilds > 0 else { return }
+        
         switch (item!.state) {
         case .expanded:
             
-            let numberOfChilds = item!.childs.count
             let indexPaths = (currentPosition + 1...currentPosition + numberOfChilds)
                 .map { IndexPath(row: $0, section: indexPath.section)}
             
@@ -138,7 +142,6 @@ extension DataSourceProvider {
             
         case .collapsed:
             
-            let numberOfChilds = item!.childs.count
             var insertPos = indexPath.row + 1
             
             let indexPaths = (0..<numberOfChilds)
