@@ -124,12 +124,13 @@ extension DataSourceProvider {
     }
     
     private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
-        tableView.beginUpdates()
         
         let numberOfChilds = item!.childs.count
         
         // If the cell doesn't have any child then return
         guard numberOfChilds > 0 else { return }
+        
+        tableView.beginUpdates()
         
         switch (item!.state) {
         case .expanded:
