@@ -118,12 +118,22 @@ extension AccordionViewController {
             print("Child cell \(item!.name) tapped")
         }
         
+        let heightForParentCell = { (tableView: UITableView, indexPath: IndexPath, item: ParentCellModel?) -> CGFloat in
+            return 55
+        }
+        
+        let heightForChildCell = { (tableView: UITableView, indexPath: IndexPath, item: CountryCellModel?) -> CGFloat in
+            return 40
+        }
+        
         dataSourceProvider = DataSourceProvider(
             dataSource: dataSource,
             parentCellConfig: parentCellConfig,
             childCellConfig: childCellConfig,
             didSelectParentAtIndexPath: didSelectParentCell,
-            didSelectChildAtIndexPath: didSelectChildCell
+            didSelectChildAtIndexPath: didSelectChildCell,
+            heightForParentCellAtIndexPath: heightForParentCell,
+            heightForChildCellAtIndexPath: heightForChildCell
         )
         
         tableView.dataSource = dataSourceProvider?.tableViewDataSource

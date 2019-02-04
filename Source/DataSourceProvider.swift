@@ -18,6 +18,9 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     public typealias DidSelectParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> Void
     public typealias DidSelectChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> Void
     
+    public typealias HeightForChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> CGFloat
+    public typealias HeightForParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> CGFloat
+    
     // MARK: - Properties
     
     /// The data source.
@@ -35,9 +38,17 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     /// The UITableViewDelegate
     private var _tableViewDelegate: TableViewDelegate?
     
+    /// The closure to be called when a Parent cell is selected
     private let didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure?
     
+    /// The closure to be called when a Child cell is selected
     private let didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure?
+    
+    /// The closure to define the height of the Parent cell at the specified IndexPath
+    private let heightForParentCellAtIndexPath: HeightForParentAtIndexPathClosure?
+    
+    /// The closure to define the height of the Child cell at the specified IndexPath
+    private let heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure?
     
     // MARK: - Initialization
     
@@ -50,12 +61,17 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
                 parentCellConfig: ParentCellConfig,
                 childCellConfig: ChildCellConfig,
                 didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure? = nil,
-                didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure? = nil) {
+                didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure? = nil,
+                heightForParentCellAtIndexPath: HeightForParentAtIndexPathClosure? = nil,
+                heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure? = nil
+                ) {
         self.dataSource = dataSource
         self.parentCellConfig = parentCellConfig
         self.childCellConfig = childCellConfig
         self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
         self.didSelectChildAtIndexPath = didSelectChildAtIndexPath
+        self.heightForParentCellAtIndexPath = heightForParentCellAtIndexPath
+        self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
     }
 }
 
@@ -181,7 +197,16 @@ extension DataSourceProvider {
         }
         
         delegate.heightForRowAtIndexPath = { [unowned self] (tableView, indexPath) -> CGFloat in
-            return !self.dataSource.findParentOfCell(atIndexPath: indexPath).isParent ? 35.0 : 40.0
+            let (parentIndex, isParent, currentPosition) = self.dataSource.findParentOfCell(atIndexPath: indexPath)
+            let item = self.dataSource.item(atRow: parentIndex, inSection: indexPath.section)
+            
+            if isParent {
+                return self.heightForParentCellAtIndexPath?(tableView, indexPath, item) ?? 40
+            }
+            
+            let index = indexPath.row - currentPosition - 1
+            let childItem = index >= 0 ? item?.childs[index] : nil
+            return self.heightForChildCellAtIndexPath?(tableView, indexPath, childItem) ?? 35
         }
         
         return delegate
