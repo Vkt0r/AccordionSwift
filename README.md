@@ -3,16 +3,12 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/Vkt0r/AccordionMenuSwift">
-        <img src="https://api.travis-ci.org/Vkt0r/AccordionMenuSwift.svg?branch=master&style=flat"
-             alt="Build Status">
-    </a>
     <a href="https://cocoapods.org/pods/AccordionSwift">
         <img src="https://img.shields.io/cocoapods/v/AccordionSwift.svg?style=flat"
              alt="Pods Version">
     </a>
     <a href="https://swift.org">
-        <img src="https://img.shields.io/badge/Swift-4.0-orange.svg"
+        <img src="https://img.shields.io/badge/Swift-4.2-orange.svg"
              alt="Swift Version">
     </a>
     <a href="http://mit-license.org">
