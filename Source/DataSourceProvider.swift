@@ -167,12 +167,34 @@ extension DataSourceProvider {
                     insertPos += 1
                     return indexPath
             }
-            
+           
             tableView.insertRows(at: indexPaths, with: .fade)
             dataSource.expandParent(atIndexPath: indexPath, parentIndex: parentIndex)
         }
         
         tableView.endUpdates()
+        
+        // If the cells were expanded then we verify if they are inside the CGRect
+        if item!.state == .expanded {
+            let lastCellIndexPath = IndexPath(item: indexPath.item + numberOfChilds, section: indexPath.section)
+            // Scroll the new cells expanded in case of be outside the UITableView CGRect
+            scrollCellIfNeeded(atIndexPath: lastCellIndexPath, tableView)
+        }
+    }
+    
+    /// Scroll the new cells expanded in case of be outside the UITableView CGRect
+    ///
+    /// - Parameters:
+    ///   - indexPaths: The last IndexPath of the new cells expanded
+    ///   - tableView: The UITableView to update
+    private func scrollCellIfNeeded(atIndexPath indexPath: IndexPath, _ tableView: UITableView) {
+        
+        let cellRect = tableView.rectForRow(at: indexPath)
+        
+        // Scroll to the cell in case of not being visible
+        if !tableView.bounds.contains(cellRect) {
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     /// Config the UITableViewDelegate methods
