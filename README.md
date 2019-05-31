@@ -8,7 +8,7 @@
              alt="Pods Version">
     </a>
     <a href="https://swift.org">
-        <img src="https://img.shields.io/badge/Swift-4.2-orange.svg"
+        <img src="https://img.shields.io/badge/Swift-5.0-orange.svg"
              alt="Swift Version">
     </a>
     <a href="http://mit-license.org">
