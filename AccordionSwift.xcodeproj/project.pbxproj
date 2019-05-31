@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		04441A00211AB24C00D2A699 /* AccordionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044419FF211AB24C00D2A699 /* AccordionViewController.swift */; };
 		04441A04211AB3FE00D2A699 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04441A03211AB3FE00D2A699 /* MainTableViewController.swift */; };
+		0483C2C622A1993100DD6E4D /* AccordionSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A36D6CFC20EC1F8600224B9B /* AccordionSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A36D6D0620EC1F8600224B9B /* AccordionSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A36D6CFC20EC1F8600224B9B /* AccordionSwift.framework */; };
 		A36D6D0D20EC1F8700224B9B /* AccordionSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = A36D6CFF20EC1F8600224B9B /* AccordionSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A36D6D1920EC20FC00224B9B /* DataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D6D1820EC20FC00224B9B /* DataSourceType.swift */; };
@@ -46,6 +47,19 @@
 			remoteInfo = Example;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0483C2C522A1992700DD6E4D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0483C2C622A1993100DD6E4D /* AccordionSwift.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		044419FF211AB24C00D2A699 /* AccordionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionViewController.swift; sourceTree = "<group>"; };
@@ -265,6 +279,7 @@
 				A36D6D2820EEC7FB00224B9B /* Sources */,
 				A36D6D2920EEC7FB00224B9B /* Frameworks */,
 				A36D6D2A20EEC7FB00224B9B /* Resources */,
+				0483C2C522A1992700DD6E4D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -305,7 +320,7 @@
 				TargetAttributes = {
 					A36D6CFB20EC1F8600224B9B = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 					};
 					A36D6D0420EC1F8600224B9B = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -587,7 +602,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -598,7 +613,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -616,7 +631,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -626,7 +641,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -635,7 +650,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZLZHS4FPF3;
 				INFOPLIST_FILE = AccordionSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -644,6 +661,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.AccordionSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -653,7 +671,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZLZHS4FPF3;
 				INFOPLIST_FILE = AccordionSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -662,6 +682,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.AccordionSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -673,7 +694,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F744RWFJH5;
+				DEVELOPMENT_TEAM = ZLZHS4FPF3;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -693,7 +714,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F744RWFJH5;
+				DEVELOPMENT_TEAM = ZLZHS4FPF3;
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
