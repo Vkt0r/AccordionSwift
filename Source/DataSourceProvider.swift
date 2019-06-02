@@ -21,6 +21,8 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     public typealias HeightForChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> CGFloat
     public typealias HeightForParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> CGFloat
     
+    
+    
     // MARK: - Properties
     
     /// The data source.
@@ -50,6 +52,9 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     /// The closure to define the height of the Child cell at the specified IndexPath
     private let heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure?
     
+    /// The closure to be called when scrollView is scrolled
+    private let scrollViewDidScroll: ScrollViewDidScrollClosure?
+    
     // MARK: - Initialization
     
     /// Initializes a new data source provider.
@@ -63,7 +68,8 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
                 didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure? = nil,
                 didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure? = nil,
                 heightForParentCellAtIndexPath: HeightForParentAtIndexPathClosure? = nil,
-                heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure? = nil
+                heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure? = nil,
+                scrollViewDidScroll: ScrollViewDidScrollClosure? = nil
                 ) {
         self.dataSource = dataSource
         self.parentCellConfig = parentCellConfig
@@ -72,6 +78,7 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
         self.didSelectChildAtIndexPath = didSelectChildAtIndexPath
         self.heightForParentCellAtIndexPath = heightForParentCellAtIndexPath
         self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
+        self.scrollViewDidScroll = scrollViewDidScroll
     }
 }
 
@@ -229,6 +236,10 @@ extension DataSourceProvider {
             let index = indexPath.row - currentPosition - 1
             let childItem = index >= 0 ? item?.childs[index] : nil
             return self.heightForChildCellAtIndexPath?(tableView, indexPath, childItem) ?? 35
+        }
+        
+        delegate.scrollViewDidScrollClosure = { [unowned self] (scrollView) -> Void in
+            self.scrollViewDidScroll?(scrollView)
         }
         
         return delegate

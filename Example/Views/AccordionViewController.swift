@@ -126,6 +126,11 @@ extension AccordionViewController {
             return 40
         }
         
+        let scrollViewDidScroll = { (scrollView: UIScrollView) -> Void in
+            print(scrollView.contentOffset)
+            
+        }
+        
         dataSourceProvider = DataSourceProvider(
             dataSource: dataSource,
             parentCellConfig: parentCellConfig,
@@ -133,7 +138,8 @@ extension AccordionViewController {
             didSelectParentAtIndexPath: didSelectParentCell,
             didSelectChildAtIndexPath: didSelectChildCell,
             heightForParentCellAtIndexPath: heightForParentCell,
-            heightForChildCellAtIndexPath: heightForChildCell
+            heightForChildCellAtIndexPath: heightForChildCell,
+            scrollViewDidScroll: scrollViewDidScroll
         )
         
         tableView.dataSource = dataSourceProvider?.tableViewDataSource
