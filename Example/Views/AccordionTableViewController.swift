@@ -118,12 +118,18 @@ extension AccordionTableViewController {
             print("Child cell \(item!.name) tapped")
         }
         
+        let scrollViewDidScroll = { (scrollView: UIScrollView) -> Void in
+            print(scrollView.contentOffset)
+            
+        }
+        
         dataSourceProvider = DataSourceProvider(
             dataSource: dataSource,
             parentCellConfig: parentCellConfig,
             childCellConfig: childCellConfig,
             didSelectParentAtIndexPath: didSelectParentCell,
-            didSelectChildAtIndexPath: didSelectChildCell
+            didSelectChildAtIndexPath: didSelectChildCell,
+            scrollViewDidScroll: scrollViewDidScroll
         )
         
         tableView.dataSource = dataSourceProvider?.tableViewDataSource
