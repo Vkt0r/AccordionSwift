@@ -28,6 +28,6 @@ The best way of implement an accordion menu using an UITableView in Swift
   s.social_media_url = 'https://twitter.com/Vkt0r'
   s.swift_version    = '5.0'
 
-  s.ios.deployment_target = '11.4'
+  s.ios.deployment_target = '10.0'
   s.source_files = 'Source/*.swift'
 end
