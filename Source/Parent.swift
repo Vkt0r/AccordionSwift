@@ -30,8 +30,8 @@ public protocol ParentType {
     /// The item in the parent cell
     var item: Item { get }
     
-    /// The childs of the cell
-    var childs: [ChildItem] { get }
+    /// The children of the cell
+    var children: [ChildItem] { get }
 }
 
 /// Defines the Parent model for the cells
@@ -45,8 +45,8 @@ public class Parent<Item, ChildItem>: ParentType {
     /// The item in the parent cell
     public let item: Item
     
-    /// The childs of the cell
-    public let childs: [ChildItem]
+    /// The children of the cell
+    public let children: [ChildItem]
     
     // MARK: - Initializer
     
@@ -55,10 +55,10 @@ public class Parent<Item, ChildItem>: ParentType {
     /// - Parameters:
     ///   - state: The state of the cell
     ///   - item: The item in the cell
-    ///   - childs: The childs assigned to the cell
-    public init(state: State = .collapsed, item: Item, childs: [ChildItem]) {
+    ///   - children: The children assigned to the cell
+    public init(state: State = .collapsed, item: Item, children: [ChildItem]) {
         self.state = state
         self.item = item
-        self.childs = childs
+        self.children = children
     }
 }

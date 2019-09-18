@@ -54,7 +54,7 @@ public struct Section<Item: ParentType> {
         self.footerTitle = footerTitle
         self.total = items.reduce(0) { (numberOfItems, cell) -> Int in
             let isExpanded = cell.state == .expanded
-            return numberOfItems + (isExpanded ? cell.childs.count + 1 : 1)
+            return numberOfItems + (isExpanded ? cell.children.count + 1 : 1)
         }
     }
     
