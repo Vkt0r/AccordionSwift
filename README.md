@@ -32,7 +32,7 @@ _An accordion/dropdown menu to integrate in your projects. This library is proto
 
 ## Requirements 💥
 - iOS 10.0+
-- Xcode 10.1+
+- Xcode 10.2+
 
 ## Installation
 
@@ -50,7 +50,7 @@ To integrate AccordionSwift into your Xcode project using CocoaPods, specify it 
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
@@ -65,7 +65,7 @@ $ pod install
 ```
 
 ## Usage ✨
-After import the framework the library can be used in a `UITableViewController` or a `UIViewController` and offers a full customization of the cells and data source:
+After importing the framework, the library can be used in a `UITableViewController` or a `UIViewController` and offers full customization of the cells and data source:
 
 ```swift
 import UIKit
@@ -147,4 +147,4 @@ Great! Please launch a [pull request](https://github.com/Vkt0r/AccordionMenu/pul
 
 License:
 =================
-The MIT License. See the LICENSE file for more infomation.
+The MIT License. See the [LICENSE file](LICENSE) for more information.
