@@ -43,52 +43,52 @@ extension AccordionViewController {
     /// Configure the data source 
     private func configDataSource() {
         
-        let groupA = Parent(state: .expanded, item: GroupCellModel(name: "Group A"), childs: [CountryCellModel]())
+        let groupA = Parent(state: .expanded, item: GroupCellModel(name: "Group A"), children: [CountryCellModel]())
         
         let groupB = Parent(state: .expanded, item: GroupCellModel(name: "Group B"),
-                            childs: [CountryCellModel(name: "Spain"),
+                            children: [CountryCellModel(name: "Spain"),
                                      CountryCellModel(name: "Portugal"),
                                      CountryCellModel(name: "Iran"),
                                      CountryCellModel(name: "Morocco")]
         )
         
         let groupC = Parent(state: .collapsed, item: GroupCellModel(name: "Group C"),
-                            childs: [CountryCellModel(name: "France"),
+                            children: [CountryCellModel(name: "France"),
                                      CountryCellModel(name: "Denmark"),
                                      CountryCellModel(name: "Peru"),
                                      CountryCellModel(name: "Australia")]
         )
         
         let groupD = Parent(state: .expanded, item: GroupCellModel(name: "Group D"),
-                            childs: [CountryCellModel(name: "Croatia"),
+                            children: [CountryCellModel(name: "Croatia"),
                                      CountryCellModel(name: "Argentina"),
                                      CountryCellModel(name: "Nigeria"),
                                      CountryCellModel(name: "Iceland")]
         )
         
         let groupE = Parent(state: .collapsed, item: GroupCellModel(name: "Group E"),
-                            childs: [CountryCellModel(name: "Brazil"),
+                            children: [CountryCellModel(name: "Brazil"),
                                      CountryCellModel(name: "Switzerland"),
                                      CountryCellModel(name: "Serbia"),
                                      CountryCellModel(name: "Costa Rica")]
         )
         
         let groupF = Parent(state: .collapsed, item: GroupCellModel(name: "Group F"),
-                            childs: [CountryCellModel(name: "Sweden"),
+                            children: [CountryCellModel(name: "Sweden"),
                                      CountryCellModel(name: "Mexico"),
                                      CountryCellModel(name: "South Korea"),
                                      CountryCellModel(name: "Germany")]
         )
         
         let groupG = Parent(state: .collapsed, item: GroupCellModel(name: "Group G"),
-                            childs: [CountryCellModel(name: "Belgium"),
+                            children: [CountryCellModel(name: "Belgium"),
                                      CountryCellModel(name: "England"),
                                      CountryCellModel(name: "Tunisia"),
                                      CountryCellModel(name: "Panama")]
         )
         
         let groupH = Parent(state: .expanded, item: GroupCellModel(name: "Group H"),
-                            childs: [CountryCellModel(name: "Colombia"),
+                            children: [CountryCellModel(name: "Colombia"),
                                      CountryCellModel(name: "Japan"),
                                      CountryCellModel(name: "Senegal"),
                                      CountryCellModel(name: "Poland")]

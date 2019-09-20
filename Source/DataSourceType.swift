@@ -68,7 +68,7 @@ public protocol DataSourceType {
     /// - Parameters:
     ///   - indexPath: The index path in the data source.
     ///   - parentIndex: The index of the parent to expand.
-    mutating func collapseChilds(atIndexPath indexPath: IndexPath, parentIndex: Int)
+    mutating func collapseChildren(atIndexPath indexPath: IndexPath, parentIndex: Int)
 }
 
 extension DataSourceType {
@@ -106,7 +106,7 @@ extension DataSourceType {
         var item = items[parent]
         
         repeat {
-            position += (item.state == .expanded) ? item.childs.count + 1 : 1
+            position += (item.state == .expanded) ? item.children.count + 1 : 1
             parent += 1
             
             // check for the boundaries of the data source
@@ -119,6 +119,6 @@ extension DataSourceType {
         // if it is a parent cell then the indexes should be equal
         guard position != row else { return (parent, position == row, position) }
         item = items[parent - 1]
-        return (parent - 1, position == row, position - item.childs.count - 1)
+        return (parent - 1, position == row, position - item.children.count - 1)
     }
 } 

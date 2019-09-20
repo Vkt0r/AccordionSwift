@@ -148,27 +148,27 @@ extension DataSourceProvider {
     
     private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
         
-        let numberOfChilds = item!.childs.count
+        let numberOfChildren = item!.children.count
         
         // If the cell doesn't have any child then return
-        guard numberOfChilds > 0 else { return }
+        guard numberOfChildren > 0 else { return }
         
         tableView.beginUpdates()
         
         switch (item!.state) {
         case .expanded:
             
-            let indexPaths = (currentPosition + 1...currentPosition + numberOfChilds)
+            let indexPaths = (currentPosition + 1...currentPosition + numberOfChildren)
                 .map { IndexPath(row: $0, section: indexPath.section)}
             
             tableView.deleteRows(at: indexPaths, with: .fade)
-            dataSource.collapseChilds(atIndexPath: indexPath, parentIndex: parentIndex)
+            dataSource.collapseChildren(atIndexPath: indexPath, parentIndex: parentIndex)
             
         case .collapsed:
             
             var insertPos = indexPath.row + 1
             
-            let indexPaths = (0..<numberOfChilds)
+            let indexPaths = (0..<numberOfChildren)
                 .map { _ -> IndexPath in
                     let indexPath = IndexPath(row: insertPos, section: indexPath.section)
                     insertPos += 1
@@ -183,7 +183,7 @@ extension DataSourceProvider {
         
         // If the cells were expanded then we verify if they are inside the CGRect
         if item!.state == .expanded {
-            let lastCellIndexPath = IndexPath(item: indexPath.item + numberOfChilds, section: indexPath.section)
+            let lastCellIndexPath = IndexPath(item: indexPath.item + numberOfChildren, section: indexPath.section)
             // Scroll the new cells expanded in case of be outside the UITableView CGRect
             scrollCellIfNeeded(atIndexPath: lastCellIndexPath, tableView)
         }
@@ -220,7 +220,7 @@ extension DataSourceProvider {
                 self.didSelectParentAtIndexPath?(tableView, indexPath, item)
             } else {
                 let index = indexPath.row - currentPosition - 1
-                let childItem = index >= 0 ? item?.childs[index] : nil
+                let childItem = index >= 0 ? item?.children[index] : nil
                 self.didSelectChildAtIndexPath?(tableView, indexPath, childItem)
             }
         }
@@ -234,7 +234,7 @@ extension DataSourceProvider {
             }
             
             let index = indexPath.row - currentPosition - 1
-            let childItem = index >= 0 ? item?.childs[index] : nil
+            let childItem = index >= 0 ? item?.children[index] : nil
             return self.heightForChildCellAtIndexPath?(tableView, indexPath, childItem) ?? 35
         }
         

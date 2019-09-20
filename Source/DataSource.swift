@@ -141,21 +141,21 @@ extension DataSource: DataSourceType {
     
     public func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
         guard let items = items(inSection: section) else { return nil }
-        return items[parentIndex].childs[row - currentPos - 1]
+        return items[parentIndex].children[row - currentPos - 1]
     }
     
     public mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int) {
         let section = indexPath.section
         guard var items = items(inSection: section) else { return }
         items[parentIndex].state = .expanded
-        sections[section].total += items[parentIndex].childs.count
+        sections[section].total += items[parentIndex].children.count
     }
     
-    public mutating func collapseChilds(atIndexPath indexPath: IndexPath, parentIndex: Int) {
+    public mutating func collapseChildren(atIndexPath indexPath: IndexPath, parentIndex: Int) {
         let section = indexPath.section
         guard var items = items(inSection: section) else { return }
         items[parentIndex].state = .collapsed
-        sections[section].total -= items[parentIndex].childs.count
+        sections[section].total -= items[parentIndex].children.count
     }
 }
 
