@@ -10,7 +10,7 @@
 import Foundation
 
 // Defines if there can be multiple cells expanded at once
-public enum NumberCellsExpanded {
+public enum NumberOfExpandedParentCells {
     case single
     case multiple
 }
@@ -39,7 +39,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
     private var expandedParent: ParentCell? = nil
 
     // Defines if accordion can have more than one cell open at a time
-    private var numberExpandedParentCells: NumberCellsExpanded
+    private var numberOfExpandedParentCells: NumberOfExpandedParentCells
 
     /// The parent cell configuration.
     private let parentCellConfig: ParentCellConfig
@@ -83,7 +83,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
                 heightForParentCellAtIndexPath: HeightForParentAtIndexPathClosure? = nil,
                 heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure? = nil,
                 scrollViewDidScroll: ScrollViewDidScrollClosure? = nil,
-                numberExpandedParentCells: NumberCellsExpanded = .multiple
+                numberOfExpandedParentCells: NumberOfExpandedParentCells = .multiple
     ) {
         self.dataSource = dataSource
         self.parentCellConfig = parentCellConfig
@@ -94,7 +94,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
         self.scrollViewDidScroll = scrollViewDidScroll
         self.expandedParent = nil
-        self.numberExpandedParentCells = numberExpandedParentCells
+        self.numberOfExpandedParentCells = numberOfExpandedParentCells
     }
 
     // MARK: - Private Methods
@@ -124,7 +124,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
                 index: parentIndex)
 
         tableView.beginUpdates()
-        toggleCellState(currentState: item.state, selectedParentCell: selectedParentCell)
+        toggle(selectedParentCell, withState: item.state)
         tableView.endUpdates()
 
         // If the cells were expanded then we verify if they are inside the CGRect
@@ -140,24 +140,22 @@ public final class DataSourceProvider<DataSource: DataSourceType,
     // - Parameters:
     //   - currentState: The current state of the selected parent
     //   - selectedParentCell: The actual cell selected
-    private func toggleCellState(currentState: State, selectedParentCell: ParentCell) {
-        switch (currentState) {
-        case .expanded:
+    private func toggle(_ selectedParentCell: ParentCell, withState currentState: State) {
+        switch (currentState, numberOfExpandedParentCells) {
+        case (.expanded, _):
             // Collapse the parent and it's children
             collapse(parent: selectedParentCell)
             expandedParent = nil
-        case .collapsed:
-            // Expand the parent and it's children
-            switch numberExpandedParentCells {
-            case .single:
-                if let expandedParent = expandedParent {
-                    collapse(parent: expandedParent)
-                }
-                expand(parent: selectedParentCell)
-                expandedParent = selectedParentCell
-            case .multiple:
-                expand(parent: selectedParentCell)
+        case (.collapsed, .single):
+            // Expand the parent and it's children and collapse the expanded parent
+            if let expandedParent = expandedParent {
+                collapse(parent: expandedParent)
             }
+            expand(parent: selectedParentCell)
+            expandedParent = selectedParentCell
+        case (.collapsed, .multiple):
+            // Expand the parent and it's children
+            expand(parent: selectedParentCell)
         }
     }
 
@@ -172,27 +170,27 @@ public final class DataSourceProvider<DataSource: DataSourceType,
             return
         }
 
-        var insertPos = 1 + {
-            switch numberExpandedParentCells {
-            case .single:
-                // Make use of parent index due to fact indexPath.row does not update the row position after
-                // collapsing the previously expanded parent
-                return parent.index
-            case .multiple:
-                // Make use of indexPath if multiple parents can be expanded as indexPath.row will be up to date
-                return parent.indexPath.row
-            }
-        }()
+        let insertPos = getStartIndex(forParent: parent)
 
-        let indexPaths = (0..<numberOfChildren)
-                .map { _ -> IndexPath in
-            let indexPath = IndexPath(row: insertPos, section: parent.indexPath.section)
-            insertPos += 1
-            return indexPath
+        let indexPaths = (1...numberOfChildren)
+                .map { offset -> IndexPath in
+            IndexPath(row: insertPos + offset, section: parent.indexPath.section)
         }
 
         parent.tableView.insertRows(at: indexPaths, with: .fade)
         dataSource.expandParent(atIndexPath: parent.indexPath, parentIndex: parent.index)
+    }
+
+    private func getStartIndex(forParent parent: ParentCell) -> Int {
+        switch numberOfExpandedParentCells {
+        case .single:
+            // Make use of parent index due to fact indexPath.row does not update the row position after
+            // collapsing the previously expanded parent
+            return parent.index
+        case .multiple:
+            // Make use of indexPath if multiple parents can be expanded as indexPath.row will be up to date
+            return parent.indexPath.row
+        }
     }
 
     // Collapse the parent cell and it's children
@@ -206,15 +204,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
             return
         }
 
-        let startPosition: Int = {
-            switch numberExpandedParentCells {
-            case .single:
-                // Make use of parent index as current position in data source might not be in the correct position
-                return parent.index
-            case .multiple:
-                return parent.currentPosition
-            }
-        }()
+        let startPosition = getStartIndex(forParent: parent)
 
         let indexPaths = (startPosition + 1...startPosition + numberOfChildren)
                 .map {
