@@ -28,7 +28,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
     public typealias HeightForChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> CGFloat
     public typealias HeightForParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> CGFloat
 
-    private typealias ParentCell = (tableView: UITableView, currentPosition: Int, indexPath: IndexPath, index: Int)
+    private typealias ParentCell = (tableView: UITableView, indexPath: IndexPath, index: Int)
 
     // MARK: - Properties
 
@@ -85,7 +85,14 @@ public final class DataSourceProvider<DataSource: DataSourceType,
                 scrollViewDidScroll: ScrollViewDidScrollClosure? = nil,
                 numberOfExpandedParentCells: NumberOfExpandedParentCells = .multiple
     ) {
-        self.dataSource = dataSource
+        self.numberOfExpandedParentCells = numberOfExpandedParentCells
+        if numberOfExpandedParentCells == .single {
+            var mutableDataSource = dataSource
+            mutableDataSource.collapseAll()
+            self.dataSource = mutableDataSource
+        }else {
+            self.dataSource = dataSource
+        }
         self.parentCellConfig = parentCellConfig
         self.childCellConfig = childCellConfig
         self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
@@ -94,8 +101,9 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
         self.scrollViewDidScroll = scrollViewDidScroll
         self.expandedParent = nil
-        self.numberOfExpandedParentCells = numberOfExpandedParentCells
     }
+
+
 
     // MARK: - Private Methods
 
@@ -119,7 +127,6 @@ public final class DataSourceProvider<DataSource: DataSourceType,
 
         let selectedParentCell: ParentCell = ParentCell(
                 tableView: tableView,
-                currentPosition: currentPosition,
                 indexPath: indexPath,
                 index: parentIndex)
 
@@ -172,7 +179,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
 
         let indexPaths = getIndexes(parent, numberOfChildren)
         parent.tableView.insertRows(at: indexPaths, with: .fade)
-        dataSource.expandParent(atIndexPath: parent.indexPath, parentIndex: parent.index)
+        dataSource.toggle(state: .expanded, inSection: parent.indexPath.section, atIndex: parent.index)
     }
 
     // Collapse the parent cell and it's children
@@ -188,7 +195,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
 
         let indexPaths = getIndexes(parent, numberOfChildren)
         parent.tableView.deleteRows(at: indexPaths, with: .fade)
-        dataSource.collapseChildren(atIndexPath: parent.indexPath, parentIndex: parent.index)
+        dataSource.toggle(state: .collapsed, inSection: parent.indexPath.section, atIndex: parent.index)
     }
 
     ///  Get a list of index paths of the children of the parent cell
