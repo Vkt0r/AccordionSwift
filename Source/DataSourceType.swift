@@ -55,20 +55,17 @@ public protocol DataSourceType {
     /// - Parameter section: A section in the data source.
     /// - Returns: The footer title for the specified section.
     func footerTitle(inSection section: Int) -> String?
-    
-    /// Expand the parent cell in the data source.
+
+    /// Toggle the state of the parent cell in the data source between (.expanded and .collapsed).
     ///
     /// - Parameters:
-    ///   - indexPath: The index path in the data source.
-    ///   - parentIndex: The index of the parent to expand.
-    mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int)
-    
-    /// Collapse the parent cell in the data source.
-    ///
-    /// - Parameters:
-    ///   - indexPath: The index path in the data source.
-    ///   - parentIndex: The index of the parent to expand.
-    mutating func collapseChildren(atIndexPath indexPath: IndexPath, parentIndex: Int)
+    ///   - state: The state the parent cell should obtain.
+    ///   - section: The index of the section in which the parent is located.
+    ///   - parentIndex: The index of the parent.
+    mutating func toggle(state: State, inSection section: Int, atIndex parentIndex: Int)
+
+    /// Collapse all the expanded parents
+    mutating func collapseAll()
 }
 
 extension DataSourceType {
