@@ -32,7 +32,8 @@ public final class DataSourceProvider<DataSource: DataSourceType,
     // The currently expanded parent
     private var expandedParent: ParentCell? = nil
 
-    public var numberExpandedParentCells: NumberCellsExpanded
+    // Defines if accordion can have more than one cell open at a time
+    private var numberExpandedParentCells: NumberCellsExpanded
 
     /// The parent cell configuration.
     private let parentCellConfig: ParentCellConfig
