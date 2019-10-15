@@ -14,42 +14,48 @@ public enum State {
     case expanded
 }
 
+// Defines if there can be multiple cells expanded at once
+public enum NumberCellsExpanded {
+    case single
+    case multiple
+}
+
 public protocol ParentType {
-    
+
     // MARK: - Associated Types
-    
+
     /// The type of item in the ParentType
     associatedtype Item
-    
+
     /// The type of item in the Child
     associatedtype ChildItem
-    
+
     /// The current state of the cell
     var state: State { get set }
-    
+
     /// The item in the parent cell
     var item: Item { get }
-    
+
     /// The children of the cell
     var children: [ChildItem] { get }
 }
 
 /// Defines the Parent model for the cells
 public class Parent<Item, ChildItem>: ParentType {
-    
+
     // MARK: - Properties
-    
+
     /// The current state of the cell
     public var state: State
-    
+
     /// The item in the parent cell
     public let item: Item
-    
+
     /// The children of the cell
     public let children: [ChildItem]
-    
+
     // MARK: - Initializer
-    
+
     /// Construct a new Parent model
     ///
     /// - Parameters:
