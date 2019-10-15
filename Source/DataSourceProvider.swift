@@ -170,27 +170,9 @@ public final class DataSourceProvider<DataSource: DataSourceType,
             return
         }
 
-        let insertPos = getStartIndex(forParent: parent)
-
-        let indexPaths = (1...numberOfChildren)
-                .map { offset -> IndexPath in
-            IndexPath(row: insertPos + offset, section: parent.indexPath.section)
-        }
-
+        let indexPaths = getIndexes(parent, numberOfChildren)
         parent.tableView.insertRows(at: indexPaths, with: .fade)
         dataSource.expandParent(atIndexPath: parent.indexPath, parentIndex: parent.index)
-    }
-
-    private func getStartIndex(forParent parent: ParentCell) -> Int {
-        switch numberOfExpandedParentCells {
-        case .single:
-            // Make use of parent index due to fact indexPath.row does not update the row position after
-            // collapsing the previously expanded parent
-            return parent.index
-        case .multiple:
-            // Make use of indexPath if multiple parents can be expanded as indexPath.row will be up to date
-            return parent.indexPath.row
-        }
     }
 
     // Collapse the parent cell and it's children
@@ -204,15 +186,31 @@ public final class DataSourceProvider<DataSource: DataSourceType,
             return
         }
 
-        let startPosition = getStartIndex(forParent: parent)
-
-        let indexPaths = (startPosition + 1...startPosition + numberOfChildren)
-                .map {
-            IndexPath(row: $0, section: parent.indexPath.section)
-        }
-
+        let indexPaths = getIndexes(parent, numberOfChildren)
         parent.tableView.deleteRows(at: indexPaths, with: .fade)
         dataSource.collapseChildren(atIndexPath: parent.indexPath, parentIndex: parent.index)
+    }
+
+    ///  Get a list of index paths of the children of the parent cell
+    ///
+    /// - Parameters:
+    ///   - parent: The parent cell
+    ///   - numberOfChildren: The number of children the parent has
+    private func getIndexes(_ parent: ParentCell, _ numberOfChildren: Int) -> [IndexPath] {
+        let startPosition: Int = {
+            switch numberOfExpandedParentCells {
+            case .single:
+                // Make use of parent index due to fact indexPath.row does not update the row position after
+                // collapsing the previously expanded parent
+                return parent.index
+            case .multiple:
+                // Make use of indexPath if multiple parents can be expanded as indexPath.row will be up to date
+                return parent.indexPath.row
+            }
+        }()
+        return (1...numberOfChildren).map { offset -> IndexPath in
+            IndexPath(row: startPosition + offset, section: parent.indexPath.section)
+        }
     }
 
     /// Scroll the new cells expanded in case of be outside the UITableView CGRect
