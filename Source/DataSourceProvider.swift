@@ -9,6 +9,12 @@
 
 import Foundation
 
+// Defines if there can be multiple cells expanded at once
+public enum NumberCellsExpanded {
+    case single
+    case multiple
+}
+
 public final class DataSourceProvider<DataSource: DataSourceType,
                                      ParentCellConfig: CellViewConfigType,
                                      ChildCellConfig: CellViewConfigType>

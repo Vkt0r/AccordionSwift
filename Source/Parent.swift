@@ -14,12 +14,6 @@ public enum State {
     case expanded
 }
 
-// Defines if there can be multiple cells expanded at once
-public enum NumberCellsExpanded {
-    case single
-    case multiple
-}
-
 public protocol ParentType {
 
     // MARK: - Associated Types
