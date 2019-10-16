@@ -88,23 +88,34 @@ public final class DataSourceProvider<DataSource: DataSourceType,
                 expandParentAtIndex: Int? = nil
     ) {
         self.expandedParent = nil
-        var mutableDataSource = dataSource
-        let hasMultipleParentsExpandedInDataSource = numberOfExpandedParentCells == .single && dataSource.numberOfExpandedParents() > 0
-        if hasMultipleParentsExpandedInDataSource {
-            if expandParentAtIndex == nil {
-                // Should have no expanded parent initially
-                os_log("There are 1 or more expanded cells. Defaulting to collapsing all expanded cells", type: .error)
-            } else {
-                // Should have only 1 expanded parent initially
-                os_log("There are 2 or more expanded cells. Defaulting to collapsing all expanded cells except for the specified cell", type: .error)
-            }
+        self.parentCellConfig = parentCellConfig
+        self.childCellConfig = childCellConfig
+        self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
+        self.didSelectChildAtIndexPath = didSelectChildAtIndexPath
+        self.heightForParentCellAtIndexPath = heightForParentCellAtIndexPath
+        self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
+        self.scrollViewDidScroll = scrollViewDidScroll
+        self.numberOfExpandedParentCells = numberOfExpandedParentCells
 
+        var mutableDataSource = dataSource
+        let numberOfParentCells = mutableDataSource.numberOfParents()
+
+        if numberOfParentCells == 0 {
+            os_log("The data source does not contain any parents", type: .error)
+            self.dataSource = dataSource
+            return
+        }
+
+        let hasMultipleParentsExpandedInDataSource = numberOfExpandedParentCells == .single && mutableDataSource.numberOfExpandedParents() > 0
+        if hasMultipleParentsExpandedInDataSource {
+            os_log("There are expanded parent cells in the data source. Defaulting to collapsing all expanded cells", type: .error)
             mutableDataSource.collapseAll()
         }
 
         if let index = expandParentAtIndex {
+            // If specified expand the parent at index
             var indexToExpand = index
-            let indexIsOutOfBounds = index < 0 || index > mutableDataSource.numberOfParents()
+            let indexIsOutOfBounds = index < 0 || index > numberOfParentCells
 
             if indexIsOutOfBounds {
                 os_log("The expandParentAtIndex supplied is out of bounds. Defaulting to expanding the first parent", type: .error)
@@ -116,26 +127,18 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         }
 
         self.dataSource = mutableDataSource
-        self.numberOfExpandedParentCells = numberOfExpandedParentCells
-        self.parentCellConfig = parentCellConfig
-        self.childCellConfig = childCellConfig
-        self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
-        self.didSelectChildAtIndexPath = didSelectChildAtIndexPath
-        self.heightForParentCellAtIndexPath = heightForParentCellAtIndexPath
-        self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
-        self.scrollViewDidScroll = scrollViewDidScroll
     }
 
-    // MARK: - Private Methods
+// MARK: - Private Methods
 
-    // Update the cells of the table based on the selected parent cell
-    //
-    // - Parameters:
-    //   - tableView: The UITableView to update
-    //   - item: The DataSource item that was selected
-    //   - currentPosition: The current position in the data source
-    //   - indexPaths: The last IndexPath of the new cells expanded
-    //   - parentIndex: The index of the parent item selected
+// Update the cells of the table based on the selected parent cell
+//
+// - Parameters:
+//   - tableView: The UITableView to update
+//   - item: The DataSource item that was selected
+//   - currentPosition: The current position in the data source
+//   - indexPaths: The last IndexPath of the new cells expanded
+//   - parentIndex: The index of the parent item selected
     private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
         guard let item = item else {
             return
@@ -162,11 +165,11 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         }
     }
 
-    // Toggle the state of the selected parent cell between expanded and collapsed
-    //
-    // - Parameters:
-    //   - currentState: The current state of the selected parent
-    //   - selectedParentCell: The actual cell selected
+// Toggle the state of the selected parent cell between expanded and collapsed
+//
+// - Parameters:
+//   - currentState: The current state of the selected parent
+//   - selectedParentCell: The actual cell selected
     private func toggle(_ selectedParentCell: ParentCell, withState currentState: State, _ tableView: UITableView) {
         switch (currentState, numberOfExpandedParentCells) {
         case (.expanded, _):
@@ -186,10 +189,10 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         }
     }
 
-    // Expand the parent cell and it's children
-    //
-    // - Parameters:
-    //   - parent: The actual parent cell to be expanded
+// Expand the parent cell and it's children
+//
+// - Parameters:
+//   - parent: The actual parent cell to be expanded
     private func expand(parent: ParentCell, _ tableView: UITableView) {
         let numberOfChildren = dataSource.item(atRow: parent.index, inSection: parent.indexPath.section)?.children.count ?? 0
 
@@ -202,10 +205,10 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         dataSource.toggleParentCell(toState: .expanded, inSection: parent.indexPath.section, atIndex: parent.index)
     }
 
-    // Collapse the parent cell and it's children
-    //
-    // - Parameters:
-    //   - parent: The actual parent cell to be expanded
+// Collapse the parent cell and it's children
+//
+// - Parameters:
+//   - parent: The actual parent cell to be expanded
     private func collapse(parent: ParentCell, _ tableView: UITableView) {
         let numberOfChildren = dataSource.item(atRow: parent.index, inSection: parent.indexPath.section)?.children.count ?? 0
 
@@ -218,11 +221,11 @@ public final class DataSourceProvider<DataSource: DataSourceType,
         dataSource.toggleParentCell(toState: .collapsed, inSection: parent.indexPath.section, atIndex: parent.index)
     }
 
-    ///  Get a list of index paths of the children of the parent cell
-    ///
-    /// - Parameters:
-    ///   - parent: The parent cell
-    ///   - numberOfChildren: The number of children the parent has
+///  Get a list of index paths of the children of the parent cell
+///
+/// - Parameters:
+///   - parent: The parent cell
+///   - numberOfChildren: The number of children the parent has
     private func getIndexes(_ parent: ParentCell, _ numberOfChildren: Int) -> [IndexPath] {
         let startPosition: Int = {
             switch numberOfExpandedParentCells {
@@ -235,16 +238,17 @@ public final class DataSourceProvider<DataSource: DataSourceType,
                 return parent.indexPath.row
             }
         }()
-        return (1...numberOfChildren).map { offset -> IndexPath in
+        return (1...numberOfChildren).map {
+            offset -> IndexPath in
             IndexPath(row: startPosition + offset, section: parent.indexPath.section)
         }
     }
 
-    /// Scroll the new cells expanded in case of be outside the UITableView CGRect
-    ///
-    /// - Parameters:
-    ///   - indexPaths: The last IndexPath of the new cells expanded
-    ///   - tableView: The UITableView to update
+/// Scroll the new cells expanded in case of be outside the UITableView CGRect
+///
+/// - Parameters:
+///   - indexPaths: The last IndexPath of the new cells expanded
+///   - tableView: The UITableView to update
     private func scrollCellIfNeeded(atIndexPath indexPath: IndexPath, _ tableView: UITableView) {
 
         let cellRect = tableView.rectForRow(at: indexPath)
@@ -254,6 +258,7 @@ public final class DataSourceProvider<DataSource: DataSourceType,
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
+
 }
 
 extension DataSourceProvider {

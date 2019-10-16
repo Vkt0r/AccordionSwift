@@ -39,56 +39,56 @@ extension AccordionTableViewController {
     /// Configure the data source
     private func configDataSource() {
 
-        let groupA = Parent(state: .collapsed, item: GroupCellModel(name: "Group A"),
+        let groupA = Parent(item: GroupCellModel(name: "Group A"),
                 children: [CountryCellModel(name: "Uruguay"),
                            CountryCellModel(name: "Russia"),
                            CountryCellModel(name: "Saudi Arabia"),
                            CountryCellModel(name: "Egypt")]
         )
 
-        let groupB = Parent(state: .collapsed, item: GroupCellModel(name: "Group B"),
+        let groupB = Parent(item: GroupCellModel(name: "Group B"),
                 children: [CountryCellModel(name: "Spain"),
                            CountryCellModel(name: "Portugal"),
                            CountryCellModel(name: "Iran"),
                            CountryCellModel(name: "Morocco")]
         )
 
-        let groupC = Parent(state: .collapsed, item: GroupCellModel(name: "Group C"),
+        let groupC = Parent(item: GroupCellModel(name: "Group C"),
                 children: [CountryCellModel(name: "France"),
                            CountryCellModel(name: "Denmark"),
                            CountryCellModel(name: "Peru"),
                            CountryCellModel(name: "Australia")]
         )
 
-        let groupD = Parent(state: .collapsed, item: GroupCellModel(name: "Group D"),
+        let groupD = Parent(item: GroupCellModel(name: "Group D"),
                 children: [CountryCellModel(name: "Croatia"),
                            CountryCellModel(name: "Argentina"),
                            CountryCellModel(name: "Nigeria"),
                            CountryCellModel(name: "Iceland")]
         )
 
-        let groupE = Parent(state: .collapsed, item: GroupCellModel(name: "Group E"),
+        let groupE = Parent(item: GroupCellModel(name: "Group E"),
                 children: [CountryCellModel(name: "Brazil"),
                            CountryCellModel(name: "Switzerland"),
                            CountryCellModel(name: "Serbia"),
                            CountryCellModel(name: "Costa Rica")]
         )
 
-        let groupF = Parent(state: .collapsed, item: GroupCellModel(name: "Group F"),
+        let groupF = Parent(item: GroupCellModel(name: "Group F"),
                 children: [CountryCellModel(name: "Sweden"),
                            CountryCellModel(name: "Mexico"),
                            CountryCellModel(name: "South Korea"),
                            CountryCellModel(name: "Germany")]
         )
 
-        let groupG = Parent(state: .collapsed, item: GroupCellModel(name: "Group G"),
+        let groupG = Parent(item: GroupCellModel(name: "Group G"),
                 children: [CountryCellModel(name: "Belgium"),
                            CountryCellModel(name: "England"),
                            CountryCellModel(name: "Tunisia"),
                            CountryCellModel(name: "Panama")]
         )
 
-        let groupH = Parent(state: .collapsed, item: GroupCellModel(name: "Group H"),
+        let groupH = Parent(item: GroupCellModel(name: "Group H"),
                 children: [CountryCellModel(name: "Colombia"),
                            CountryCellModel(name: "Japan"),
                            CountryCellModel(name: "Senegal"),
@@ -124,7 +124,7 @@ extension AccordionTableViewController {
 
         }
 
-        DataSourceProvider(
+        dataSourceProvider = DataSourceProvider(
                 dataSource: dataSource,
                 parentCellConfig: parentCellConfig,
                 childCellConfig: childCellConfig,
