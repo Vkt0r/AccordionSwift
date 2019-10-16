@@ -124,7 +124,7 @@ extension AccordionTableViewController {
 
         }
 
-        dataSourceProvider = DataSourceProvider(
+        DataSourceProvider(
                 dataSource: dataSource,
                 parentCellConfig: parentCellConfig,
                 childCellConfig: childCellConfig,
@@ -132,7 +132,9 @@ extension AccordionTableViewController {
                 didSelectChildAtIndexPath: didSelectChildCell,
                 scrollViewDidScroll: scrollViewDidScroll,
                 // Configure DataSourceProvider to have only one parent expanded at a time
-                numberOfExpandedParentCells: .single
+                numberOfExpandedParentCells: .single,
+                // Expand the 4th element initially
+                expandParentAtIndex: 3
         )
 
         tableView.dataSource = dataSourceProvider?.tableViewDataSource
