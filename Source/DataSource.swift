@@ -201,6 +201,19 @@ extension DataSource: DataSourceType {
         }
     }
 
+    public func indexOfFirstExpandedParent() -> IndexPath? {
+        for section in (0..<self.numberOfSections()) {
+            if let parents = items(inSection: section) {
+                for parentIndex in parents.indices {
+                    if parents[parentIndex].state == .expanded {
+                        return IndexPath(item: parentIndex, section: section)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
     public func numberOfExpandedParents() -> Int {
         var count = 0
         (0..<self.numberOfSections()).map { section in
@@ -224,5 +237,6 @@ extension DataSource: DataSourceType {
         }
         return count
     }
+
 }
 
