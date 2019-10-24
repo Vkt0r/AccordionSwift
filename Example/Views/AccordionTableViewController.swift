@@ -46,7 +46,7 @@ extension AccordionTableViewController {
                            CountryCellModel(name: "Egypt")]
         )
 
-        let groupB = Parent(item: GroupCellModel(name: "Group B"),
+        let groupB = Parent(state: .expanded, item: GroupCellModel(name: "Group B"),
                 children: [CountryCellModel(name: "Spain"),
                            CountryCellModel(name: "Portugal"),
                            CountryCellModel(name: "Iran"),
