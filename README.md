@@ -123,7 +123,6 @@ public protocol CellViewConfigType {
 
 Another step is to define the `DataSourceProvider` in charge of handling the data source and the `CellViewConfig` for each cell. 
 The `DataSourceProvider` exposes the `numberOfExpandedParentCells` attribute which can be used to change the behavior of the accordion to only have a `single` item open at once or to have `multiple` items open at any given time. Take note that the default behavior is to have multiple items open.
-One can also specify that an element should be expanded initially by specifying the `expandParentAtIndex` attribute defined in the `DataSourceProvider`.
 
 For a more detailed guide please see the [Example](https://github.com/Vkt0r/AccordionSwift/tree/master/Example) project.
 
