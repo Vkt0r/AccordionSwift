@@ -95,8 +95,11 @@ extension AccordionTableViewController {
                            CountryCellModel(name: "Poland")]
         )
 
-        let section0 = Section([groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH], headerTitle: nil)
-        let dataSource = DataSource(sections: section0)
+        let sections = [groupA, groupB, groupC, groupD, groupE, groupF, groupG, groupH].map { parents in
+            Section(items: parents)
+        }
+
+        let dataSource = DataSource(sections)
 
         let parentCellConfig = CellViewConfig<Parent<GroupCellModel, CountryCellModel>, UITableViewCell>(
                 reuseIdentifier: "GroupCell") { (cell, model, tableView, indexPath) -> UITableViewCell in
