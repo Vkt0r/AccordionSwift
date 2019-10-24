@@ -74,6 +74,9 @@ public protocol DataSourceType {
     /// - Returns: The number of parents cells
     func numberOfParents() -> Int
 
+    /// Get the indexPath of the first expanded cell in the data source
+    ///
+    /// - Returns: IndexPath of the first expanded cell
     func indexOfFirstExpandedParent() -> IndexPath?
 }
 
