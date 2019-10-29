@@ -10,30 +10,30 @@ import Foundation
 
 /// Defines a sectioned data source to be displayed in the UITableView
 public struct DataSource<Item: ParentType> {
-
+    
     // MARK: - Properties
-
+    
     /// The sections in the data source.
     public var sections: [Section<Item>]
-
+    
     // MARK: -  Initialization
-
+    
     /// Constructs a new DataSource.
     ///
     /// - Parameter sections: The sections for the data source.
     public init(_ sections: [Section<Item>]) {
         self.sections = sections
     }
-
+    
     /// Constructs a new DataSource.
     ///
     /// - Parameter sections: The sections for the data source.
     public init(sections: Section<Item>...) {
         self.sections = sections
     }
-
+    
     // MARK: - Methods
-
+    
     /// Inserts the item at the specified index path
     ///
     /// - Parameters:
@@ -42,7 +42,7 @@ public struct DataSource<Item: ParentType> {
     public mutating func insert(item: Item, at indexPath: IndexPath) {
         insert(item: item, atRow: indexPath.row, inSection: indexPath.section)
     }
-
+    
     /// Inserts the item at the specified row and section.
     ///
     /// - Parameters:
@@ -58,7 +58,7 @@ public struct DataSource<Item: ParentType> {
         }
         sections[section].items.insert(item, at: row)
     }
-
+    
     /// Add the item at the specified section.
     ///
     /// - Parameters:
@@ -70,7 +70,7 @@ public struct DataSource<Item: ParentType> {
         }
         insert(item: item, atRow: items.endIndex, inSection: section)
     }
-
+    
     /// Removes the item at the specified row and section.
     ///
     /// - Parameters:
@@ -84,7 +84,7 @@ public struct DataSource<Item: ParentType> {
         }
         return sections[section].items.remove(at: row)
     }
-
+    
     /// Removes the item at the specified index path.
     ///
     /// - Parameter indexPath: The index path specifying the location of the item.
@@ -93,9 +93,9 @@ public struct DataSource<Item: ParentType> {
     public mutating func remove(at indexPath: IndexPath) -> Item? {
         return remove(atRow: indexPath.row, inSection: indexPath.section)
     }
-
+    
     // MARK: - Subscripts
-
+    
     /// The section at the specified index.
     ///
     /// - Parameter index: The index of a section.
@@ -107,7 +107,7 @@ public struct DataSource<Item: ParentType> {
             sections[index] = newValue
         }
     }
-
+    
     /// The item at the specified index path.
     ///
     /// - Parameter indexPath: The index path of an item.
@@ -122,27 +122,27 @@ public struct DataSource<Item: ParentType> {
 }
 
 extension DataSource: DataSourceType {
-
+    
     // MARK: - DataSourceType Methods
-
+    
     public func numberOfSections() -> Int {
         return sections.count
     }
-
+    
     public func numberOfItems(inSection section: Int) -> Int {
         guard section < sections.count else {
             return 0
         }
         return sections[section].total
     }
-
+    
     public func items(inSection section: Int) -> [Item]? {
         guard section < sections.count else {
             return nil
         }
         return sections[section].items
     }
-
+    
     public func item(atRow row: Int, inSection section: Int) -> Item? {
         guard let items = items(inSection: section) else {
             return nil
@@ -152,70 +152,63 @@ extension DataSource: DataSourceType {
         }
         return items[row]
     }
-
+    
     public func headerTitle(inSection section: Int) -> String? {
         guard section < sections.count else {
             return nil
         }
         return sections[section].headerTitle
     }
-
+    
     public func footerTitle(inSection section: Int) -> String? {
         guard section < sections.count else {
             return nil
         }
         return sections[section].footerTitle
     }
-
+    
     public func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
         guard let items = items(inSection: section) else {
             return nil
         }
         return items[parentIndex].children[row - currentPos - 1]
     }
-
+    
     public mutating func toggleParentCell(toState state: State, inSection section: Int, atIndex index: Int) {
         guard var parents = items(inSection: section) else {
             return
         }
+        
         parents[index].state = state
-
-        sections[section].total += {
-            var childrenCount = parents[index].children.count
-            if state == .collapsed {
-                childrenCount *= -1
-            }
-            return childrenCount
-        }()
+        var childrenCount = parents[index].children.count
+        if state == .collapsed {
+            childrenCount *= -1
+        }
+        
+        sections[section].total += childrenCount
     }
-
+    
     public func indexOfFirstExpandedParent() -> IndexPath? {
         for section in (0..<self.numberOfSections()) {
             if let parents = items(inSection: section) {
-                for parentIndex in parents.indices {
-                    if parents[parentIndex].state == .expanded {
-                        return IndexPath(item: parentIndex, section: section)
-                    }
-                }
+                return parents.firstIndex(where: { $0.state == .expanded })
+                              .map { IndexPath(item: $0, section: section) }
             }
         }
         return nil
     }
-
+    
     public func numberOfExpandedParents() -> Int {
         var count = 0
         for section in (0..<self.numberOfSections()) {
             if let parents = items(inSection: section) {
-                for parentIndex in parents.indices {
-                    if parents[parentIndex].state == .expanded {
-                        count += 1
-                    }
-                }
+                parents.firstIndex(where: { $0.state == .expanded })
+                       .map { _ in count += 1 }
             }
         }
         return count
     }
-
+    
     public func numberOfParents() -> Int {
         var count = 0
         for section in (0..<self.numberOfSections()) {
@@ -225,6 +218,6 @@ extension DataSource: DataSourceType {
         }
         return count
     }
-
+    
 }
 
