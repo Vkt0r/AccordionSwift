@@ -63,11 +63,7 @@ public struct Section<Item: ParentType> {
     /// - Parameter index: The index of the item to return.
     /// - Returns: The item at `index`.
     public subscript(index: Int) -> Item {
-        get {
-            return items[index]
-        }
-        set {
-            items[index] = newValue
-        }
+        get { return items[index] }
+        set { items[index] = newValue }
     }
 }
