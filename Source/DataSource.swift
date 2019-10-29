@@ -100,24 +100,16 @@ public struct DataSource<Item: ParentType> {
     ///
     /// - Parameter index: The index of a section.
     public subscript(index: Int) -> Section<Item> {
-        get {
-            return sections[index]
-        }
-        set {
-            sections[index] = newValue
-        }
+        get { sections[index] }
+        set { sections[index] = newValue }
     }
     
     /// The item at the specified index path.
     ///
     /// - Parameter indexPath: The index path of an item.
     public subscript(indexPath: IndexPath) -> Item {
-        get {
-            return sections[indexPath.section].items[indexPath.row]
-        }
-        set {
-            sections[indexPath.section].items[indexPath.row] = newValue
-        }
+        get { sections[indexPath.section].items[indexPath.row] }
+        set { sections[indexPath.section].items[indexPath.row] = newValue }
     }
 }
 
@@ -130,54 +122,38 @@ extension DataSource: DataSourceType {
     }
     
     public func numberOfItems(inSection section: Int) -> Int {
-        guard section < sections.count else {
-            return 0
-        }
+        guard section < sections.count else { return 0 }
         return sections[section].total
     }
     
     public func items(inSection section: Int) -> [Item]? {
-        guard section < sections.count else {
-            return nil
-        }
+        guard section < sections.count else { return nil }
         return sections[section].items
     }
     
     public func item(atRow row: Int, inSection section: Int) -> Item? {
-        guard let items = items(inSection: section) else {
-            return nil
-        }
-        guard row < items.count else {
-            return nil
-        }
+        guard let items = items(inSection: section) else { return nil }
+        guard row < items.count else { return nil }
         return items[row]
     }
     
     public func headerTitle(inSection section: Int) -> String? {
-        guard section < sections.count else {
-            return nil
-        }
+        guard section < sections.count else { return nil }
         return sections[section].headerTitle
     }
     
     public func footerTitle(inSection section: Int) -> String? {
-        guard section < sections.count else {
-            return nil
-        }
+        guard section < sections.count else { return nil }
         return sections[section].footerTitle
     }
     
     public func childItem(atRow row: Int, inSection section: Int, parentIndex: Int, currentPos: Int) -> Item.ChildItem? {
-        guard let items = items(inSection: section) else {
-            return nil
-        }
+        guard let items = items(inSection: section) else { return nil }
         return items[parentIndex].children[row - currentPos - 1]
     }
     
     public mutating func toggleParentCell(toState state: State, inSection section: Int, atIndex index: Int) {
-        guard var parents = items(inSection: section) else {
-            return
-        }
+        guard var parents = items(inSection: section) else { return }
         
         parents[index].state = state
         var childrenCount = parents[index].children.count

@@ -98,9 +98,7 @@ extension DataSourceType {
     /// - Returns: A tuple with the position of the parent cell, true if the current row is parent, otherwise false and the current position in the data source.
     public func findParentOfCell(atIndexPath indexPath: IndexPath) -> ParentResult {
         let row = indexPath.row
-        guard let items = items(inSection: indexPath.section) else {
-            return (0, true, 0)
-        }
+        guard let items = items(inSection: indexPath.section) else { return (0, true, 0) }
         return self.findParentOfCell(atRow: row, itemsInSection: items)
     }
     
@@ -110,9 +108,7 @@ extension DataSourceType {
     /// - Returns: A tuple with the position of the parent cell, true if the current row is parent, otherwise false and the current position in the data source.
     private func findParentOfCell(atRow row: Int, itemsInSection items: [Item]) -> ParentResult {
         
-        guard row > 0 else {
-            return (0, true, 0)
-        }
+        guard row > 0 else { return (0, true, 0) }
         
         var position = 0
         var parent = 0
@@ -130,9 +126,7 @@ extension DataSourceType {
         } while (position < row)
         
         // if it is a parent cell then the indexes should be equal
-        guard position != row else {
-            return (parent, position == row, position)
-        }
+        guard position != row else { return (parent, position == row, position) }
         item = items[parent - 1]
         return (parent - 1, position == row, position - item.children.count - 1)
     }
