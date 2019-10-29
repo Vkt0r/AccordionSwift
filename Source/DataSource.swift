@@ -189,21 +189,25 @@ extension DataSource: DataSourceType {
     }
     
     public func indexOfFirstExpandedParent() -> IndexPath? {
+        var indexPath: IndexPath? = nil
         for section in (0..<self.numberOfSections()) {
             if let parents = items(inSection: section) {
-                return parents.firstIndex(where: { $0.state == .expanded })
-                              .map { IndexPath(item: $0, section: section) }
+                parents.firstIndex(where: { $0.state == .expanded })
+                       .map { indexPath = IndexPath(item: $0, section: section) }
+            }
+            
+            if indexPath != nil {
+                return indexPath
             }
         }
-        return nil
+        return indexPath
     }
     
     public func numberOfExpandedParents() -> Int {
         var count = 0
         for section in (0..<self.numberOfSections()) {
             if let parents = items(inSection: section) {
-                parents.firstIndex(where: { $0.state == .expanded })
-                       .map { _ in count += 1 }
+                count += parents.filter { $0.state == .expanded }.count
             }
         }
         return count
