@@ -50,8 +50,12 @@ public struct DataSource<Item: ParentType> {
     ///   - row:  The row index of the item.
     ///   - section: The section index of the item.
     public mutating func insert(item: Item, atRow row: Int, inSection section: Int) {
-        guard section < numberOfSections() else { return }
-        guard row <= numberOfItems(inSection: section) else { return }
+        guard section < numberOfSections() else {
+            return
+        }
+        guard row <= numberOfItems(inSection: section) else {
+            return
+        }
         sections[section].items.insert(item, at: row)
     }
     
@@ -61,7 +65,9 @@ public struct DataSource<Item: ParentType> {
     ///   - item:  The item to be added.
     ///   - section: The section location for the item.
     public mutating func append(_ item: Item, inSection section: Int) {
-        guard let items = items(inSection: section) else { return }
+        guard let items = items(inSection: section) else {
+            return
+        }
         insert(item: item, atRow: items.endIndex, inSection: section)
     }
     
@@ -73,7 +79,9 @@ public struct DataSource<Item: ParentType> {
     /// - Returns: The item removed, otherwise nil if it does not exist.
     @discardableResult
     public mutating func remove(atRow row: Int, inSection section: Int) -> Item? {
-        guard item(atRow: row, inSection: section) != nil else { return nil }
+        guard item(atRow: row, inSection: section) != nil else {
+            return nil
+        }
         return sections[section].items.remove(at: row)
     }
     
@@ -91,16 +99,16 @@ public struct DataSource<Item: ParentType> {
     /// The section at the specified index.
     ///
     /// - Parameter index: The index of a section.
-    public subscript (index: Int) -> Section<Item> {
-        get { return sections[index] }
+    public subscript(index: Int) -> Section<Item> {
+        get { sections[index] }
         set { sections[index] = newValue }
     }
     
     /// The item at the specified index path.
     ///
     /// - Parameter indexPath: The index path of an item.
-    public subscript (indexPath: IndexPath) -> Item {
-        get { return sections[indexPath.section].items[indexPath.row] }
+    public subscript(indexPath: IndexPath) -> Item {
+        get { sections[indexPath.section].items[indexPath.row] }
         set { sections[indexPath.section].items[indexPath.row] = newValue }
     }
 }
@@ -144,18 +152,51 @@ extension DataSource: DataSourceType {
         return items[parentIndex].children[row - currentPos - 1]
     }
     
-    public mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int) {
-        let section = indexPath.section
-        guard var items = items(inSection: section) else { return }
-        items[parentIndex].state = .expanded
-        sections[section].total += items[parentIndex].children.count
+    public mutating func toggleParentCell(toState state: State, inSection section: Int, atIndex index: Int) {
+        guard var parents = items(inSection: section) else { return }
+        
+        parents[index].state = state
+        var childrenCount = parents[index].children.count
+        if state == .collapsed {
+            childrenCount *= -1
+        }
+        
+        sections[section].total += childrenCount
     }
     
-    public mutating func collapseChildren(atIndexPath indexPath: IndexPath, parentIndex: Int) {
-        let section = indexPath.section
-        guard var items = items(inSection: section) else { return }
-        items[parentIndex].state = .collapsed
-        sections[section].total -= items[parentIndex].children.count
+    public func indexOfFirstExpandedParent() -> IndexPath? {
+        for section in (0..<self.numberOfSections()) {
+            if let parents = items(inSection: section) {
+                let indexPath = parents.firstIndex(where: { $0.state == .expanded })
+                                       .map { IndexPath(item: $0, section: section) }
+                
+                if indexPath != nil {
+                    return indexPath
+                }
+            }
+        }
+        return nil
     }
+    
+    public func numberOfExpandedParents() -> Int {
+        var count = 0
+        for section in (0..<self.numberOfSections()) {
+            if let parents = items(inSection: section) {
+                count += parents.filter { $0.state == .expanded }.count
+            }
+        }
+        return count
+    }
+    
+    public func numberOfParents() -> Int {
+        var count = 0
+        for section in (0..<self.numberOfSections()) {
+            if let parents = items(inSection: section) {
+                count += parents.count
+            }
+        }
+        return count
+    }
+    
 }
 

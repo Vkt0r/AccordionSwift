@@ -3,15 +3,22 @@
 //  AccordionSwift
 //
 //  Created by Victor Sigler Lopez on 7/3/18.
+//  Updated by Kyle Wood on 15/10/19.
 //  Copyright © 2018 Victor Sigler. All rights reserved.
 //
 
 import Foundation
 
-public final class DataSourceProvider<DataSource: DataSourceType, 
-    ParentCellConfig: CellViewConfigType, 
-    ChildCellConfig: CellViewConfigType>
-where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSource.Item.ChildItem {
+// Defines if there can be multiple cells expanded at once
+public enum NumberOfExpandedParentCells {
+    case single
+    case multiple
+}
+
+public final class DataSourceProvider<DataSource: DataSourceType,
+                                     ParentCellConfig: CellViewConfigType,
+                                     ChildCellConfig: CellViewConfigType>
+        where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSource.Item.ChildItem {
     
     // MARK: - Typealias
     
@@ -21,12 +28,18 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     public typealias HeightForChildAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item.ChildItem?) -> CGFloat
     public typealias HeightForParentAtIndexPathClosure = (UITableView, IndexPath, DataSource.Item?) -> CGFloat
     
-    
+    private typealias ParentCell = IndexPath
     
     // MARK: - Properties
     
     /// The data source.
     public var dataSource: DataSource
+    
+    // The currently expanded parent
+    private var expandedParent: ParentCell? = nil
+    
+    // Defines if accordion can have more than one cell open at a time
+    private var numberOfExpandedParentCells: NumberOfExpandedParentCells
     
     /// The parent cell configuration.
     private let parentCellConfig: ParentCellConfig
@@ -62,16 +75,17 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
     /// - Parameters:
     ///   - dataSource: The data source.
     ///   - cellConfig: The cell configuration.
-    public init(dataSource: DataSource, 
+    public init(dataSource: DataSource,
                 parentCellConfig: ParentCellConfig,
                 childCellConfig: ChildCellConfig,
                 didSelectParentAtIndexPath: DidSelectParentAtIndexPathClosure? = nil,
                 didSelectChildAtIndexPath: DidSelectChildAtIndexPathClosure? = nil,
                 heightForParentCellAtIndexPath: HeightForParentAtIndexPathClosure? = nil,
                 heightForChildCellAtIndexPath: HeightForChildAtIndexPathClosure? = nil,
-                scrollViewDidScroll: ScrollViewDidScrollClosure? = nil
-                ) {
-        self.dataSource = dataSource
+                scrollViewDidScroll: ScrollViewDidScrollClosure? = nil,
+                numberOfExpandedParentCells: NumberOfExpandedParentCells = .multiple
+    ) {
+        self.expandedParent = nil
         self.parentCellConfig = parentCellConfig
         self.childCellConfig = childCellConfig
         self.didSelectParentAtIndexPath = didSelectParentAtIndexPath
@@ -79,7 +93,174 @@ where ParentCellConfig.Item == DataSource.Item, ChildCellConfig.Item == DataSour
         self.heightForParentCellAtIndexPath = heightForParentCellAtIndexPath
         self.heightForChildCellAtIndexPath = heightForChildCellAtIndexPath
         self.scrollViewDidScroll = scrollViewDidScroll
+        self.numberOfExpandedParentCells = numberOfExpandedParentCells
+        self.dataSource = dataSource
+        
+        let numberOfParentCells = dataSource.numberOfParents()
+        assert(numberOfParentCells > 0, file: "DataSource has no parent cells")
+        
+        if numberOfExpandedParentCells == .single {
+            assert(dataSource.numberOfExpandedParents() <= 1, file: "More than one expanded parent cell in dataSource")
+            expandedParent = dataSource.indexOfFirstExpandedParent()
+        }
     }
+    
+    // MARK: - Private Methods
+    
+    // Update the cells of the table based on the selected parent cell
+    //
+    // - Parameters:
+    //   - tableView: The UITableView to update
+    //   - item: The DataSource item that was selected
+    //   - currentPosition: The current position in the data source
+    //   - indexPaths: The last IndexPath of the new cells expanded
+    //   - parentIndex: The index of the parent item selected
+    private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
+        guard let item = item else {
+            return
+        }
+        
+        let numberOfChildren = item.children.count
+        guard numberOfChildren > 0 else {
+            return
+        }
+        
+        let selectedParentCell: ParentCell = indexPath
+        
+        tableView.beginUpdates()
+        toggle(selectedParentCell, withState: item.state, dataSourceIndex: parentIndex, tableView)
+        tableView.endUpdates()
+        
+        // If the cells were expanded then we verify if they are inside the CGRect
+        if item.state == .expanded {
+            let lastCellIndexPath = IndexPath(item: indexPath.item + numberOfChildren, section: indexPath.section)
+            // Scroll the new cells expanded in case of be outside the UITableView CGRect
+            scrollCellIfNeeded(atIndexPath: lastCellIndexPath, tableView)
+        }
+    }
+
+    // Toggle the state of the selected parent cell between expanded and collapsed
+    //
+    // - Parameters:
+    //   - currentState: The current state of the selected parent
+    //   - selectedParentCell: The actual cell selected
+    private func toggle(_ selectedParentCell: ParentCell, withState currentState: State, dataSourceIndex: Int, _ tableView: UITableView) {
+        switch (currentState, numberOfExpandedParentCells) {
+        case (.expanded, _):
+            // Collapse the parent and it's children
+            collapse(parent: selectedParentCell, dataSourceIndex: dataSourceIndex, tableView)
+            expandedParent = nil
+        case (.collapsed, .single):
+            // Expand the parent and it's children and collapse the expanded parent
+            var mutableSelectedParent = selectedParentCell
+            
+            if let expandedParent = expandedParent {
+                collapse(parent: expandedParent, dataSourceIndex: expandedParent.item, tableView)
+                // Correct the selectedCell's index after collapsing expanded cell
+                mutableSelectedParent = correctParentCellIndexAfterCollapse(collapsedCell: expandedParent, toBeExpandedParent: selectedParentCell)
+            }
+            
+            expand(parent: mutableSelectedParent, dataSourceIndex: dataSourceIndex, tableView)
+            expandedParent = mutableSelectedParent
+        case (.collapsed, .multiple):
+            // Expand the parent and it's children
+            expand(parent: selectedParentCell, dataSourceIndex: dataSourceIndex, tableView)
+        }
+    }
+
+    // Expand the parent cell and it's children
+    //
+    // - Parameters:
+    //   - parent: The actual parent cell to be expanded
+    //   - dataSourceIndex: The index of the parent in the dataSource
+    //   - tableView: The tableView to insert the children cells into
+    private func expand(parent: ParentCell, dataSourceIndex: Int, _ tableView: UITableView) {
+        let numberOfChildren = getNumberOfChildren(parent: parent, dataSourceIndex: dataSourceIndex)
+        
+        guard numberOfChildren > 0 else {
+            return
+        }
+        
+        let indexPaths = getIndexes(parent, numberOfChildren)
+        tableView.insertRows(at: indexPaths, with: .fade)
+        dataSource.toggleParentCell(toState: .expanded, inSection: parent.section, atIndex: dataSourceIndex)
+    }
+
+    // Get the number of children a parent cell has
+    //
+    // - Parameters:
+    //   - parent: The actual parent cell to be expanded
+    //
+    // - Returns:
+    //   - The number of children the parent cell has
+    private func getNumberOfChildren(parent: ParentCell, dataSourceIndex: Int) -> Int {
+        return dataSource.item(atRow: dataSourceIndex, inSection: parent.section)?.children.count ?? 0
+    }
+
+    // Correct the toBeExpanded cell's index after collapsing the expanded cell
+    //
+    // - Parameters:
+    //   - collapsedCell: The parent cell that has been collapsed
+    //   - toBeExpandedParent: The parent cell that will be expanded
+    //
+    // - Returns:
+    //   - The updated parent cell to be expanded
+    private func correctParentCellIndexAfterCollapse(collapsedCell expandedParent: ParentCell, toBeExpandedParent: ParentCell) -> ParentCell {
+        // If toBeExpandedParent index is larger than the currentlyExpandedParent index
+        // then update the selected parent index to be correct due to the currentlyExpandedParent's children being removed
+        if toBeExpandedParent.item > expandedParent.item {
+            let numberChildrenOfExpandedParent = getNumberOfChildren(parent: expandedParent, dataSourceIndex: expandedParent.item)
+            return IndexPath(item: (toBeExpandedParent.item - numberChildrenOfExpandedParent), section: toBeExpandedParent.section)
+        }
+        return toBeExpandedParent
+    }
+
+
+    // Collapse the parent cell and it's children
+    //
+    // - Parameters:
+    //   - parent: The actual parent cell to be expanded
+    //   - dataSourceIndex: The index of the parent in the dataSource
+    //   - tableView: The tableView to remove the children cells from
+    private func collapse(parent: ParentCell, dataSourceIndex: Int, _ tableView: UITableView) {
+        let numberOfChildren = getNumberOfChildren(parent: parent, dataSourceIndex: dataSourceIndex)
+        
+        guard numberOfChildren > 0 else {
+            return
+        }
+        
+        let indexPaths = getIndexes(parent, numberOfChildren)
+        tableView.deleteRows(at: indexPaths, with: .fade)
+        dataSource.toggleParentCell(toState: .collapsed, inSection: parent.section, atIndex: dataSourceIndex)
+    }
+
+    ///  Get a list of index paths of the children of the parent cell
+    ///
+    /// - Parameters:
+    ///   - parent: The parent cell
+    ///   - numberOfChildren: The number of children the parent has
+    private func getIndexes(_ parent: ParentCell, _ numberOfChildren: Int) -> [IndexPath] {
+        let startPosition: Int = parent.item
+        return (1...numberOfChildren).map { offset -> IndexPath in
+            IndexPath(item: startPosition + offset, section: parent.section)
+        }
+    }
+    
+    /// Scroll the new cells expanded in case of be outside the UITableView CGRect
+    ///
+    /// - Parameters:
+    ///   - indexPaths: The last IndexPath of the new cells expanded
+    ///   - tableView: The UITableView to update
+    private func scrollCellIfNeeded(atIndexPath indexPath: IndexPath, _ tableView: UITableView) {
+        
+        let cellRect = tableView.rectForRow(at: indexPath)
+        
+        // Scroll to the cell in case of not being visible
+        if !tableView.bounds.contains(cellRect) {
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
 }
 
 extension DataSourceProvider {
@@ -101,12 +282,12 @@ extension DataSourceProvider {
     private func configTableViewDataSource() -> TableViewDataSource {
         
         let dataSource = TableViewDataSource(
-            numberOfSections: { [unowned self] () -> Int in
-                return self.dataSource.numberOfSections()
-            }, 
-            numberOfItemsInSection:  { [unowned self] (section) -> Int in
-                return self.dataSource.numberOfItems(inSection: section)
-        })
+                numberOfSections: { [unowned self] () -> Int in
+                    return self.dataSource.numberOfSections()
+                },
+                numberOfItemsInSection: { [unowned self] (section) -> Int in
+                    return self.dataSource.numberOfItems(inSection: section)
+                })
         
         dataSource.tableCellForRowAtIndexPath = { [unowned self] (tableView, indexPath) -> UITableViewCell in
             
@@ -144,64 +325,6 @@ extension DataSourceProvider {
         }
         
         return _tableViewDelegate!
-    }
-    
-    private func update(_ tableView: UITableView, _ item: DataSource.Item?, _ currentPosition: Int, _ indexPath: IndexPath, _ parentIndex: Int) {
-        
-        let numberOfChildren = item!.children.count
-        
-        // If the cell doesn't have any child then return
-        guard numberOfChildren > 0 else { return }
-        
-        tableView.beginUpdates()
-        
-        switch (item!.state) {
-        case .expanded:
-            
-            let indexPaths = (currentPosition + 1...currentPosition + numberOfChildren)
-                .map { IndexPath(row: $0, section: indexPath.section)}
-            
-            tableView.deleteRows(at: indexPaths, with: .fade)
-            dataSource.collapseChildren(atIndexPath: indexPath, parentIndex: parentIndex)
-            
-        case .collapsed:
-            
-            var insertPos = indexPath.row + 1
-            
-            let indexPaths = (0..<numberOfChildren)
-                .map { _ -> IndexPath in
-                    let indexPath = IndexPath(row: insertPos, section: indexPath.section)
-                    insertPos += 1
-                    return indexPath
-            }
-           
-            tableView.insertRows(at: indexPaths, with: .fade)
-            dataSource.expandParent(atIndexPath: indexPath, parentIndex: parentIndex)
-        }
-        
-        tableView.endUpdates()
-        
-        // If the cells were expanded then we verify if they are inside the CGRect
-        if item!.state == .expanded {
-            let lastCellIndexPath = IndexPath(item: indexPath.item + numberOfChildren, section: indexPath.section)
-            // Scroll the new cells expanded in case of be outside the UITableView CGRect
-            scrollCellIfNeeded(atIndexPath: lastCellIndexPath, tableView)
-        }
-    }
-    
-    /// Scroll the new cells expanded in case of be outside the UITableView CGRect
-    ///
-    /// - Parameters:
-    ///   - indexPaths: The last IndexPath of the new cells expanded
-    ///   - tableView: The UITableView to update
-    private func scrollCellIfNeeded(atIndexPath indexPath: IndexPath, _ tableView: UITableView) {
-        
-        let cellRect = tableView.rectForRow(at: indexPath)
-        
-        // Scroll to the cell in case of not being visible
-        if !tableView.bounds.contains(cellRect) {
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        }
     }
     
     /// Config the UITableViewDelegate methods

@@ -33,7 +33,7 @@ public protocol DataSourceType {
     /// - Parameter section: A section in the data source.
     /// - Returns: The items in the specified section.
     func items(inSection section: Int) -> [Item]?
-   
+    
     /// - Parameters:
     ///   - row: A row index in the data source.
     ///   - section:  A section index in the data source.
@@ -56,19 +56,28 @@ public protocol DataSourceType {
     /// - Returns: The footer title for the specified section.
     func footerTitle(inSection section: Int) -> String?
     
-    /// Expand the parent cell in the data source.
+    /// Toggle the state of the parent cell in the data source between (.expanded and .collapsed).
     ///
     /// - Parameters:
-    ///   - indexPath: The index path in the data source.
-    ///   - parentIndex: The index of the parent to expand.
-    mutating func expandParent(atIndexPath indexPath: IndexPath, parentIndex: Int)
+    ///   - state: The state the parent cell should obtain.
+    ///   - section: The index of the section in which the parent is located.
+    ///   - parentIndex: The index of the parent.
+    mutating func toggleParentCell(toState state: State, inSection section: Int, atIndex parentIndex: Int)
     
-    /// Collapse the parent cell in the data source.
+    /// Get the total number of expanded parents cells in the data source
     ///
-    /// - Parameters:
-    ///   - indexPath: The index path in the data source.
-    ///   - parentIndex: The index of the parent to expand.
-    mutating func collapseChildren(atIndexPath indexPath: IndexPath, parentIndex: Int)
+    /// - Returns: The number of parents cells in the expanded state
+    func numberOfExpandedParents() -> Int
+    
+    /// Get the total number of parents cells in the data source
+    ///
+    /// - Returns: The number of parents cells
+    func numberOfParents() -> Int
+    
+    /// Get the indexPath of the first expanded cell in the data source
+    ///
+    /// - Returns: IndexPath of the first expanded cell
+    func indexOfFirstExpandedParent() -> IndexPath?
 }
 
 extension DataSourceType {
