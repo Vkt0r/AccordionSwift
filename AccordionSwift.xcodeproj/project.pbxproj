@@ -327,7 +327,7 @@
 					};
 					A36D6D2B20EEC7FB00224B9B = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1110;
 					};
 					A36D6D3E20EEC7FE00224B9B = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -703,7 +703,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -723,7 +723,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.private.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

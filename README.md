@@ -64,6 +64,14 @@ Then, run the following command:
 $ pod install
 ```
 
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AccordionSwift into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "Vkt0r/AccordionSwift" ~> 2.0.0
+```
+
 ## Usage ✨
 After importing the framework, the library can be used in a `UITableViewController` or a `UIViewController` and offers full customization of the cells and data source:
 
@@ -137,8 +145,6 @@ For a more detailed guide please see the [Example](https://github.com/Vkt0r/Acco
 
 ## TODO
 
-- [ ] Add Carthage support.
-- [ ] Add support to define the height of the cell in the configuration.
 - [ ] Add unit tests for the library.
 - [ ] Add CircleCI integration.
 
