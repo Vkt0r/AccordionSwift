@@ -6,7 +6,7 @@
 //  Copyright © 2018 Victor Sigler. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// Defines a cell config type to handle a UITableViewCell
 public protocol CellViewConfigType {
