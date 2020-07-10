@@ -6,7 +6,7 @@
 //  Copyright © 2018 Victor Sigler. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 typealias DidSelectRowAtIndexPathClosure = (UITableView, IndexPath) -> Void
 typealias HeightForRowAtIndexPathClosure = (UITableView, IndexPath) -> CGFloat

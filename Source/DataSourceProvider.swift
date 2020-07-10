@@ -7,7 +7,7 @@
 //  Copyright © 2018 Victor Sigler. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // Defines if there can be multiple cells expanded at once
 public enum NumberOfExpandedParentCells {
